@@ -1,0 +1,38 @@
+<nav class="top-nav">
+  <a class="navbar-brand" [routerLink]="'.'">
+    <div id="logo">
+      <img src="../../../assets/Logo Glimm.png" alt="Glimm Logo">
+    </div>
+  </a>
+  <input id="menu-toggle" type="checkbox" />
+  <label class='menu-button-container' for="menu-toggle">
+  <div class='menu-button'></div>
+</label>
+
+  <ul class="menu">
+    <li class="discover">
+    <input type="checkbox" id="drop-4" hidden>
+    <label class="dropHeader hover-underline-animation" for="drop-4">Discover <span class="arrow">&#9662;</span> </label>
+    <ul class="list">
+    <li class="item"><a [routerLink]="'photography'">Photography</a></li>
+    <li class="item"><a [routerLink]="'painting'">Painting</a></li>
+    <li class="item"><a [routerLink]="'sculpture'">Sculpture</a></li>
+    <li class="item"><a [routerLink]="'installation'">Installation</a></li>
+    </ul>
+  </li>
+
+    <li class="">
+      <a class="nav-link hover-underline-animation" [routerLink]="'about'">About</a>
+    </li>
+    <li class="">
+      <a class="nav-link hover-underline-animation" [routerLink]="'contact'">Contact</a>
+    </li>
+
+    <li>
+      <div class="search">
+        <input placeholder="Search..." type="text">
+        <button type="submit">Go</button>
+      </div>
+    </li>
+  </ul>
+</nav>
