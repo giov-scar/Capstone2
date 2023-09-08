@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HeroComponent } from './components/hero/hero.component';
 import { NavComponent } from './components/nav/nav.component';
-import { MasonryComponent } from './components/masonry/masonry.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AboutComponent } from './pages/about/about.component';
@@ -19,12 +18,12 @@ import { InstallationComponent } from './pages/installation/installation.compone
 import { ProjectsComponent } from './components/projects/projects.component';
 import { WorkComponent } from './pages/work/work.component';
 import { ArtistComponent } from './pages/artist/artist.component';
+import { FeaturedComponent } from './components/featured/featured.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         HeroComponent,
-        MasonryComponent,
         FooterComponent,
         HomeComponent,
         AboutComponent,
@@ -37,6 +36,7 @@ import { ArtistComponent } from './pages/artist/artist.component';
         ProjectsComponent,
         WorkComponent,
         ArtistComponent,
+        FeaturedComponent,
 
 
     ],

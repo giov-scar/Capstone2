@@ -1,0 +1,9 @@
+.card-cover{
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  &:hover{
+    transform: scale(1.1);
+    transition: .3s ease-in-out;
+  }
+}
