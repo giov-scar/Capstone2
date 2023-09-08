@@ -10,7 +10,7 @@
 
 #profile-img-container {
   position: absolute;
-  left: 120px;
+  left: 100px;
   bottom: 0px;
   right: 0px;
   height: 180px;
@@ -42,8 +42,8 @@
 
 #username {
   position: absolute;
-  top: 120px;
-  left: 230px;
+  top: 100px;
+  left: 250px;
   h2{
     font-size: 4vw;
   }
@@ -223,3 +223,40 @@
 .content .btn:active {
   box-shadow: none;
 }
+
+
+/**
+ * ----------------------------------------
+ * RESPONSIVE
+ * ----------------------------------------
+ */
+
+ @media (max-width: 48em) {
+
+  #profile-pic {
+    width: 100px;
+    height: 100px;
+    margin-top: 100px;
+    overflow: hidden;
+    box-shadow: 0 0 0 2px #fff;
+  }
+
+  #username {
+    position: absolute;
+    top: 135px;
+    left: 130px;
+    h2{
+      font-size: 6vw;
+    }
+  }
+
+  #profile-cover-img img {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  #profile-img-container{
+    left: 30px;
+  }
+
+ }
