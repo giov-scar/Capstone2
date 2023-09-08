@@ -19,6 +19,7 @@ import { ProjectsComponent } from './components/projects/projects.component';
 import { WorkComponent } from './pages/work/work.component';
 import { ArtistComponent } from './pages/artist/artist.component';
 import { FeaturedComponent } from './components/featured/featured.component';
+import { LoginComponent } from './pages/login/login.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import { FeaturedComponent } from './components/featured/featured.component';
         WorkComponent,
         ArtistComponent,
         FeaturedComponent,
+        LoginComponent,
 
 
     ],

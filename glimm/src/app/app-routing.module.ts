@@ -10,6 +10,7 @@ import { SculptureComponent } from './pages/sculpture/sculpture.component';
 import { InstallationComponent } from './pages/installation/installation.component';
 import { WorkComponent } from './pages/work/work.component';
 import { ArtistComponent } from './pages/artist/artist.component';
+import { LoginComponent } from './pages/login/login.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,10 @@ const routes: Routes = [
   {
     path: 'artist',
     component: ArtistComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   },
   {
     path: '**',

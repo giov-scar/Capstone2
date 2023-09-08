@@ -1,0 +1,110 @@
+h2{
+  font-size: 6vw;
+}
+
+.form-container{
+  position: relative;
+}
+
+.login {
+  overflow: hidden;
+  background-color: rgb(248, 248, 248);
+  padding: 40px 30px 30px 30px;
+  border-radius: 10px;
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  width: 400px;
+  transform:(translate(-50%, -50%));
+  transition:(transform 300ms, box-shadow 300ms);
+  box-shadow: 5px 10px 10px rgba(2, 128, 144, 0.2);
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-top-left-radius: 40%;
+    border-top-right-radius: 45%;
+    border-bottom-left-radius: 35%;
+    border-bottom-right-radius: 40%;
+    z-index: -1;
+  }
+
+  &::before {
+    left: 40%;
+    bottom: -130%;
+    background-color: #4154e2bf;
+    animation:(waves 6s infinite linear);
+  }
+
+  &::after {
+    left: 35%;
+    bottom: -150%;
+    background-color: #f32488af;
+    animation:(waves 7s infinite);
+  }
+
+  > input {
+    display: block;
+    font-size: 16px;
+    background: white;
+    width: 100%;
+    border: 0;
+    padding: 10px 10px;
+    margin: 15px -10px;
+  }
+
+  // ANIMATION ON BUTTON
+button {
+  padding: 8px 25px;
+  border: unset;
+  border-radius: 30px;
+  color: #212121;
+  z-index: 1;
+  background: #e8e8e8;
+  position: relative;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  transition: all 250ms;
+  overflow: hidden;
+ }
+
+ button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-image:linear-gradient(to right, #f32487 0%, #4155e2 100%);
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  transition: all 250ms
+ }
+
+ button:hover {
+  color: white;
+ }
+
+ button:hover::before {
+  width: 100%;
+ }
+}
+
+@keyframes waves {
+  from {  transform:(rotate(0)); }
+
+  to {  transform:(rotate(360deg)); }
+}
+
+a {
+  text-decoration: none;
+  color: rgba(white, 0.6);
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  font-size: 12px;
+}
