@@ -20,6 +20,7 @@ import { WorkComponent } from './pages/work/work.component';
 import { ArtistComponent } from './pages/artist/artist.component';
 import { FeaturedComponent } from './components/featured/featured.component';
 import { LoginComponent } from './pages/login/login.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import { LoginComponent } from './pages/login/login.component';
         ArtistComponent,
         FeaturedComponent,
         LoginComponent,
+        RegisterComponent,
 
 
     ],
