@@ -43,4 +43,9 @@ Thumbs.db
 
 #env
 .env
-glimm/src/environments/environment.ts
+glimm/src/environments
+
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json

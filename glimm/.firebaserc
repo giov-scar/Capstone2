@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "glimm-6e33c"
+  },
+  "targets": {
+    "glimm-6e33c": {
+      "hosting": {
+        "glimm": [
+          "glimm-6e33c"
+        ]
+      }
+    }
+  }
+}
