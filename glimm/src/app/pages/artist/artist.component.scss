@@ -1,0 +1,262 @@
+/**
+ * ----------------------------------------
+ * Profile image header
+ * ----------------------------------------
+ */
+
+#profile-upper {
+  position: relative;
+}
+
+#profile-img-container {
+  position: absolute;
+  left: 100px;
+  bottom: 0px;
+  right: 0px;
+  height: 180px;
+  z-index: 2;
+}
+
+#profile-cover-img {
+  height: 360px;
+  overflow: hidden;
+  z-index: 1;
+}
+
+#profile-cover-img img {
+  width: 100%;
+  margin-top: -10%;
+}
+
+#profile-pic {
+  width: 180px;
+  height: 180px;
+  margin-top: 30px;
+  overflow: hidden;
+  box-shadow: 0 0 0 5px #fff;
+}
+
+#profile-pic img {
+  width: 100%;
+}
+
+#username {
+  position: absolute;
+  top: 100px;
+  left: 250px;
+  h2{
+    font-size: 4vw;
+  }
+}
+
+// #m-btns {
+//   position: absolute;
+//   right: 56px;
+//   bottom: 20px;
+//   width: 211px;
+// }
+
+// #m-btns .td {
+//   padding: 0 8px;
+// }
+
+// .m-btn {
+//   cursor: pointer;
+//   color: #0e0e0e;
+//   font-size: 14px;
+//   white-space: pre;
+//   padding: 5px 8px 6px 8px;
+//   background-color: rgba(255, 255, 255, 0.7);
+//   border-radius: 2px;
+// }
+
+// .m-btn i {
+//   font-size: 16px;
+//   margin-right: 1px;
+//   vertical-align: middle;
+// }
+
+// .m-btn span {
+//   position: relative;
+//   top: 1px;
+// }
+
+// #edit-profile {
+//   position: absolute;
+//   right: 20px;
+//   bottom: 21px;
+//   line-height: 1;
+//   cursor: pointer;
+// }
+
+// #edit-profile i {
+//   display: block;
+//   color: rgba(255, 255, 255, 0.7);
+// }
+
+#black-grd {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  height: 300px;
+  background: linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1));
+  z-index: 1;
+}
+
+/**
+ * ----------------------------------------
+ * END Profile image
+ * ----------------------------------------
+ */
+
+
+.truncate{
+  width: 100%;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  display: -webkit-box;
+}
+
+
+/**
+ * ----------------------------------------
+ * Card styles
+ * ----------------------------------------
+ */
+
+.card-thumb {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  border-radius: 10px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+  background-size: cover;
+  z-index: 1;
+}
+.card-description {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 32px;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  color: whitesmoke;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+  z-index: 2;
+}
+
+.content:hover{
+  color: white;
+}
+
+.content .heading {
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.content .para {
+  line-height: 1.5;
+}
+
+.content .btn {
+  color: #e8e8e8;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(-45deg, #f32487 0%, #4155e2 100% );
+  border-radius: 25px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.card-description::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(-45deg, #f32487 0%, #4155e2 100% );
+  z-index: -1;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.card-description:hover::before {
+  width: 100%;
+}
+
+.card-description:hover {
+  box-shadow: none;
+}
+
+.card-description:hover .btn {
+  color: #212121;
+  background: #e8e8e8;
+}
+
+.content .btn:hover {
+  outline: 2px solid #e8e8e8;
+  background: transparent;
+  color: #e8e8e8;
+}
+
+.content .btn:active {
+  box-shadow: none;
+}
+
+
+/**
+ * ----------------------------------------
+ * RESPONSIVE
+ * ----------------------------------------
+ */
+
+ @media (max-width: 48em) {
+
+  #profile-pic {
+    width: 100px;
+    height: 100px;
+    margin-top: 100px;
+    overflow: hidden;
+    box-shadow: 0 0 0 2px #fff;
+  }
+
+  #username {
+    position: absolute;
+    top: 135px;
+    left: 130px;
+    h2{
+      font-size: 6vw;
+    }
+  }
+
+  #profile-cover-img img {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  #profile-img-container{
+    left: 30px;
+  }
+
+ }
