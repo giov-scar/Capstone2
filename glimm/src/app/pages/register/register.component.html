@@ -22,11 +22,11 @@
         </div>
         <div class="col-md-6">
           <label for="inputName" class="form-label">Email</label>
-          <input type="text" class="form-control rounded-pill" id="inputEmail">
+          <input type="text" class="form-control rounded-pill" id="inputEmail" #userEmail required>
         </div>
         <div class="col-md-6">
           <label for="inputSurname" class="form-label">Password</label>
-          <input type="password" class="form-control rounded-pill" id="inputPassword">
+          <input type="password" class="form-control rounded-pill" id="inputPassword" #userPwd required>
         </div>
         <div class="col-12">
           <label for="inputEmail" class="form-label">Profile picture</label>
@@ -50,7 +50,7 @@
         </div>
 
         <div class="col-12">
-          <button type="submit">Send</button>
+          <button value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">Send</button>
         </div>
       </form>
     </div>

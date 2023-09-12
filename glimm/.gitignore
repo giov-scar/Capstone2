@@ -43,8 +43,7 @@ Thumbs.db
 
 #env
 .env
-glimm/src/environments/environment.ts
-glimm/src/environments/environment.development.ts
+glimm/src/environments
 
 # Firebase
 .firebase
