@@ -33,6 +33,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 @NgModule({
     declarations: [
@@ -53,6 +54,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
         FeaturedComponent,
         LoginComponent,
         RegisterComponent,
+        DashboardComponent,
 
 
     ],
