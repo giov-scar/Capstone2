@@ -6,3 +6,22 @@
 #profile-pic img {
   width: 100%;
 }
+
+textarea {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  width: 100%;
+}
+
+#inputEducation{
+  width: 50vw;
+}
+#cover-image-work{
+  width: 50vw;
+}
+
+pre{
+  font-family: 'Bricolage Grotesque', sans-serif;
+}

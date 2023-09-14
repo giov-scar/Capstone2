@@ -54,7 +54,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
         FeaturedComponent,
         LoginComponent,
         RegisterComponent,
-        DashboardComponent,
+
 
 
     ],
@@ -75,6 +75,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
         AngularFirestoreModule,
         AngularFireStorageModule,
         AngularFireDatabaseModule,
+        DashboardComponent,
     ]
 })
 export class AppModule { }
