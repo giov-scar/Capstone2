@@ -1,0 +1,110 @@
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-9 ">
+      <h2 class="fw-bold ps-2">
+        Welcome to your studio
+      </h2>
+      <p class="text-secondary ps-2">
+        Here you can edit your info, change settings profile and post your work
+      </p>
+    </div>
+
+    <div class="col-3 ">
+      <div class="d-flex align-items-center">
+      <div id="profile-pic" class="rounded-circle me-2">
+        <img src="https://historia-arte.com/_/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpbSI6WyJcL2FydGlzdFwvaW1hZ2VGaWxlXC9qZWZmLWtvb25zLmpwZyIsInJlc2l6ZUNyb3AsNDAwLDQwMCxDUk9QX0VOVFJPUFkiXX0.WymLOKLZs1DohoUov8o6oThB1qI6GgVRIGXqkRVe9UU.jpg" alt="Profile image">
+      </div>
+      <div>
+        <p class="text-secondary mb-0">Hi!</p>
+        <h6 class="fw-bold mt-0">Mark</h6>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <div class="row ps-3">
+    <div class="col-9 p-3 text-bg-light rounded-4">
+
+      <pre class="ms-2"><i class="bi bi-person-heart fs-4"></i> Dashboard &rtrif; {{ active }}</pre>
+
+      <div class="d-flex">
+        <div ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills flex-column" orientation="vertical">
+          <ng-container ngbNavItem="Intro">
+            <button ngbNavLink class="rounded-pill">Intro</button>
+            <ng-template ngbNavContent>
+              <p class="text-center">
+                Write a short description of yourself
+              </p>
+              <textarea name="intro" id="intro-text" cols="70" rows="5" class="rounded-2"></textarea>
+            </ng-template>
+          </ng-container>
+          <ng-container ngbNavItem="Education">
+            <button ngbNavLink class="rounded-pill">Education</button>
+            <ng-template ngbNavContent>
+              <p class="text-center">
+                Insert your Educational path
+              </p>
+              <p class="text-secondary text-center mb-1">Bachelor's course </p>
+          <input type="email" class="form-control rounded-pill" id="inputEducation">
+          <p class="text-secondary mb-1 mt-2 text-center">Master course (optional)</p>
+          <input type="email" class="form-control rounded-pill" id="inputEducation">
+            </ng-template>
+          </ng-container>
+          <ng-container ngbNavItem="Post a work">
+            <button ngbNavLink class="rounded-pill" style="width: max-content;">Post a work</button>
+            <ng-template ngbNavContent>
+              <p class="text-center">
+                Description of your work
+              </p>
+              <textarea name="intro" id="intro-text" cols="70" rows="5" class="rounded-2 mb-4"></textarea>
+
+              <label for="inputCover" class="form-label">Cover image of your work</label>
+              <input type="file" class="form-control rounded-pill mb-3" id="inputCover">
+
+              <label for="formFileMultiple" class="form-label">Upload multiple photos of your work</label>
+              <input class="form-control rounded-pill" type="file" id="formFileMultiple" multiple>
+
+
+            </ng-template>
+          </ng-container>
+        </div>
+
+        <div [ngbNavOutlet]="nav" class="ms-4"></div>
+      </div>
+
+      <button class=" btn btn-outline-primary rounded-pill">Save</button>
+
+  </div>
+
+  <div class="col-3">
+    <div class="text-bg-light rounded-4 p-2">
+      <h5 class="fw-bold p-1 pb-0 mb-0">Settings</h5>
+      <hr>
+      <p class="ps-3">
+        <i class="bi bi-person-circle"></i>
+        View profile
+      </p>
+      <p class="ps-3">
+        <i class="bi bi-person-fill"></i>
+        Edit profile image
+      </p>
+      <p class="ps-3">
+        <i class="bi bi-image"></i>
+        Edit cover image
+      </p>
+      <hr>
+      <a (click)="authService.SignOut()" style="cursor: pointer;">
+      <p class="ps-3">
+        <i class="bi bi-door-open-fill"></i>
+        Logout
+      </p>
+    </a>
+    </div>
+  </div>
+
+  </div>
+
+
+</div>

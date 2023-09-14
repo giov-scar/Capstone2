@@ -1,0 +1,210 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&display=swap');
+*{
+  font-family: 'Bricolage Grotesque', sans-serif;
+}
+
+/**
+ * ----------------------------------------
+ * glass-style
+ * ----------------------------------------
+ */
+
+
+.glass-style{
+  border: 1px solid rgba(255, 255, 255, .25);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+
+  backdrop-filter: blur(15px);
+}
+
+
+/**
+ * ----------------------------------------
+ * glass-style-no-top-borders
+ * ----------------------------------------
+ */
+
+.glass-style-no-borders{
+  border-bottom: 1px solid rgba(200, 200, 200);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.45);
+
+  backdrop-filter: blur(7px);
+}
+
+/**
+ * ----------------------------------------
+ * border-gradient
+ * ----------------------------------------
+ */
+
+.border-gradient{
+  border-top: 1px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(to right, #f32487, #4155e2);
+}
+
+/**
+ * ----------------------------------------
+ * hover-underline-animation
+ * ----------------------------------------
+ */
+
+.hover-underline-animation {
+  display: inline-block;
+  position: relative;
+}
+
+.hover-underline-animation::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #f32487;
+  transform-origin: bottom right;
+  transition: transform 0.25s ease-out;
+}
+
+.hover-underline-animation:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/**
+ * ----------------------------------------
+ * animation fade-in
+ * ----------------------------------------
+ */
+
+.fade-in {
+	-webkit-animation: fade-in 1.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+	        animation: fade-in 1.5s cubic-bezier(0.550, 0.085, 0.680, 0.530) both;
+
+}
+
+@-webkit-keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/**
+ * ----------------------------------------
+ * animation slide-in-bottom
+ * ----------------------------------------
+ */
+
+.slide-in-bottom {
+	-webkit-animation: slide-in-bottom 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+	        animation: slide-in-bottom 1.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+
+@-webkit-keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(1000px);
+            transform: translateY(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-bottom {
+  0% {
+    -webkit-transform: translateY(1000px);
+            transform: translateY(1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/**
+ * ----------------------------------------
+ * animation text-gradient-animation
+ * ----------------------------------------
+ */
+.text-gradient-animation {
+  background: radial-gradient(
+    circle at 100%,
+    #f32487 20%,
+    #4155e2,
+    #84e8a0,
+    #4155e2
+  );
+  background-size: 200% auto;
+  color: #000;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: animatedTextGradient 7s alternate infinite;
+}
+
+@keyframes animatedTextGradient {
+  to {
+    background-position: 80% center;
+  }
+}
+
+/**
+ * ----------------------------------------
+ * animation slide-in-left
+ * ----------------------------------------
+ */
+
+.slide-in-left {
+	-webkit-animation: slide-in-left 2s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+	        animation: slide-in-left 2s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+
+
+@-webkit-keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-left {
+  0% {
+    -webkit-transform: translateX(-1000px);
+            transform: translateX(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateX(0);
+            transform: translateX(0);
+    opacity: 1;
+  }
+}
