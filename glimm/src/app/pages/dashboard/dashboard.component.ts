@@ -13,8 +13,6 @@ export class DashboardComponent implements OnInit {
   active = 'Intro';
 
   constructor(public authService: AuthService){}
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {  }
 
 }

@@ -15,7 +15,7 @@
       <form class="login">
         <input type="text" placeholder="Username" class="rounded-pill" #userName required>
         <input type="password" placeholder="Password" class="rounded-pill" #userPassword required>
-        <button value="Log in" (click)="login(userName.value, userPassword.value)">Login</button>
+        <button value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">Login</button>
       </form>
     </div>
     </div>

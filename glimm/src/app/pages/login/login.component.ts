@@ -6,14 +6,10 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   constructor(
     public authService: AuthService
   ){}
-
-  login(name:string,password:string)
-  {
-    this.authService.SignIn(name,password)
-  }
+  ngOnInit() {  }
 
 }

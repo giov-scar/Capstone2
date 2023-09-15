@@ -25,3 +25,222 @@ textarea {
 pre{
   font-family: 'Bricolage Grotesque', sans-serif;
 }
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: white;
+  background-color: #4155e2;
+}
+
+.favourite{
+  color: #f32487;
+}
+.settings-icon{
+  color: #4155e2;
+}
+.remove-icon{
+  color: #4155e2;
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+
+
+// ANIMATION ON BUTTON
+.dashboard-btn {
+  padding: 5px 10px;
+  border: unset;
+  border-radius: 30px;
+  color: #212121;
+  z-index: 1;
+  background: #e8e8e8;
+  position: relative;
+  font-weight: bold;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  transition: all 250ms;
+  overflow: hidden;
+  margin-bottom: 1rem;
+ }
+
+ .dashboard-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-image:linear-gradient(to right, #4155e2 0%, #4155e2 100%);
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  transition: all 250ms
+ }
+
+ .dashboard-btn:hover {
+  color: white;
+ }
+
+ .dashboard-btn:hover::before {
+  width: 100%;
+ }
+
+
+ .save-btn {
+  padding: 5px 10px;
+  border: unset;
+  border-radius: 30px;
+  color: #212121;
+  z-index: 1;
+  background: #e8e8e8;
+  position: relative;
+  font-weight: bold;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  transition: all 250ms;
+  overflow: hidden;
+  margin-bottom: 1rem;
+ }
+
+ .save-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-image:linear-gradient(to right, #f32487 0%, #4155e2 100%);
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  transition: all 250ms
+ }
+
+ .save-btn:hover {
+  color: white;
+ }
+
+ .save-btn:hover::before {
+  width: 100%;
+ }
+
+
+/**
+ * ----------------------------------------
+ * Card styles
+ * ----------------------------------------
+ */
+
+.card-thumb {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  border-radius: 10px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+  background-size: cover;
+  z-index: 1;
+}
+.card-description {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 32px;
+  overflow: hidden;
+  border-radius: 10px;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  color: whitesmoke;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+  z-index: 2;
+}
+
+.content:hover{
+  color: white;
+}
+
+.content .heading {
+  font-weight: 700;
+  font-size: 32px;
+}
+
+.content .para {
+  line-height: 1.5;
+}
+
+.content .btn {
+  color: #e8e8e8;
+  text-decoration: none;
+  padding: 10px 20px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(-45deg, #f32487 0%, #4155e2 100% );
+  border-radius: 25px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.card-description::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 5px;
+  height: 100%;
+  background: linear-gradient(-45deg, #f32487 0%, #4155e2 100% );
+  z-index: -1;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.320, 1);
+}
+
+.card-description:hover::before {
+  width: 100%;
+}
+
+.card-description:hover {
+  box-shadow: none;
+}
+
+.card-description:hover .btn {
+  color: #212121;
+  background: #e8e8e8;
+}
+
+.content .btn:hover {
+  outline: 2px solid #e8e8e8;
+  background: transparent;
+  color: #e8e8e8;
+}
+
+.content .btn:active {
+  box-shadow: none;
+}
+
+
+.truncate{
+  width: 80%;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+}
+
+
+.saved-img-thumb img{
+  max-width: 100px;
+}

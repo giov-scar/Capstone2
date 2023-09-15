@@ -34,7 +34,7 @@ export class AuthService {
   // Sign in with email/password
   SignIn(email: string, password: string){
     return this.afAuth
-    .signInWithEmailAndPassword(email,password)
+    .signInWithEmailAndPassword(email, password)
     .then((result) =>{
       this.SetUserData(result.user);
       this.afAuth.authState.subscribe((user) =>{
@@ -45,7 +45,7 @@ export class AuthService {
     })
     .catch((error) =>{
       console.log(error);
-      
+
     })
   }
 
@@ -61,7 +61,7 @@ export class AuthService {
     })
     .catch((error) => {
       console.log(error);
-      
+
     })
   }
 
@@ -70,7 +70,7 @@ export class AuthService {
     return this.afAuth.currentUser
     .then((u:any) => u.sendEmailVerification())
     .then(() => {
-      this.router.navigate(['home'])
+      this.router.navigate(['dashboard']);
     })
   }
 
