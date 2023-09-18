@@ -21,7 +21,7 @@ import { ArtistComponent } from './pages/artist/artist.component';
 import { FeaturedComponent } from './components/featured/featured.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
 import { environment } from '../environments/environment';
 import { provideAuth,getAuth } from '@angular/fire/auth';
@@ -76,6 +76,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
         AngularFireStorageModule,
         AngularFireDatabaseModule,
         DashboardComponent,
+        ReactiveFormsModule
     ]
 })
 export class AppModule { }
