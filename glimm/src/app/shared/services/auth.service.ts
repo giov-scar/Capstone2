@@ -53,7 +53,7 @@ export class AuthService {
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user);
+        // this.SetUserData(result.user);
         this.afAuth.authState.subscribe((user) => {
           if (user) {
             this.router.navigate(['dashboard']);
@@ -72,9 +72,9 @@ export class AuthService {
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
-        this.writeUserData(artist);
+        this.writeUserData(artist, result.user);
         this.SendVerificationMail();
-        this.SetUserData(result.user);
+        // this.SetUserData(result.user);
         console.log(result);
       })
 
@@ -83,12 +83,18 @@ export class AuthService {
       });
   }
 
-  writeUserData(artist: Artist) {
+  writeUserData(artist: Artist, user: any) {
     const db = getDatabase();
-    set(ref(db, 'users/' + artist.uid), {
-      artistname: artist.displayName,
-      email: artist.email,
+    set(ref(db, 'users/' + user.uid), {
+      uid: user.uid,
+      artistname: user.displayName,
+      artistsurname: artist.surname,
+      email: user.email,
       profile_picture: artist.photoURL,
+      coverImg: artist.coverImg,
+      baCourse: artist.baCourse,
+      maCourse: artist.maCourse,
+      intro: artist.intro,
     });
   }
 
