@@ -87,7 +87,7 @@ export class AuthService {
     const db = getDatabase();
     set(ref(db, 'users/' + user.uid), {
       uid: user.uid,
-      artistname: user.displayName,
+      artistname: artist.name,
       artistsurname: artist.surname,
       email: user.email,
       profile_picture: artist.photoURL,
