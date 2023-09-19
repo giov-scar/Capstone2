@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { IUser } from '../services/user';
 import {
@@ -16,10 +17,16 @@ import {
   update,
   getDatabase,
 } from '@angular/fire/database';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import {
+  AngularFireDatabase,
+  snapshotChanges,
+} from '@angular/fire/compat/database';
 import { environment } from 'src/environments/environment';
 import { Form, FormGroup } from '@angular/forms';
 import { Artist } from 'src/app/classes/artist';
+import { onValue } from 'firebase/database';
+import { IArtist } from '../artist';
+
 
 @Injectable({
   providedIn: 'root',
@@ -33,7 +40,8 @@ export class AuthService {
     public router: Router,
     public ngZone: NgZone, // NgZone service to remove outside scope warning
     public database: Database,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private http: HttpClient
   ) {
     /* Saving user data in localStorage when
     logged in and setting up null when logged out */
@@ -87,8 +95,8 @@ export class AuthService {
     const db = getDatabase();
     set(ref(db, 'users/' + user.uid), {
       uid: user.uid,
-      artistname: artist.name,
-      artistsurname: artist.surname,
+      artistname: artist.artistname,
+      artistsurname: artist.artistsurname,
       email: user.email,
       profile_picture: artist.photoURL,
       coverImg: artist.coverImg,
@@ -153,4 +161,28 @@ export class AuthService {
       this.router.navigate(['home']);
     });
   }
+  artistData!: any;
+  uid1 = JSON.parse(localStorage['user']);
+  uid = this.uid1[Object.keys(this.uid1)[0]];
+
+  userDb = ref(this.database, `users/  ${this.uid}`);
+
+  getUser() {
+    console.log(this.uid);
+    return this.http.get<Artist>(
+      `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${this.uid}.json?auth=AIzaSyDRkoZyIjoJNdlqFJ7qYG-3HOxEpt67nM0`
+
+
+      );
+
+
+    // onValue(this.userDb,(snapshot) => {
+    //   const data= snapshot.val()
+    //   console.log(data);
+    //   this.artistData = data
+    // })
+
+  }
+
+
 }

@@ -1,8 +1,8 @@
 export class Artist {
   public uid!: string;
   constructor(
-    public name: string,
-    public surname: string,
+    public artistname: string,
+    public artistsurname: string,
     public email: string,
     public password: string,
     public photoURL: string,

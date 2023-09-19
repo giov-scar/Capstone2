@@ -91,23 +91,25 @@
 
   <div class="col-lg-3 ">
 
-    <div class="text-bg-light rounded-4 p-2 mb-3">
+    <div class="text-bg-light rounded-4 p-2 mb-3" *ngIf="artistData">
       <div class="d-flex align-items-center justify-content-center">
         <div id="profile-pic" class="rounded-circle me-2">
           <img src="https://historia-arte.com/_/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpbSI6WyJcL2FydGlzdFwvaW1hZ2VGaWxlXC9qZWZmLWtvb25zLmpwZyIsInJlc2l6ZUNyb3AsNDAwLDQwMCxDUk9QX0VOVFJPUFkiXX0.WymLOKLZs1DohoUov8o6oThB1qI6GgVRIGXqkRVe9UU.jpg" alt="Profile image" class="img-fluid">
         </div>
         <div>
           <p class="text-secondary mb-0">Hi!</p>
-          <h6 class="fw-bold mt-0">Jeff</h6>
+          <h6 class="fw-bold mt-0">{{artistData.artistname}}</h6>
         </div>
       </div>
 
       <h5 class="fw-bold p-1 pb-0 mb-0 mt-1">Settings</h5>
       <hr class="mt-1">
+      <a routerLink="/artist">
       <p class="ps-3">
         <i class="bi bi-person-circle settings-icon"></i>
         View profile
       </p>
+    </a>
       <p class="ps-3">
         <i class="bi bi-person-fill settings-icon"></i>
         Edit profile image
@@ -116,6 +118,7 @@
         <i class="bi bi-image settings-icon"></i>
         Edit cover image
       </p>
+
       <hr>
       <a (click)="authService.SignOut()" style="cursor: pointer;">
       <p class="ps-3">
@@ -153,7 +156,7 @@
                     <a routerLink="work">
                     <button class="btn"> See work</button>
                   </a>
-                  
+
                   </div>
                 </div>
               </div>
