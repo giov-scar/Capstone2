@@ -29,13 +29,13 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { UploadFormComponent } from './components/upload-form/upload-form.component';
+import { UploadListComponent } from './components/upload-list/upload-list.component';
+import { UploadDetailsComponent } from './components/upload-details/upload-details.component';
+// import firebase from 'firebase/compat/app';
+// firebase.initializeApp(environment.firebase)
 @NgModule({
     declarations: [
         AppComponent,
@@ -55,6 +55,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
         FeaturedComponent,
         LoginComponent,
         RegisterComponent,
+        UploadFormComponent,
+        UploadListComponent,
+        UploadDetailsComponent,
 
 
 
@@ -63,22 +66,22 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
+        // AngularFireModule.initializeApp(environment.firebase),
         AppRoutingModule,
         NgbModule,
         NavComponent,
         FormsModule,
+        // AngularFireAuthModule,
+        // AngularFirestoreModule,
+        // AngularFireStorageModule,
+        // AngularFireDatabaseModule,
+        DashboardComponent,
+        ReactiveFormsModule,
+        HttpClientModule,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAuth(() => getAuth()),
         provideDatabase(() => getDatabase()),
         provideStorage(() => getStorage()),
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFireAuthModule,
-        AngularFirestoreModule,
-        AngularFireStorageModule,
-        AngularFireDatabaseModule,
-        DashboardComponent,
-        ReactiveFormsModule,
-        HttpClientModule
     ]
 })
 export class AppModule { }
