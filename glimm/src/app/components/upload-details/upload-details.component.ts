@@ -1,4 +1,4 @@
-import { FileUploadService } from 'src/app/shared/services/file-upload.service';
+// import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { FileUpload } from './../../models/file-upload.model';
 import { Component, Input } from '@angular/core';
 
@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core';
 export class UploadDetailsComponent {
   @Input() fileUpload!: FileUpload
 
-  constructor(private uploadService: FileUploadService){}
+  // constructor(private uploadService: FileUploadService){}
 
   // deleteFileUpload(fileUpload: FileUpload): void{
   //   this.uploadService.deleteFile(fileUpload)

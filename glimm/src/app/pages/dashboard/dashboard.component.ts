@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 import { UploadFormComponent } from 'src/app/components/upload-form/upload-form.component';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class DashboardComponent implements OnInit {
   active = 'Intro';
   artistData!:Artist;
 
-  
+
   constructor(public authService: AuthService, public http: HttpClient, ){}
 
   userUid = JSON.parse(localStorage['user']);
@@ -36,13 +37,13 @@ export class DashboardComponent implements OnInit {
   getUser() {
     console.log(this.uid);
     return this.http.get<Artist>(
-      `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${this.uid}.json?auth=AIzaSyDRkoZyIjoJNdlqFJ7qYG-3HOxEpt67nM0`
+      `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${this.uid}.json?auth=${environment.firebase.apiKey}`
       );
   }
   ngOnInit() {
   this.getUser().subscribe((data) =>{
       console.log(data);
-      this.artistData = data;
+      this.artistData.artistname
     })
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FileUploadService } from 'src/app/shared/services/file-upload.service';
+// import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { map } from 'rxjs';
 
 @Component({
@@ -10,7 +10,7 @@ import { map } from 'rxjs';
 export class UploadListComponent implements OnInit {
   fileUploads?: any[]
 
-  constructor(private uploadService: FileUploadService){ }
+  // constructor(private uploadService: FileUploadService){ }
 
   ngOnInit(): void {
     // this.uploadService.getFiles(6).snapshotChanges().pipe(

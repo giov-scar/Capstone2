@@ -34,8 +34,6 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UploadFormComponent } from './components/upload-form/upload-form.component';
 import { UploadListComponent } from './components/upload-list/upload-list.component';
 import { UploadDetailsComponent } from './components/upload-details/upload-details.component';
-// import firebase from 'firebase/compat/app';
-// firebase.initializeApp(environment.firebase)
 @NgModule({
     declarations: [
         AppComponent,
@@ -66,15 +64,10 @@ import { UploadDetailsComponent } from './components/upload-details/upload-detai
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
-        // AngularFireModule.initializeApp(environment.firebase),
         AppRoutingModule,
         NgbModule,
         NavComponent,
         FormsModule,
-        // AngularFireAuthModule,
-        // AngularFirestoreModule,
-        // AngularFireStorageModule,
-        // AngularFireDatabaseModule,
         DashboardComponent,
         ReactiveFormsModule,
         HttpClientModule,

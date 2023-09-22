@@ -1,4 +1,3 @@
-import { user } from '@angular/fire/auth';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import {
@@ -11,6 +10,7 @@ import {
 import { IUser } from 'src/app/shared/services/user';
 import { FormGroup, Form, FormBuilder } from '@angular/forms';
 import { Artist } from 'src/app/classes/artist';
+import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-register',
@@ -26,11 +26,19 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   registerUser() {
-    let artist: Artist = new Artist(this.form.value.name, this.form.value.surname, this.form.value.email, this.form.value.password, this.form.value.profileImg
-      , this.form.value.coverImg, this.form.value.baCourse, this.form.value.maCourse, this.form.value.intro);
-    this.authService.SignUp(artist, artist.email, artist.password);
+    let artist: Artist = new Artist(
+      this.form.value.name,
+      this.form.value.surname,
+      this.form.value.email,
+      this.form.value.password,
+      this.form.value.profileImg,
+      this.form.value.coverImg,
+      this.form.value.baCourse,
+      this.form.value.maCourse,
+      this.form.value.intro
+    );
+    // this.authService.SignUp(, artist.email, artist.password);
     console.log(this.form);
-
   }
 
   ngOnInit() {

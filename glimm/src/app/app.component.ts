@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 
 @Component({
@@ -10,17 +9,5 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 })
 export class AppComponent {
   title = 'glimm';
-  // constructor(
-  //   private fireStorage: AngularFireStorage){}
 
-    // async onFileChange(event: any){
-    //     const file = event.target.files[0]
-    //     if(file){
-    //       const path = `yt/${file.name}`
-    //       const uploadTask = await this.fireStorage.upload(path,file)
-    //       const url = uploadTask.ref.getDownloadURL()
-    //       console.log(url);
-
-    //     }
-    // }
 }

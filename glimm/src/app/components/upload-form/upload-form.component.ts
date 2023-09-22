@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FileUpload } from 'src/app/models/file-upload.model';
-import { FileUploadService } from 'src/app/shared/services/file-upload.service';
+// import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 
 @Component({
   selector: 'app-upload-form',
@@ -12,7 +12,7 @@ export class UploadFormComponent {
   currentFileUpload?: FileUpload
   percentage = 0
 
-  constructor(private uploadService: FileUploadService){ }
+  // constructor(private uploadService: FileUploadService){ }
 
     // selectFile(event: any): void {
     //   this.selectedFiles = event.target.files
