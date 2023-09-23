@@ -1,16 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { DocumentData } from '@angular/fire/firestore';
+import { filter } from 'rxjs';
 import { FileUpload } from 'src/app/models/file-upload.model';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 
 @Component({
-  selector: 'app-upload-form',
-  templateUrl: './upload-form.component.html',
-  styleUrls: ['./upload-form.component.scss']
+  selector: 'app-upload-work',
+  templateUrl: './upload-work.component.html',
+  styleUrls: ['./upload-work.component.scss']
 })
-export class UploadFormComponent {
+export class UploadWorkComponent {
+
   selectedFiles!: FileList
   currentFileUpload!: FileUpload
   percentage = 0
+
+  fileUploads!: DocumentData[]
 
   constructor(private uploadService: FileUploadService){ }
 
@@ -21,25 +26,24 @@ export class UploadFormComponent {
     upload(): void {
       if (this.selectedFiles){
         const file:File | null = this.selectedFiles.item(0)
-        // this.selectedFiles = FileUpload
-
-
         if(file){
           this.currentFileUpload = new FileUpload(file)
            // Imposta il nome del file
           this.uploadService.pushFileToStorage(this.currentFileUpload)
 
-          // .subscribe(
-          //   percentage => {
-          //     this.percentage = Math.round(percentage ? percentage : 0)
-          //   },
-          //   error => {
-          //     console.log(error);
-
-          //   }
-          // )
         }
       }
     }
 
+    ngOnInit() {
+      this.uploadService.getFiles().subscribe(fileUploads => {
+       this.fileUploads = fileUploads;
+     })
+    }
+
+    deleteFileUpload(fileUpload: DocumentData): void{
+      this.uploadService.deleteFile(fileUpload)
+      this.fileUploads = this.fileUploads.filter(upload => upload['name'] !== fileUpload['name'])
+
+    }
 }

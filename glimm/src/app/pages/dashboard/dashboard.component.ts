@@ -43,7 +43,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   this.getUser().subscribe((data) =>{
       console.log(data);
-      this.artistData.artistname
+      this.artistData = data;
     })
   }
 

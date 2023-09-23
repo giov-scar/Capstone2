@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
       this.form.value.maCourse,
       this.form.value.intro
     );
-    // this.authService.SignUp(, artist.email, artist.password);
+    this.authService.SignUp(this.authService.fsAuth, artist.email, artist.password);
     console.log(this.form);
   }
 

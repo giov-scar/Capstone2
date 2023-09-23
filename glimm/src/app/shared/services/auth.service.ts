@@ -46,8 +46,8 @@ export class AuthService {
   // Sign in with email/password
   SignIn(auth:Auth, email: string, password: string) {
     signInWithEmailAndPassword (auth, email, password)
-      .then((result) => {
-        this.SetUserData(result.user);
+      .then(() => {
+        // this.SetUserData(result.user);
         this.fsAuth.onAuthStateChanged((user) => {
           if (user) {
             this.isLogged.next(true)
@@ -60,39 +60,39 @@ export class AuthService {
       });
   }
 
-  // userUid = JSON.parse(localStorage['user']);
-  // uid = this.userUid[Object.keys(this.userUid)[0]];
+  userUid = JSON.parse(localStorage['user']);
+  uid = this.userUid[Object.keys(this.userUid)[0]];
 
 
-  // userDb = ref(this.database, `users/  ${this.uid}`);
+  userDb = ref(this.database, `users/  ${this.uid}`);
 
-  // getUser() {
-  //   console.log(this.uid);
-  //   return this.http.get<Artist>(
-  //     `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${this.uid}.json?auth=${environment.firebase.apiKey}`
-  //     );
-  // }
+  getUser() {
+    console.log(this.uid);
+    return this.http.get<Artist>(
+      `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${this.uid}.json?auth=${environment.firebase.apiKey}`
+      );
+  }
 
   data!:Artist
   // Sign up with email/password
-  // SignUp(auth:Auth, email: string, password: string) {
-  //   createUserWithEmailAndPassword(auth, email, password)
-  //     .then((result) => {
-  //       /* Call the SendVerificaitonMail() function when new user sign
-  //       up and returns promise */
-  //       this.getUser().subscribe(artist => {
-  //         this.data = artist;
-  //       })
-  //       this.writeUserData( this.data, result.user);
-  //       sendEmailVerification(this.fsAuth.currentUser as User)
-  //       // this.SetUserData(result.user);
-  //       console.log(result);
-  //     })
+  SignUp(auth:Auth, email: string, password: string) {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((result) => {
+        /* Call the SendVerificaitonMail() function when new user sign
+        up and returns promise */
+        this.getUser().subscribe(artist => {
+          this.data = artist;
+        })
+        this.writeUserData( this.data, result.user);
+        sendEmailVerification(this.fsAuth.currentUser as User)
+        // this.SetUserData(result.user);
+        console.log(result);
+      })
 
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // }
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   writeUserData(artist: Artist, user: any) {
     const db = getDatabase();
