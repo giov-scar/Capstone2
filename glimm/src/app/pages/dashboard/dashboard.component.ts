@@ -1,5 +1,3 @@
-import { IArtist } from './../../shared/artist';
-
 import { Component, OnInit } from '@angular/core';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -7,26 +5,27 @@ import { CommonModule } from '@angular/common';
 import { Artist } from 'src/app/classes/artist';
 import {  RouterModule } from '@angular/router';
 import { ref } from '@angular/fire/database';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-import { UploadFormComponent } from 'src/app/components/upload-form/upload-form.component';
 import { environment } from 'src/environments/environment';
+import { UploadWorkComponent } from 'src/app/components/upload-work/upload-work.component';
+
 
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [NgbNavModule, NgbNavModule, CommonModule, RouterModule],
+  imports: [NgbNavModule, NgbNavModule, CommonModule, RouterModule, UploadWorkComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   active = 'Intro';
   artistData!:Artist;
+  
 
 
-  constructor(public authService: AuthService, public http: HttpClient, ){}
+  constructor(public authService: AuthService, public http: HttpClient ){}
 
   userUid = JSON.parse(localStorage['user']);
   uid = this.userUid[Object.keys(this.userUid)[0]];

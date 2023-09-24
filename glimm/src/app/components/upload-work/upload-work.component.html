@@ -1,18 +1,18 @@
-<div class="row">
-  <div class="col-8">
+<div class="row align-items-baseline">
+  <div class="col-10">
 
-    <label>
+    <label class="form-label w-100">
       <input
         type="file"
-        class="text-nowrap text-truncate"
+        class="form-control rounded-pill mb-3 "
         (change)="selectFile($event)"
       />
     </label>
   </div>
 
-  <div class="col-4">
+  <div class="col-1">
     <button
-      class="btn btn-success btn-sm"
+      class="rounded-pill dashboard-btn mx-0"
       [disabled]="!selectedFiles"
       (click)="upload()"
     >
@@ -35,7 +35,7 @@
 </div>
 
 <div class="card">
-  <div class="card-header">List of Files</div>
+  <div class="card-header">Your file </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item"
         *ngFor="let file of fileUploads">

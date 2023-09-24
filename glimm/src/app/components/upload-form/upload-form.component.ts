@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Artist } from 'src/app/classes/artist';
 import { FileUpload } from 'src/app/models/file-upload.model';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 
 @Component({
@@ -11,8 +13,9 @@ export class UploadFormComponent {
   selectedFiles!: FileList
   currentFileUpload!: FileUpload
   percentage = 0
+  currentArtist!: Artist
 
-  constructor(private uploadService: FileUploadService){ }
+  constructor(private uploadService: FileUploadService, private auth:AuthService, ){ }
 
     selectFile(event: Event): void {
       this.selectedFiles = (event.target as HTMLInputElement).files!
@@ -27,7 +30,7 @@ export class UploadFormComponent {
         if(file){
           this.currentFileUpload = new FileUpload(file)
            // Imposta il nome del file
-          this.uploadService.pushFileToStorage(this.currentFileUpload)
+          this.uploadService.pushFileToStorage(this.currentFileUpload, this.currentArtist)
 
           // .subscribe(
           //   percentage => {
@@ -41,5 +44,12 @@ export class UploadFormComponent {
         }
       }
     }
+
+    ngOnInit() {
+      this.auth.getUser().subscribe((data) =>{
+          console.log(data);
+          this.currentArtist = data;
+        })
+      }
 
 }

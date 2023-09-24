@@ -58,7 +58,7 @@ import { UploadWorkComponent } from './components/upload-work/upload-work.compon
         UploadFormComponent,
         UploadListComponent,
         UploadDetailsComponent,
-        UploadWorkComponent,
+
 
 
 
@@ -74,6 +74,7 @@ import { UploadWorkComponent } from './components/upload-work/upload-work.compon
         DashboardComponent,
         ReactiveFormsModule,
         HttpClientModule,
+        UploadWorkComponent,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAuth(() => getAuth()),
         provideDatabase(() => getDatabase()),
