@@ -7,6 +7,15 @@
   width: 100%;
 }
 
+.logout{
+  cursor: pointer;
+  color: #212121;
+  text-decoration: none;
+  &:hover{
+    color: #f32487;
+  }
+}
+
 textarea {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;

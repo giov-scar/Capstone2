@@ -73,20 +73,21 @@ export class AuthService {
       );
   }
 
-  data!:Artist
+  // data!:Artist
   // Sign up with email/password
-  SignUp(auth:Auth, email: string, password: string) {
-    createUserWithEmailAndPassword(auth, email, password)
+  SignUp(auth:Auth, artist:Artist) {
+    createUserWithEmailAndPassword(auth, artist.email, artist.password)
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign
         up and returns promise */
-        this.getUser().subscribe(artist => {
-          this.data = artist;
-        })
-        this.writeUserData( this.data, result.user);
+        // this.getUser().subscribe(artist => {
+        //   this.data = artist;
+        // })
+        this.writeUserData( artist, result.user);
         sendEmailVerification(this.fsAuth.currentUser as User)
-        // this.SetUserData(result.user);
+        this.SetUserData(result.user);
         console.log(result);
+        this.router.navigate(['dashboard'])
       })
 
       .catch((error) => {

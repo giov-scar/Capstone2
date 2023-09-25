@@ -1,16 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
-import {
-  Database,
-  set,
-  ref,
-  update,
-  getDatabase,
-} from '@angular/fire/database';
-import { IUser } from 'src/app/shared/services/user';
+import { Database } from '@angular/fire/database';
 import { FormGroup, Form, FormBuilder } from '@angular/forms';
 import { Artist } from 'src/app/classes/artist';
-import { Auth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-register',
@@ -27,8 +19,8 @@ export class RegisterComponent implements OnInit {
 
   registerUser() {
     let artist: Artist = new Artist(
-      this.form.value.name,
-      this.form.value.surname,
+      this.form.value.artistname,
+      this.form.value.artistsurname,
       this.form.value.email,
       this.form.value.password,
       this.form.value.profileImg,
@@ -37,14 +29,14 @@ export class RegisterComponent implements OnInit {
       this.form.value.maCourse,
       this.form.value.intro
     );
-    this.authService.SignUp(this.authService.fsAuth, artist.email, artist.password);
+    this.authService.SignUp(this.authService.fsAuth, artist);
     console.log(this.form);
   }
 
   ngOnInit() {
     this.form = this.fb.group({
-      name: this.fb.control(''),
-      surname: this.fb.control(''),
+      artistname: this.fb.control(''),
+      artistsurname: this.fb.control(''),
       email: this.fb.control(''),
       password: this.fb.control(''),
       profileImg: this.fb.control(''),
