@@ -17,18 +17,18 @@ export class UploadDetailsComponent {
 
   User!: Artist
 
-  ngOnInit() {
-    this.auth.getUser().subscribe(user => {
-      this.User = user
-  })
-}
+//   ngOnInit() {
+//     this.auth.getUser().subscribe(user => {
+//       this.User = user
+//   })
+// }
 
   constructor(private uploadService: FileUploadService, private auth:AuthService){}
 
 
-  deleteFileUpload(fileUpload: DocumentData): void{
-    this.uploadService.deleteFile(fileUpload,this.User)
+  // deleteFileUpload(fileUpload: DocumentData): void{
+  //   this.uploadService.deleteFile(fileUpload,this.User)
 
-  }
+  // }
 
 }

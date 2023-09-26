@@ -20,15 +20,15 @@ export class UploadListComponent implements OnInit {
 
   ngOnInit() {
 
-  this.auth.getUser().subscribe(user => {
-        this.User = user
-        this.uploadService.getFiles(this.User).subscribe(fileUploads => {
-          this.fileUploads = fileUploads;
-      })
+  // this.auth.getUser().subscribe(user => {
+  //       this.User = user
+  //       this.uploadService.getFiles(this.User).subscribe(fileUploads => {
+  //         this.fileUploads = fileUploads;
+  //     })
 
-      console.log(this.fileUploads);
+  //     console.log(this.fileUploads);
 
-    })
+  //   })
     // .pipe(
     //   map(changes =>
     //     // store the key

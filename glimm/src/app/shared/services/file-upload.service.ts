@@ -4,9 +4,10 @@ import { Storage, ref as StorageRef,  deleteObject, getDownloadURL } from '@angu
 import { uploadBytes } from '@angular/fire/storage';
 import { FileUpload } from 'src/app/models/file-upload.model';
 import { DocumentData, Firestore, collectionData } from '@angular/fire/firestore';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc,deleteDoc } from 'firebase/firestore';
 import { child, update } from 'firebase/database';
 import { Artist } from 'src/app/classes/artist';
+import { Subject } from 'rxjs';
 
 
 @Injectable({
@@ -15,8 +16,9 @@ import { Artist } from 'src/app/classes/artist';
 export class FileUploadService {
   private basePath = '/upload';
   fileUploads: any;
+  uploadProgress$ = new Subject<number>();
 
-  constructor(private db: Database, private storage: Storage, private firedb: Firestore) {}
+  constructor(private db: Database, private storage: Storage, private firestore: Firestore) {}
 
   pushFileToStorage(newPost:Partial<FileUpload>, currentArtist:Artist){
     const filePath = `${this.basePath}/${currentArtist.uid}/user/${newPost.file?.name}`;
@@ -25,46 +27,51 @@ export class FileUploadService {
       console.log(res);
       return getDownloadURL (storageRef)
     }).then(url => {
-      const dbCollection = collection(this.firedb, `${this.basePath}/${currentArtist.uid}/user`)
+      const dbCollection = collection(this.firestore, `${this.basePath}/${currentArtist.uid}/user`)
       addDoc(dbCollection, {name:newPost.file?.name, url})
-      // const dbRef = ref(this.db)
-      // const userRef = child(dbRef, `users/${currentArtist.uid}/files`)
-      // const db = getDatabase();
-      // update(ref(db, userRef), {
-      //   newPost
-      // })
-
-      // .then (url=>{
-      //   const rtCollection = collection(this.firedb, `users/${currentArtist.uid}/files`)
-      // }
-      // )
-    })
+    }).then(() => {
+      this.uploadProgress$.next(100);
+    });
     }
 
 
 
-  private saveFileData(fileRt: Partial<FileUpload>){
+  // private saveFileData(fileRt: Partial<FileUpload>){
 
-  }
+  // }
 
 
   getFiles(user:Artist) {
-    const dbRef = collection(this.firedb, `${this.basePath}/${user.uid}/user`);
+    const dbRef = collection(this.firestore, `${this.basePath}/${user.uid}/user`);
     console.log(user);
     return collectionData(dbRef, {idField: 'id'});
     };
 
+    async getDownloadURL(fileName: string, currentArtist: Artist): Promise<string | null> {
+      const fileStorageRef = StorageRef(this.storage, `
+        ${this.basePath}/${currentArtist.uid}/user/${fileName}
+`);
 
-  deleteFile(fileUpload: DocumentData, currentArtist: Artist): void {
-    const dbRef = ref(this.db, `${this.basePath}/${currentArtist.uid}/user`);
-    remove(dbRef)
-      .then(() => {
+      try {
+        return await getDownloadURL(fileStorageRef);
+      } catch (error) {
+        return null;
+      }
+    }
+
+    async deleteFile(fileUpload: DocumentData, currentArtist: Artist) {
+      try {
+        // Elimina il file dal Cloud Storage.
         const storageRef = StorageRef(this.storage, `${this.basePath}/${currentArtist.uid}/user/${fileUpload['name']}`);
         deleteObject(storageRef);
 
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        // Elimina il riferimento al file da Cloud Firestore.
+        await deleteDoc(doc(this.firestore, `${this.basePath}/${currentArtist.uid}/user/${fileUpload['id']}`));
+
+        console.log('File eliminato con successo.');
+      } catch (error) {
+        // Gestisci l'errore.
+      }
+    }
+
   }
-}

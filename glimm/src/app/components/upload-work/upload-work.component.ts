@@ -5,6 +5,10 @@ import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { CommonModule } from '@angular/common';
 import { Artist } from 'src/app/classes/artist';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { ref } from '@angular/fire/database';
+import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-upload-work',
@@ -14,6 +18,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./upload-work.component.scss']
 })
 export class UploadWorkComponent {
+  [x: string]: any;
 
   selectedFiles!: FileList
   currentFileUpload!: FileUpload
@@ -22,7 +27,7 @@ export class UploadWorkComponent {
 
   fileUploads!: DocumentData[]
 
-  constructor(private uploadService: FileUploadService, private auth:AuthService){ }
+  constructor(private uploadService: FileUploadService, public auth:AuthService,public http: HttpClient){ }
 
     selectFile(event: Event): void {
       this.selectedFiles = (event.target as HTMLInputElement).files!
@@ -35,12 +40,29 @@ export class UploadWorkComponent {
           this.currentFileUpload = new FileUpload(file)
            // Imposta il nome del file
           this.uploadService.pushFileToStorage(this.currentFileUpload,this.User )
+
+          this.uploadService.uploadProgress$.subscribe(percentage => {
+            this.percentage = percentage;
+          });
         }
       }
     }
 
+    userUid = JSON.parse(localStorage['user']);
+  uid = this.userUid[Object.keys(this.userUid)[0]];
+
+
+  userDb = ref(this.auth.database, `users/  ${this.uid}`);
+
+  getUser() {
+    console.log(this.uid);
+    return this.http.get<Artist>(
+      `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${this.uid}.json?auth=${environment.firebase.apiKey}`
+      );
+  }
+
     ngOnInit() {
-      this.auth.getUser().subscribe(user => {
+      this.getUser().subscribe((user) => {
         this.User = user
         this.uploadService.getFiles(this.User).subscribe(fileUploads => {
           this.fileUploads = fileUploads;
@@ -49,9 +71,14 @@ export class UploadWorkComponent {
     })
     }
 
+
+
     deleteFileUpload(fileUpload: DocumentData): void{
       this.uploadService.deleteFile(fileUpload, this.User)
       this.fileUploads = this.fileUploads.filter(upload => upload['name'] !== fileUpload['name'])
 
     }
+
+
+
 }

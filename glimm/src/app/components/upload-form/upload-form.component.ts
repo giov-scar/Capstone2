@@ -46,10 +46,10 @@ export class UploadFormComponent {
     }
 
     ngOnInit() {
-      this.auth.getUser().subscribe((data) =>{
-          console.log(data);
-          this.currentArtist = data;
-        })
+      // this.auth.getUser().subscribe((data) =>{
+      //     console.log(data);
+      //     this.currentArtist = data;
+      //   })
       }
 
 }
