@@ -6,15 +6,16 @@
 <div class="container px-2 py-5" id="custom-cards">
 
 
-  <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+  <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5" *ngFor="let item of fileUploads">
+
     <div class="col">
       <a routerLink="/work" class="text-decoration-none">
-      <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url('https://getbootstrap.com/docs/5.3/examples/features/unsplash-photo-1.jpg');">
+      <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url({{item['photo'][1]}})">
         <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-          <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Short title, long jacket</h3>
+          <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{{item['title']}}</h3>
           <ul class="d-flex list-unstyled mt-auto">
             <li class="me-auto">
-              <img src="https://images.unsplash.com/photo-1693057205752-f7cabeaff629?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHx0b3BpYy1mZWVkfDl8NnNNVmpUTFNrZVF8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=900&q=60" alt="User Profile Image" width="32" height="32" class="rounded-circle border border-white">
+              <img src="{{item['photo'][1]}}" alt="User Profile Image" width="32" height="32" class="rounded-circle border border-white">
             </li>
             <li class="d-flex align-items-center me-3">
               <small>Photography</small>

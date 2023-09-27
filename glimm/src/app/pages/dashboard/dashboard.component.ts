@@ -54,22 +54,26 @@ export class DashboardComponent implements OnInit {
   }
 
   pushWork(){
-      // Recupera i valori dai campi di input
-  const titleValue = (<HTMLInputElement>document.getElementById('inputTitle')).value;
-  const introValue = (<HTMLTextAreaElement>document.getElementById('intro-text')).value;
+    const title = (document.getElementById('inputTitle') as HTMLInputElement)?.value;
+    const description = (document.getElementById('intro-text') as HTMLTextAreaElement)?.value;
+    const categories = [];
 
-  // Crea un oggetto per contenere i dati
-  const workData = {
-    title: titleValue,
-    intro: introValue
-  };
+// Get the categories that are checked.
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+  const checkboxArray = Array.from(checkboxes);
+  for (const checkbox of checkboxArray) {
+  categories.push((checkbox as HTMLInputElement).value);
 
-  // Salva l'oggetto in localStorage come stringa JSON
-  localStorage.setItem('workData', JSON.stringify(workData));
-
-  // Ora i dati sono salvati in localStorage con la chiave 'workData'
-
-    localStorage.setItem('upload', JSON.stringify(this.fileUploads))
-  }
 
 }
+    const photo = []
+    for (const pic of this.fileUploads){
+      photo.push(pic['url'])
+    }
+
+    // Post the work to Cloud Firestore.
+    this.uploadService.postWork( title, description, categories, photo, this.artistData,);
+  }
+  }
+
+

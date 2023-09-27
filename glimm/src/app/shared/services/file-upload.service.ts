@@ -74,4 +74,27 @@ export class FileUploadService {
       }
     }
 
-  }
+    postWork(title: string, description: string, categories: string[], photo: string[], currentArtist: Artist) {
+      const work = {
+        title,
+        description,
+        categories,
+        photo,
+      };
+
+      const workRef = collection(this.firestore, `work/${currentArtist.uid}/user`);
+      addDoc(workRef, work);
+    }
+
+    getWork(user:Artist){
+      const dbRef = collection(this.firestore, `work/${user.uid}/user`);
+    return collectionData(dbRef, {idField: 'id'});
+    };
+
+
+    }
+
+
+
+
+
