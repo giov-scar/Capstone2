@@ -12,9 +12,8 @@ import { WorkComponent } from './pages/work/work.component';
 import { ArtistComponent } from './pages/artist/artist.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
-
-import { AuthGuard } from './shared/guard/auth.guard';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { AuthGuard } from './shared/guard/auth.guard';
 
 const routes: Routes = [
   {
@@ -69,7 +68,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
-    canActivate: [AuthGuard]
+    canActivate:[AuthGuard],
   },
   {
     path: '**',

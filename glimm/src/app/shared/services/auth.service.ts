@@ -102,7 +102,8 @@ export class AuthService {
 
   // Returns true when user is logged in
   isLoggedIn(): boolean {
-    return this.isLogged.getValue();
+    // console.log(this.isLogged.getValue());
+    return localStorage.getItem('user') ? true : false;
   }
 
   // Get logged in user data

@@ -7,7 +7,7 @@ import { DocumentData, Firestore, collectionData } from '@angular/fire/firestore
 import { addDoc, collection, doc,deleteDoc } from 'firebase/firestore';
 import { child, update } from 'firebase/database';
 import { Artist } from 'src/app/classes/artist';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 
 @Injectable({
@@ -49,8 +49,7 @@ export class FileUploadService {
 
     async getDownloadURL(fileName: string, currentArtist: Artist): Promise<string | null> {
       const fileStorageRef = StorageRef(this.storage, `
-        ${this.basePath}/${currentArtist.uid}/user/${fileName}
-`);
+        ${this.basePath}/${currentArtist.uid}/user/${fileName}`);
 
       try {
         return await getDownloadURL(fileStorageRef);
@@ -86,8 +85,8 @@ export class FileUploadService {
       addDoc(workRef, work);
     }
 
-    getWork(user:Artist){
-      const dbRef = collection(this.firestore, `work/${user.uid}/user`);
+    getWork(): Observable<DocumentData[]>{
+      const dbRef = collection(this.firestore, `work`);
     return collectionData(dbRef, {idField: 'id'});
     };
 

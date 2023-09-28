@@ -16,7 +16,7 @@ export class LoginComponent {
 
   onSubmit() {
     this.authService.SignIn(this.authService.fsAuth,this.email, this.password)
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['dashboard']);
   }
 
 }
