@@ -1,3 +1,4 @@
+import { collection } from 'firebase/firestore';
 import { Component, OnInit } from '@angular/core';
 import { Artist } from 'src/app/classes/artist';
 import { AuthService } from 'src/app/shared/services/auth.service';
@@ -5,7 +6,7 @@ import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { ref } from '@angular/fire/database';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { DocumentData } from '@angular/fire/firestore';
+import { DocumentData, Firestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-featured',
@@ -14,10 +15,10 @@ import { DocumentData } from '@angular/fire/firestore';
 })
 export class FeaturedComponent implements OnInit{
   User!: Artist;
+  works: DocumentData[] = []
 
-  fileUploads: DocumentData[] = []
 
-  constructor(public upload: FileUploadService, public auth:AuthService, public http: HttpClient){}
+  constructor(public upload: FileUploadService, public auth:AuthService, public http: HttpClient ){}
 
   // userUid = JSON.parse(localStorage['user']);
   // uid = this.userUid[Object.keys(this.userUid)[0]];
@@ -42,11 +43,25 @@ export class FeaturedComponent implements OnInit{
   // })
   // }
 
-  ngOnInit() {
-    this.upload.getWork().subscribe((data) => {
-      this.fileUploads = data
-      // this.fileUploads = fileUploads['sort']((a: { [x: string]: number; }, b: { [x: string]: number; }) => b['timestamp'] - a['timestamp'])
+  ngOnInit(){
+    this.upload.getWork().subscribe(works => {
+      this.works = works
+      console.log(this.works);
+
     })
+
+    // this.upload.getWork().subscribe((data) => {
+    //   this.fileUploads = data
+    //   console.log(data);
+
+    //   // this.fileUploads = fileUploads['sort']((a: { [x: string]: number; }, b: { [x: string]: number; }) => b['timestamp'] - a['timestamp'])
+    // })
   }
 
 }
+// getUserWork(userId: string): Observable<DocumentData[]> {
+    //   const dbRef = collection(this.firestore, `glimm/uploads/work`);
+    //   return collectionData(dbRef).pipe(
+    //     filter(work => work.author === userId)
+    //   )
+    // }

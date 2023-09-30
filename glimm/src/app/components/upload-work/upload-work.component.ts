@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { DocumentData } from '@angular/fire/firestore';
+import { Component } from '@angular/core';
+import { DocumentData, collectionData } from '@angular/fire/firestore';
 import { FileUpload } from 'src/app/models/file-upload.model';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { CommonModule } from '@angular/common';
@@ -18,16 +18,17 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./upload-work.component.scss']
 })
 export class UploadWorkComponent {
-  [x: string]: any;
 
   selectedFiles!: FileList
   currentFileUpload!: FileUpload
   percentage = 0
   User!: Artist
 
+
+
   fileUploads!: DocumentData[]
 
-  constructor(private uploadService: FileUploadService, public auth:AuthService,public http: HttpClient){ }
+  constructor(private uploadService: FileUploadService, public auth:AuthService, public http: HttpClient){ }
 
     selectFile(event: Event): void {
       this.selectedFiles = (event.target as HTMLInputElement).files!
@@ -71,14 +72,9 @@ export class UploadWorkComponent {
     })
     }
 
-
-
     deleteFileUpload(fileUpload: DocumentData): void{
-      this.uploadService.deleteFile(fileUpload, this.User)
+      this.uploadService.deleteFile(fileUpload, this.User )
       this.fileUploads = this.fileUploads.filter(upload => upload['name'] !== fileUpload['name'])
-
     }
 
-
-
-}
+  }

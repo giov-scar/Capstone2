@@ -59,13 +59,11 @@ export class DashboardComponent implements OnInit {
     const description = (document.getElementById('intro-text') as HTMLTextAreaElement)?.value;
     const categories = [];
 
-// Get the categories that are checked.
-  const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
-  const checkboxArray = Array.from(checkboxes);
-  for (const checkbox of checkboxArray) {
-  categories.push((checkbox as HTMLInputElement).value);
-
-
+    // Get the categories that are checked.
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]:checked');
+    const checkboxArray = Array.from(checkboxes);
+    for (const checkbox of checkboxArray) {
+    categories.push((checkbox as HTMLInputElement).value);
 }
     const photo = []
     for (const pic of this.fileUploads){
@@ -73,7 +71,7 @@ export class DashboardComponent implements OnInit {
     }
 
     // Post the work to Cloud Firestore.
-    this.uploadService.postWork( title, description, categories, photo, this.artistData,);
+    this.uploadService.postWork( title, description, categories, photo, this.artistData);
   }
   }
 
