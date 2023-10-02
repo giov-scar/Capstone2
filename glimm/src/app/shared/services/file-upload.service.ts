@@ -27,10 +27,12 @@ export class FileUploadService {
     uploadBytes(storageRef, newPost.file as File).then(res => {
       console.log(res);
       return getDownloadURL (storageRef)
-    }).then(url => {
-      const dbCollection = collection(this.firestore, `${this.basePath}/${currentArtist.uid}/user`)
-      addDoc(dbCollection, {name:newPost.file?.name, url})
-    }).then(() => {
+    })
+    // .then(url => {
+    //   const dbCollection = collection(this.firestore, `${this.basePath}/${currentArtist.uid}/user`)
+    //   addDoc(dbCollection, {name:newPost.file?.name, url})
+    // })
+    .then(() => {
       this.uploadProgress$.next(100);
     });
     }

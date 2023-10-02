@@ -65,7 +65,7 @@ export class UploadWorkComponent {
     ngOnInit() {
       this.getUser().subscribe((user) => {
         this.User = user
-        this.uploadService.getFiles(this.User).subscribe(fileUploads => {
+        this.uploadService.getWork().subscribe(fileUploads => {
           this.fileUploads = fileUploads;
           console.log(this.fileUploads);
       })
