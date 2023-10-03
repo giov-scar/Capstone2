@@ -24,3 +24,117 @@ a:hover{
   color: #4155e2;
 }
 
+svg {
+  height: 30px;
+  overflow: visible;
+  cursor: pointer;
+}
+
+label {
+  transform: translateX(-25px);
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+
+input[type="checkbox"] + label {
+  position: relative;
+  top: -5px;
+  display: grid;
+  place-content: center;
+  #center-heart {
+    #inner {
+      fill: transparent;
+      transition: 0.2s ease;
+    }
+    #outer {
+      fill: #4155e2;
+      transition: 0.2s ease;
+    }
+  }
+  #left-hearts > *,
+  #right-hearts > * {
+    opacity: 0;
+    transition: 0.2s ease;
+  }
+}
+
+input[type="checkbox"]:checked + label {
+  cursor: pointer;
+  &::before,
+  &::after {
+    content: "";
+    display: grid;
+    border-radius: 100%;
+    position: absolute;
+    left: 9px;
+    top: -7px;
+    outline: 6px solid #f32487;
+    height: 50px;
+    width: 50px;
+    animation: scalePulse 0.5s cubic-bezier(0.12, 0.84, 0.5, 0.44) forwards;
+  }
+  &::after {
+    opacity: 1;
+    transform: scale(0);
+    animation-delay: 0.2s;
+  }
+  #center-heart {
+    #inner {
+      fill: #f32487;
+    }
+    #outer {
+      fill: #f32487;
+    }
+  }
+  #left-hearts > *,
+  #right-hearts > * {
+    transform-origin: center center;
+    animation: floatingHearts 0.65s cubic-bezier(0.12, 0.84, 0.5, 0.44) forwards;
+  }
+  #right-hearts {
+    g:first-child {
+      animation-delay: 0.3s;
+    }
+    g:last-child {
+      animation-delay: 0.1s;
+    }
+  }
+  #left-hearts {
+    g:first-child {
+      animation-delay: 0.2s;
+    }
+    g:last-child {
+      animation-delay: 0.5s;
+    }
+  }
+}
+
+@keyframes floatingHearts {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}
+
+@keyframes scalePulse {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1.1);
+    opacity: 0;
+  }
+}
+
