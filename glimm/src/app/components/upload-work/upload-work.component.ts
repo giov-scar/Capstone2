@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DocumentData, collectionData } from '@angular/fire/firestore';
+import { DocumentData } from '@angular/fire/firestore';
 import { FileUpload } from 'src/app/models/file-upload.model';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { CommonModule } from '@angular/common';
@@ -39,7 +39,7 @@ export class UploadWorkComponent {
         const file:File | null = this.selectedFiles.item(0)
         if(file){
           this.currentFileUpload = new FileUpload(file)
-           // Imposta il nome del file
+           // Set name file
           this.uploadService.pushFileToStorage(this.currentFileUpload,this.User )
 
           this.uploadService.uploadProgress$.subscribe(percentage => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { Database } from '@angular/fire/database';
-import { FormGroup, Form, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { Artist } from 'src/app/classes/artist';
 
 @Component({

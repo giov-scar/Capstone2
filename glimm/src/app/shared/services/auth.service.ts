@@ -4,18 +4,11 @@ import {
   Auth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
-  sendEmailVerification,
   sendPasswordResetEmail,
   User,
 } from '@angular/fire/auth';
 import { Router } from '@angular/router';
-import {
-  Database,
-  set,
-  ref,
-  update,
-  getDatabase,
-} from '@angular/fire/database';
+import { Database, set, ref, getDatabase } from '@angular/fire/database';
 
 import { environment } from 'src/environments/environment';
 import { Artist } from 'src/app/classes/artist';
@@ -25,7 +18,6 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class AuthService {
-
   userData: any; // Save logged in user data
   usersUrl: string = environment.firebase.databaseURL + '/users';
   isLogged = new BehaviorSubject<boolean>(false);
@@ -61,11 +53,15 @@ export class AuthService {
   // Sign up with email/password
   async SignUp(auth: Auth, artist: Artist) {
     try {
-      const result = await createUserWithEmailAndPassword(auth, artist.email, artist.password);
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        artist.email,
+        artist.password
+      );
       this.writeUserData(artist, result.user);
       this.router.navigate(['dashboard']);
     } catch (error) {
-      (error);
+      error;
     }
   }
 

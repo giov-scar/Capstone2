@@ -29,27 +29,11 @@ export class UploadFormComponent {
 
         if(file){
           this.currentFileUpload = new FileUpload(file)
-           // Imposta il nome del file
+           // Set name file
           this.uploadService.pushFileToStorage(this.currentFileUpload, this.currentArtist)
-
-          // .subscribe(
-          //   percentage => {
-          //     this.percentage = Math.round(percentage ? percentage : 0)
-          //   },
-          //   error => {
-          //     console.log(error);
-
-          //   }
-          // )
         }
       }
     }
 
-    ngOnInit() {
-      // this.auth.getUser().subscribe((data) =>{
-      //     console.log(data);
-      //     this.currentArtist = data;
-      //   })
-      }
 
 }
