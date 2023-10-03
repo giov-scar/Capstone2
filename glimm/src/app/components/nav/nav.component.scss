@@ -142,6 +142,13 @@ a {
   -webkit-transform: translateY(0px);
   transform: translateY(0px);
 }
+.rotate-arrow {
+  transform: rotate(180deg);
+  transition: transform 0.3s;
+}
+
+
+
 
 
 // SEARCH

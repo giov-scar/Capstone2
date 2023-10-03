@@ -4,28 +4,28 @@
       <img src="../../../assets/Logo Glimm.png" alt="Glimm Logo">
     </div>
   </a>
-  <input id="menu-toggle" type="checkbox" />
+  <input id="menu-toggle" type="checkbox" [checked]="isMenuCollapsed" (change)="toggleMobileMenu()" #menuToggle />
   <label class='menu-button-container' for="menu-toggle">
   <div class='menu-button'></div>
 </label>
 
   <ul class="menu">
     <li class="discover">
-    <input type="checkbox" id="drop-4" hidden>
-    <label class="dropHeader hover-underline-animation" for="drop-4">Discover <span class="arrow">&#9662;</span> </label>
+    <input type="checkbox" id="drop-4" hidden #dropCheckbox>
+    <label class="dropHeader hover-underline-animation" for="drop-4" (click)="toggleDropdown()">Discover <span class="arrow" [class.rotate-arrow]="isDropdownOpen" >&#9662;</span> </label>
     <ul class="list">
-    <li class="item"><a [routerLink]="'photography'">Photography</a></li>
-    <li class="item"><a [routerLink]="'painting'">Painting</a></li>
-    <li class="item"><a [routerLink]="'sculpture'">Sculpture</a></li>
-    <li class="item"><a [routerLink]="'installation'">Installation</a></li>
+    <li class="item"><a [routerLink]="'photography'" (click)="closeMenu()">Photography</a></li>
+    <li class="item"><a [routerLink]="'painting'" (click)="closeMenu()">Painting</a></li>
+    <li class="item"><a [routerLink]="'sculpture'" (click)="closeMenu()">Sculpture</a></li>
+    <li class="item"><a [routerLink]="'installation'"(click)="closeMenu()">Installation</a></li>
     </ul>
   </li>
 
     <li>
-      <a class="nav-link hover-underline-animation" [routerLink]="'about'">About</a>
+      <a class="nav-link hover-underline-animation" [routerLink]="'about'" (click)="closeMenu()">About</a>
     </li>
     <li>
-      <a class="nav-link hover-underline-animation" [routerLink]="'contact'">Contact</a>
+      <a class="nav-link hover-underline-animation" [routerLink]="'contact'" (click)="closeMenu()">Contact</a>
     </li>
 
 
@@ -38,11 +38,11 @@
 
     <li>
       <div class="d-flex">
-        <a class="nav-link hover-underline-animation me-3" routerLink="/login">Login</a>
-        <a class="nav-link hover-underline-animation" routerLink="/register">Register</a>
+        <a class="nav-link hover-underline-animation me-3" routerLink="/login" (click)="closeMenu()">Login</a>
+        <a class="nav-link hover-underline-animation" routerLink="/register" (click)="closeMenu()">Register</a>
       </div>
     </li>
-    
+
   </ul>
 
 </nav>
