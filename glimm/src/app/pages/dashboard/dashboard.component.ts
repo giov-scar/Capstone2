@@ -63,16 +63,16 @@ export class DashboardComponent implements OnInit {
     const description = (
       document.getElementById('intro-text') as HTMLTextAreaElement
     )?.value;
-    const categories = [];
+    const checkboxes = document.querySelectorAll('input[type="checkbox"][data-label]:checked');
+    const categories: string[] = [];
 
-    // Get the categories that are checked.
-    const checkboxes = document.querySelectorAll(
-      'input[type="checkbox"]:checked'
-    );
-    const checkboxArray = Array.from(checkboxes);
-    for (const checkbox of checkboxArray) {
-      categories.push((checkbox as HTMLInputElement).value);
-    }
+    checkboxes.forEach((checkbox) => {
+      const label = checkbox.getAttribute('data-label');
+      if (label) {
+        categories.push(label);
+      }
+    });
+
     const photo = [];
     for (const pic of this.fileUploads) {
       photo.push(pic['url']);

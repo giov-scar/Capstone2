@@ -12,6 +12,8 @@ import {
   DocumentData,
   Firestore,
   collectionData,
+  orderBy,
+  query,
 } from '@angular/fire/firestore';
 import {
   addDoc,
@@ -98,7 +100,7 @@ export class FileUploadService {
       console.log(fileUpload);
       const fileRef = doc(
         this.firestore,
-        `glimm/uploads/work/OYX112geceIR1hLV6VQ2/`
+        `glimm/uploads/work/`
       );
 
       await updateDoc(fileRef, { photo: arrayRemove(`${fileUpload['url']}`) });
@@ -121,6 +123,7 @@ export class FileUploadService {
       categories,
       photo,
       author,
+      createdAt: new Date()
     };
 
     const workRef = collection(this.firestore, `glimm/uploads/work`);
@@ -129,7 +132,11 @@ export class FileUploadService {
 
   getWork(): Observable<DocumentData[]> {
     const dbRef = collection(this.firestore, `glimm/uploads/work`);
-    collectionData(dbRef, { idField: 'id' }).subscribe((val) => {
+    const sortedQuery = query(
+      dbRef,
+      orderBy('createdAt', 'desc')
+    )
+    collectionData(sortedQuery, { idField: 'id' }).subscribe((val) => {
       console.log(val);
     });
     return (this.usersData = collectionData(dbRef, { idField: 'id' }));
