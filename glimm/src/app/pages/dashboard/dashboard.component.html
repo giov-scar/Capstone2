@@ -105,7 +105,7 @@
     <div class="text-bg-light rounded-4 p-2 mb-3" *ngIf="artistData">
       <div class="d-flex align-items-center justify-content-center">
         <div id="profile-pic" class="rounded-circle me-2">
-          <img src="../../../favicon.ico" alt="Profile image" class="img-fluid">
+          <img src="https://images.unsplash.com/photo-1544168190-79c17527004f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2788&q=80" alt="Profile image" class="img-fluid">
         </div>
         <div>
           <p class="text-secondary mb-0">Hi!</p>
@@ -121,14 +121,18 @@
         View profile
       </p>
     </a>
+    <a routerLink="/artist">
       <p class="ps-3">
         <i class="bi bi-person-fill settings-icon"></i>
         Edit profile image
       </p>
+    </a>
+    <a routerLink="/artist">
       <p class="ps-3">
         <i class="bi bi-image settings-icon"></i>
         Edit cover image
       </p>
+    </a>
 
       <hr>
       <a (click)="authService.SignOut()" class="logout">
@@ -151,20 +155,20 @@
 
             <div class="row align-items-center px-3">
               <div class="col-md-5">
-                <h4 class="featurette-heading fw-normal lh-1">Rabbit</h4>
-                <p class="text-secondary truncate">Rabbit is a 1986 series of three identical stainless steel sculptures by Jeff Koons. One of the editions of Rabbit </p>
+                <h4 class="featurette-heading fw-normal lh-1">Whispers of Color</h4>
+                <p class="text-secondary truncate">Whispers of Color is a series created by the young photographer Ethan Smith</p>
                 <a routerLink="/work"><button class="w-100 btn dashboard-btn"><i class="bi bi-pencil-square"></i> Edit work</button></a>
               </div>
               <div class="col-md-7">
-                <div class="card-thumb" style="background-image: url(https://media.npr.org/assets/img/2019/05/16/ap_19123535558210-a0447ff0d9ee9b0b87776576d9aa3d364ae02798.jpg);">
+                <div class="card-thumb" style="background-image: url(https://images.unsplash.com/photo-1498112943420-8eacc6e7cfc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2946&q=80);">
                 <div class="card-description">
                   <div class="content">
-                    <p class="heading text-center">Rabbit
+                    <p class="heading text-center">Whispers of Color
                     </p>
                     <p class="my-3">
                       <br>
                     </p>
-                    <a routerLink="work">
+                    <a routerLink="/work">
                     <button class="btn"> See work</button>
                   </a>
 
@@ -191,10 +195,12 @@
 
       <div class="d-flex align-items-center justify-content-between">
         <div class="saved-img-thumb d-flex align-items-center">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Puppy_de_Jeff_Koons_%282%29_--_2021_--_Bilbao%2C_Espa%C3%B1a.jpg/800px-Puppy_de_Jeff_Koons_%282%29_--_2021_--_Bilbao%2C_Espa%C3%B1a.jpg" alt="Favourite image thumb" class="rounded-2 img-fluid">
+          <img src="https://images.unsplash.com/photo-1582721691120-d1db3852893e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Favourite image thumb" class="rounded-2 img-fluid">
           <div class="ms-3">
-            <h4 class="fw-bold">Puppy</h4>
-            <p>by Jeff Koons</p>
+            <a routerLink="/work" style="color: black;">
+            <h4 class="fw-bold">The beauty of Nature</h4>
+          </a>
+            <p>by Akira Nakamura</p>
           </div>
         </div>
         <div>
