@@ -60,6 +60,10 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  ShowSuccess(){
+    this.toastr.success('Congratulation from Glimm!', `&#127881; Upload completed successfully!`)
+  }
+
   pushWork() {
     const title = (document.getElementById('inputTitle') as HTMLInputElement)
       ?.value;
@@ -90,9 +94,7 @@ export class DashboardComponent implements OnInit {
       this.artistData
     );
 
-    this.toastr.success('Upload Work Successfully!', 'Success');
-
-    this.router.navigate(['/dashboard']);
+    this.ShowSuccess();
 
   }
 }
