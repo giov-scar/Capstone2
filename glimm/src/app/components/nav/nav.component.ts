@@ -20,28 +20,39 @@ export class NavComponent {
   menuToggle!: ElementRef<HTMLInputElement>;
   @ViewChild('dropCheckbox')
   dropCheckbox!: ElementRef<HTMLInputElement>;
-binding: any;
 
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
-    this.isDropdownOpen = false; // Chiude il menu a tendina su mobile quando si apre il menu principale
+    this.isDropdownOpen = false; 
     if (this.menuToggle.nativeElement) {
       this.menuToggle.nativeElement.checked = this.isMobileMenuOpen;
     }
+  }
+
+  toggleMenu() {
+    if (this.isDropdownOpen) {
+      this.isDropdownOpen = false;
+      if (this.dropCheckbox.nativeElement) {
+        this.dropCheckbox.nativeElement.checked = false;
+      }
+    }
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
+    this.isMenuCollapsed = !this.isMobileMenuOpen;
   }
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
-  closeMenu() {
-    this.isMobileMenuOpen = false;
-    this.isDropdownOpen = false; // Chiude il menu a tendina su desktop quando si clicca su un elemento della lista
-    this.isMenuCollapsed = true;
-    if (this.menuToggle.nativeElement) {
-      this.menuToggle.nativeElement.checked = false;
-    }
-  }
 
+closeMenu() {
+  this.isMenuCollapsed = true;
+  if (this.menuToggle.nativeElement) {
+    this.menuToggle.nativeElement.checked = false;
+  }
+  if (this.dropCheckbox.nativeElement) {
+    this.dropCheckbox.nativeElement.checked = false;
+  }
+}
 
 }

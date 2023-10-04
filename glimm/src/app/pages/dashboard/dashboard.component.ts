@@ -3,7 +3,7 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Artist } from 'src/app/classes/artist';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
 import { ref } from '@angular/fire/database';
 import { HttpClient } from '@angular/common/http';
 
@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 import { UploadWorkComponent } from 'src/app/components/upload-work/upload-work.component';
 import { DocumentData } from '@angular/fire/firestore';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,7 +34,9 @@ export class DashboardComponent implements OnInit {
   constructor(
     public authService: AuthService,
     public http: HttpClient,
-    public uploadService: FileUploadService
+    public uploadService: FileUploadService,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   userUid = JSON.parse(localStorage['user']);
@@ -86,5 +89,10 @@ export class DashboardComponent implements OnInit {
       photo,
       this.artistData
     );
+
+    this.toastr.success('Upload Work Successfully!', 'Success');
+
+    this.router.navigate(['/dashboard']);
+
   }
 }

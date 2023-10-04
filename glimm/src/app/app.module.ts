@@ -29,6 +29,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideStorage,getStorage } from '@angular/fire/storage';
 import { provideFirestore, getFirestore } from "@angular/fire/firestore"
+import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
 
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -67,6 +68,7 @@ import { UploadWorkComponent } from './components/upload-work/upload-work.compon
     bootstrap: [AppComponent],
     imports: [
         BrowserModule,
+        ToastNoAnimationModule.forRoot(),
         AppRoutingModule,
         NgbModule,
         NavComponent,
