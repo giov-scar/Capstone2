@@ -61,7 +61,13 @@ export class DashboardComponent implements OnInit {
   }
 
   ShowSuccess(){
-    this.toastr.success('Congratulation from Glimm!', `&#127881; Upload completed successfully!`)
+    this.toastr.show('Now your work is pubblished!', `🎉 Upload completed successfully!`,{
+      progressBar: true,
+      toastClass: 'ngx-toastr',
+      timeOut: 5000,
+      closeButton: true,
+      easing: 'easeOut'
+    })
   }
 
   pushWork() {

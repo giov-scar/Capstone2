@@ -1,3 +1,5 @@
+@import 'ngx-toastr/toastr';
+
 #profile-pic {
   width: 50px;
   height: 50px;
@@ -257,7 +259,19 @@ pre{
   max-width: 100px;
 }
 
-.toast-success {
-  background-color: #f32487;
-  color: #fff;
+
+::ng-deep #toast-container > div {
+  width: 400px;
+  background-color: #4155e2;
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 6px;
+  padding: 15px 15px 15px 20px;
+  width: 300px;
+  border-radius: 20px 20px 20px 20px;
+  background-position: 15px center;
+  background-repeat: no-repeat;
+  background-size: 24px;
+  box-shadow: 0 0 12px #999999;
+  color: #FFFFFF;
 }
