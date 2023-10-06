@@ -1,12 +1,14 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { NgbCollapseModule,NgbDropdownModule, NgbNavModule, } from '@ng-bootstrap/ng-bootstrap';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ThemeService } from 'src/app/shared/services/theme.service';
 
 
 @Component({
   selector: 'app-nav',
   standalone: true,
-	imports: [NgbCollapseModule, RouterLink, NgbDropdownModule, NgbNavModule],
+	imports: [NgbCollapseModule, RouterLink, NgbDropdownModule, NgbNavModule, CommonModule],
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
 })
@@ -23,7 +25,7 @@ export class NavComponent {
 
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
-    this.isDropdownOpen = false; 
+    this.isDropdownOpen = false;
     if (this.menuToggle.nativeElement) {
       this.menuToggle.nativeElement.checked = this.isMobileMenuOpen;
     }
@@ -55,4 +57,15 @@ closeMenu() {
   }
 }
 
+constructor(private themeService: ThemeService) {}
+
+  toggleTheme() {
+    this.themeService.toggleDarkMode();
+  }
+
+  isDarkTheme(): boolean {
+    return this.themeService.isDarkTheme();
+  }
+
 }
+
