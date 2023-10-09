@@ -16,7 +16,9 @@ export class ThemeService {
     this.darkMode = !this.darkMode;
     this.saveTheme();
     this.updateTheme();
+    console.log('Toggled dark mode. Current mode:', this.darkMode);
   }
+
 
   private updateTheme(): void {
     if (this.darkMode) {

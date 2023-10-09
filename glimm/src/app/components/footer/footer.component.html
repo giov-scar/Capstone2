@@ -3,7 +3,7 @@
     <div class="col mb-3" id="logo">
       <a [routerLink]="'.'" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
         <img src="../../../assets/Logo Glimm.png" alt="Glimm Logo">
-        <span><p class="text-body-secondary ms-4 mb-0">© 2023</p></span>
+        <span><p class="ms-4 mb-0 copy">© {{currentYear}}</p></span>
       </a>
 
     </div>
@@ -15,21 +15,21 @@
     <div class="col mb-3">
       <h5>Discover</h5>
       <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary" [routerLink]="'/photography'">Photography</a></li>
-        <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary" [routerLink]="'/painting'">Painting</a></li>
-        <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary" [routerLink]="'/sculpture'">Sculpture</a></li>
-        <li class="nav-item mb-2"><a class="nav-link p-0 text-body-secondary" a [routerLink]="'/installation'">Installation</a></li>
+        <li class="nav-item mb-2"><a class="nav-link p-0 footer-link" [routerLink]="'/photography'">Photography</a></li>
+        <li class="nav-item mb-2"><a class="nav-link p-0 footer-link" [routerLink]="'/painting'">Painting</a></li>
+        <li class="nav-item mb-2"><a class="nav-link p-0 footer-link" [routerLink]="'/sculpture'">Sculpture</a></li>
+        <li class="nav-item mb-2"><a class="nav-link p-0 footer-link" a [routerLink]="'/installation'">Installation</a></li>
       </ul>
     </div>
 
     <div class="col mb-3">
-      <h5><a [routerLink]="'/about'">About</a></h5>
+      <h5><a [routerLink]="'/about'" class="footer-link">About</a></h5>
 
     </div>
 
     <div class="col mb-3">
-      <h5><a [routerLink]="'/contact'">Contact</a></h5>
-      
+      <h5><a [routerLink]="'/contact'" class="footer-link">Contact</a></h5>
+
     </div>
   </footer>
 </div>

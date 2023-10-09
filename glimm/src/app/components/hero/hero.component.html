@@ -3,7 +3,7 @@
     <img src="../../../assets/hero.png" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="800" height="500" loading="lazy">
   </div>
   <div class="col-lg-6">
-    <h1 class="display-5 fw-bold text-body-emphasis lh-1 ps-3">Give a Glimm to your art and<span class="text-gradient-animation"> start to build your free portfolio</span></h1>
+    <h1 class="display-5 fw-bold lh-1 ps-3" [class.dark-title]="isDarkTheme()" [class.light-theme-text]="!isDarkTheme()">Give a Glimm to your art and<span class="text-gradient-animation"> start to build your free portfolio</span></h1>
     <p class="lead ps-3">Glimm is a platform where arts students can create a consistent portfolio and showcase their art </p>
     <div class="d-grid gap-2 d-md-flex justify-content-md-start ps-3">
       <a [routerLink]="'/about'"><button>Learn more</button></a>

@@ -10,8 +10,38 @@
 
 body.dark-theme {
   background-color: #202a44;
-  color: #ffffff;
+  color: white;
+
+  .top-nav{
+    background-color: #202a44;
+
+  }
+  .item{
+    background-color: #202a44;
+  }
+
+
+    .menu ul li{
+      background-color: #202a44;
+    }
+
+
+
+  .footer-link{
+    color: white;
+  }
+
+  .dark-title{
+    color: white;
+  }
+
+  .light-theme-text{
+    color: black;
+  }
+
 }
+
+
 
 /**
  * ----------------------------------------
