@@ -12,7 +12,7 @@
   <ul class="menu">
     <li class="discover">
     <input type="checkbox" id="drop-4" hidden #dropCheckbox>
-    <label class="dropHeader hover-underline-animation" for="drop-4" (click)="toggleDropdown()">Discover <span class="arrow" [class.rotate-arrow]="isDropdownOpen" (click)="toggleDropdown()" >&#9662;</span> </label>
+    <label class="dropHeader hover-underline-animation white-on-dark-mode" for="drop-4" (click)="toggleDropdown()">Discover <span class="arrow" [class.rotate-arrow]="isDropdownOpen" (click)="toggleDropdown()" >&#9662;</span> </label>
     <ul class="list">
     <li class="item"><a [routerLink]="'photography'" (click)="closeMenu()">Photography</a></li>
     <li class="item"><a [routerLink]="'painting'" (click)="closeMenu()">Painting</a></li>
@@ -22,10 +22,10 @@
   </li>
 
     <li>
-      <a class="nav-link hover-underline-animation" [routerLink]="'about'" (click)="closeMenu()">About</a>
+      <a class="nav-link hover-underline-animation white-on-dark-mode" [routerLink]="'about'" (click)="closeMenu()">About</a>
     </li>
     <li>
-      <a class="nav-link hover-underline-animation" [routerLink]="'contact'" (click)="closeMenu()">Contact</a>
+      <a class="nav-link hover-underline-animation white-on-dark-mode" [routerLink]="'contact'" (click)="closeMenu()">Contact</a>
     </li>
 
 
@@ -38,13 +38,13 @@
 
     <li>
       <div class="d-flex">
-        <a class="nav-link hover-underline-animation me-3" routerLink="/login" (click)="closeMenu()">Login</a>
-        <a class="nav-link hover-underline-animation" routerLink="/register" (click)="closeMenu()">Register</a>
+        <a class="nav-link hover-underline-animation me-3 white-on-dark-mode" routerLink="/login" (click)="closeMenu()">Login</a>
+        <a class="nav-link hover-underline-animation white-on-dark-mode" routerLink="/register" (click)="closeMenu()">Register</a>
       </div>
     </li>
 
   <li>
-  <div class="container">
+  <div class="container-toggle">
     <label class="toggle" for="switch">
         <input id="switch" class="input" type="checkbox" (click)="toggleTheme()">
         {{ isDarkTheme() ? '' : '' }}

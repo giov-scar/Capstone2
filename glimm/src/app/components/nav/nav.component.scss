@@ -5,8 +5,7 @@ height: 25px;
 }
 
 a {
-  color: #000;
-
+  color: black;
 }
 
 // TOP NAVBAR
@@ -307,6 +306,12 @@ a {
 
   .search{
     margin: 10px 0;
+  }
+
+  .container-toggle{
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
   }
 
 }

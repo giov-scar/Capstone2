@@ -14,30 +14,37 @@ body.dark-theme {
 
   .top-nav{
     background-color: #202a44;
-
   }
-  .item{
+
+  #menu-toggle:checked ~ .menu li{
     background-color: #202a44;
   }
 
+  .white-on-dark-mode{
+    color: white;
+  }
 
-    .menu ul li{
-      background-color: #202a44;
-    }
+  .item {
+    background-color: #202a44;
+  }
 
+  .item a {
+    color: white;
+  }
+
+  .item:hover{
+    background-color: #f32487;
+  }
 
 
   .footer-link{
     color: white;
   }
 
-  .dark-title{
-    color: white;
+  .menu-button, .menu-button::before, .menu-button::after{
+    background-color: white;
   }
 
-  .light-theme-text{
-    color: black;
-  }
 
 }
 
