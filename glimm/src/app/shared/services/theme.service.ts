@@ -1,4 +1,5 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -6,6 +7,7 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 export class ThemeService {
   private renderer: Renderer2;
   private darkMode = false;
+  private darkModeSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(this.darkMode)
 
   constructor(rendererFactory: RendererFactory2) {
     this.renderer = rendererFactory.createRenderer(null, null);
@@ -38,7 +40,7 @@ export class ThemeService {
       this.darkMode = true;
     }
   }
-  isDarkTheme(): boolean {
-    return this.darkMode;
+  isDarkTheme(): Observable<boolean> {
+    return this.darkModeSubject.asObservable();
   }
 }

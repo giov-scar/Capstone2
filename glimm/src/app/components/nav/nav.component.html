@@ -1,7 +1,8 @@
 <nav class="top-nav">
   <a class="navbar-brand" [routerLink]="'.'">
-    <div id="logo">
-      <img src="../../../assets/Logo Glimm.png" alt="Glimm Logo">
+    <div id="logo" class="d-flex">
+      <img src="../../../assets/Logo_Glimm_white.png" alt="Glimm Logo">
+      <h4 class="mb-0 logo-text">Glimm</h4>
     </div>
   </a>
   <input id="menu-toggle" type="checkbox" [checked]="isMobileMenuOpen" (change)="toggleMobileMenu()" #menuToggle />

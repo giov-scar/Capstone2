@@ -3,6 +3,7 @@ import { NgbCollapseModule,NgbDropdownModule, NgbNavModule, } from '@ng-bootstra
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from 'src/app/shared/services/theme.service';
+import { Observable, from, map } from 'rxjs';
 
 
 @Component({
@@ -17,6 +18,18 @@ export class NavComponent {
   isMenuCollapsed = true;
   isDropdownOpen = false;
   isMobileMenuOpen = false;
+
+  logoPathDark = '../../../assets/Logo_Glimm_white.png';
+  logoPathLight = '../../../assets/Logo_Glimm.png';
+
+  isDarkTheme$!: Observable<boolean>
+
+  // logoPath$: Observable<string>
+
+  constructor(private themeService: ThemeService) {
+    this.isDarkTheme$ = from(this.themeService.isDarkTheme());
+    // logoPath = this.themeService.isDarkTheme() ? this.logoPathDark : this.logoPathLight;
+  }
 
   @ViewChild('menuToggle')
   menuToggle!: ElementRef<HTMLInputElement>;
@@ -57,15 +70,14 @@ closeMenu() {
   }
 }
 
-constructor(private themeService: ThemeService) {}
-
   toggleTheme() {
     this.themeService.toggleDarkMode();
   }
 
-  isDarkTheme(): boolean {
+  isDarkTheme(): Observable<boolean> {
     return this.themeService.isDarkTheme();
   }
+
 
 }
 
