@@ -37,7 +37,7 @@ export class ThemeService {
   private loadTheme(): void {
     const darkModeValue = localStorage.getItem('darkMode');
     if (darkModeValue === '1') {
-      this.darkMode = true;
+      this.renderer.addClass(document.body, 'dark-theme')
     }
   }
   isDarkTheme(): Observable<boolean> {
