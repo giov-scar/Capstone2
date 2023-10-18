@@ -21,6 +21,7 @@ export class UploadWorkComponent {
 
   selectedFiles!: FileList
   currentFileUpload!: FileUpload
+  showProgressBar = false;
   percentage = 0
   uploadCompleted = false;
   successMessage = "Upload completed successfully!"
@@ -37,26 +38,32 @@ export class UploadWorkComponent {
     }
 
     upload(): void {
-      if (this.selectedFiles){
-        const file:File | null = this.selectedFiles.item(0)
-        if(file){
-          this.currentFileUpload = new FileUpload(file)
-          this.uploadService.pushFileToStorage(this.currentFileUpload,this.User )
+      if (this.selectedFiles) {
+        const file: File | null = this.selectedFiles.item(0);
+        if (file) {
+          this.currentFileUpload = new FileUpload(file);
+          this.uploadService.uploadProgress$.next(0);
 
-          this.uploadService.uploadProgress$.subscribe(percentage => {
+          this.showProgressBar = true; 
+          this.uploadCompleted = false;
+
+          this.uploadService.pushFileToStorage(this.currentFileUpload, this.User);
+
+          this.uploadService.uploadProgress$.subscribe((percentage) => {
             this.percentage = percentage;
-            if (this.percentage === 100) {
-              this.uploadCompleted = true
+            if (percentage === 100) {
               setTimeout(() => {
+                this.uploadCompleted = true;
+                this.showProgressBar = false;
                 this.uploadService.uploadProgress$.next(0);
               }, 2000);
-            } else{
-              this.uploadCompleted = false;
             }
           });
         }
       }
     }
+
+
 
     userUid = JSON.parse(localStorage['user']);
   uid = this.userUid[Object.keys(this.userUid)[0]];
