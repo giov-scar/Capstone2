@@ -22,6 +22,7 @@ export class UploadWorkComponent {
   selectedFiles!: FileList
   currentFileUpload!: FileUpload
   percentage = 0
+  uploading = false;
   User!: Artist
 
 
@@ -44,6 +45,11 @@ export class UploadWorkComponent {
 
           this.uploadService.uploadProgress$.subscribe(percentage => {
             this.percentage = percentage;
+            if (this.percentage === 100) {
+              setTimeout(() => {
+                this.uploadService.uploadProgress$.next(0);
+              }, 2000);
+            }
           });
         }
       }
