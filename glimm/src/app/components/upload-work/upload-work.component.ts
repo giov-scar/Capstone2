@@ -22,7 +22,8 @@ export class UploadWorkComponent {
   selectedFiles!: FileList
   currentFileUpload!: FileUpload
   percentage = 0
-  uploading = false;
+  uploadCompleted = false;
+  successMessage = "Upload completed successfully!"
   User!: Artist
 
 
@@ -40,15 +41,17 @@ export class UploadWorkComponent {
         const file:File | null = this.selectedFiles.item(0)
         if(file){
           this.currentFileUpload = new FileUpload(file)
-           // Set name file
           this.uploadService.pushFileToStorage(this.currentFileUpload,this.User )
 
           this.uploadService.uploadProgress$.subscribe(percentage => {
             this.percentage = percentage;
             if (this.percentage === 100) {
+              this.uploadCompleted = true
               setTimeout(() => {
                 this.uploadService.uploadProgress$.next(0);
               }, 2000);
+            } else{
+              this.uploadCompleted = false;
             }
           });
         }

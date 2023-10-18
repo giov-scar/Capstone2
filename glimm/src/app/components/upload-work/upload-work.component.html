@@ -33,6 +33,9 @@
     {{ percentage }}%
   </div>
 </div>
+<div *ngIf="uploadCompleted" class="alert alert-success mt-3">
+  {{ successMessage}}
+</div>
 
 <div class="card border rounded-3">
   <div class="card-header">Your file </div>
