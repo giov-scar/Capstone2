@@ -24,11 +24,8 @@ export class NavComponent {
 
   isDarkTheme$!: Observable<boolean>
 
-  // logoPath$: Observable<string>
-
   constructor(private themeService: ThemeService) {
     this.isDarkTheme$ = from(this.themeService.isDarkTheme());
-    // logoPath = this.themeService.isDarkTheme() ? this.logoPathDark : this.logoPathLight;
   }
 
   @ViewChild('menuToggle')
