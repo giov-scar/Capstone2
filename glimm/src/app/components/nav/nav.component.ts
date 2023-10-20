@@ -4,6 +4,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from 'src/app/shared/services/theme.service';
 import { Observable, from, map } from 'rxjs';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 
 @Component({
@@ -24,8 +25,14 @@ export class NavComponent {
 
   isDarkTheme$!: Observable<boolean>
 
-  constructor(private themeService: ThemeService) {
+  isLoggedIn!: boolean;
+
+  constructor(private themeService: ThemeService, private authService: AuthService) {
     this.isDarkTheme$ = from(this.themeService.isDarkTheme());
+
+    this.authService.isLogged.subscribe((value) => {
+      this.isLoggedIn = value;
+    })
   }
 
   @ViewChild('menuToggle')
