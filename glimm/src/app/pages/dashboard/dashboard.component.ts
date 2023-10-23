@@ -31,6 +31,8 @@ export class DashboardComponent implements OnInit {
   artistData!: Artist;
   fileUploads!: DocumentData[];
 
+
+
   constructor(
     public authService: AuthService,
     public http: HttpClient,

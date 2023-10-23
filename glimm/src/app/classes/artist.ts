@@ -5,7 +5,7 @@ export class Artist {
     public artistsurname: string,
     public email: string,
     public password: string,
-    public photoURL: string,
+    public profile_picture: string,
     public coverImg: string,
     public baCourse: string,
     public maCourse: string = '',

@@ -64,7 +64,6 @@ export class AuthService {
       error;
     }
   }
-
   writeUserData(artist: Artist, user: User) {
     const db = getDatabase();
     set(ref(db, 'users/' + user.uid), {
@@ -72,12 +71,13 @@ export class AuthService {
       artistname: artist.artistname,
       artistsurname: artist.artistsurname,
       email: user.email,
-      profile_picture: artist.photoURL,
+      profile_picture: artist.profile_picture,
       coverImg: artist.coverImg,
       baCourse: artist.baCourse,
       maCourse: artist.maCourse,
       intro: artist.intro,
     });
+
   }
 
   // Reset password
