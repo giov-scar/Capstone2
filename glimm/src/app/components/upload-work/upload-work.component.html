@@ -39,7 +39,7 @@
 
 <div class="card border rounded-3">
   <div class="card-header">Your file </div>
-  <ul class="list-group list-group-flush">
+  <ul class="list-group list-group-flush" *ngIf="fileUploads.length > 0">
     <li class="list-group-item"
         *ngFor="let file of fileUploads; let i = index ">
       <a href="{{ file['url'] }}">{{ file['name'] }}</a>

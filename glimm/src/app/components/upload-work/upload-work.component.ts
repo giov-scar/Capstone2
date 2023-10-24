@@ -29,7 +29,7 @@ export class UploadWorkComponent {
 
 
 
-  fileUploads!: DocumentData[]
+  fileUploads: DocumentData[] = []
 
   constructor(private uploadService: FileUploadService, public auth:AuthService, public http: HttpClient){ }
 
@@ -44,7 +44,7 @@ export class UploadWorkComponent {
           this.currentFileUpload = new FileUpload(file);
           this.uploadService.uploadProgress$.next(0);
 
-          this.showProgressBar = true; 
+          this.showProgressBar = true;
           this.uploadCompleted = false;
 
           this.uploadService.pushFileToStorage(this.currentFileUpload, this.User);
@@ -56,6 +56,7 @@ export class UploadWorkComponent {
                 this.uploadCompleted = true;
                 this.showProgressBar = false;
                 this.uploadService.uploadProgress$.next(0);
+                this.fileUploads.push(this.currentFileUpload);
               }, 2000);
             }
           });
@@ -65,7 +66,7 @@ export class UploadWorkComponent {
 
 
 
-    userUid = JSON.parse(localStorage['user']);
+  userUid = JSON.parse(localStorage['user']);
   uid = this.userUid[Object.keys(this.userUid)[0]];
 
 
@@ -78,15 +79,12 @@ export class UploadWorkComponent {
       );
   }
 
-    ngOnInit() {
-      this.getUser().subscribe((user) => {
-        this.User = user
-        this.uploadService.getFiles(this.User).subscribe(fileUploads => {
-          this.fileUploads = fileUploads;
-          console.log(this.fileUploads);
-      })
-    })
-    }
+  ngOnInit() {
+    // this.fileUploads = [];
+    this.getUser().subscribe((user) => {
+      this.User = user
+    });
+  }
 
     deleteFileUpload(fileUpload: DocumentData): void{
       this.uploadService.deleteFile(fileUpload, this.User )
