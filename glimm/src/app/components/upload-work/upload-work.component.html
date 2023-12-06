@@ -42,7 +42,7 @@
   <ul class="list-group list-group-flush" *ngIf="fileUploads.length > 0">
     <li class="list-group-item"
         *ngFor="let file of fileUploads; let i = index ">
-      <a href="{{ file['url'] }}">{{ file['name'] }}</a>
+      <a href="{{ file.url }}">{{ file.file.name }}</a>
 <button (click)="deleteFileUpload(file)"
   class="btn btn-danger btn-sm rounded-pill px-3" style="float: right">
   Delete

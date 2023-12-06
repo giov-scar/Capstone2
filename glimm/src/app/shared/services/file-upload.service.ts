@@ -87,12 +87,12 @@ export class FileUploadService {
     }
   }
 
-  async deleteFile(fileUpload: DocumentData, currentArtist: Artist) {
+  async deleteFile(fileUpload: FileUpload, currentArtist: Artist) {
     try {
       // Remove from Cloud Storage.
       const storageRef = StorageRef(
         this.storage,
-        `${this.basePath}/${currentArtist.uid}/user/${fileUpload['name']}`
+        `${this.basePath}/${currentArtist.uid}/user/${fileUpload.file.name}`
       );
       deleteObject(storageRef);
 

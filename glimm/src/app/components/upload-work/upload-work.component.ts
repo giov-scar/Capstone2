@@ -29,7 +29,7 @@ export class UploadWorkComponent {
 
 
 
-  fileUploads: DocumentData[] = []
+  fileUploads: FileUpload[] = []
 
   constructor(private uploadService: FileUploadService, public auth:AuthService, public http: HttpClient){ }
 
@@ -58,6 +58,8 @@ export class UploadWorkComponent {
                 this.uploadService.uploadProgress$.next(0);
                 this.fileUploads.push(this.currentFileUpload);
               }, 2000);
+              console.log(this.fileUploads);
+
             }
           });
         }
@@ -86,9 +88,9 @@ export class UploadWorkComponent {
     });
   }
 
-    deleteFileUpload(fileUpload: DocumentData): void{
+    deleteFileUpload(fileUpload: FileUpload): void{
       this.uploadService.deleteFile(fileUpload, this.User )
-      this.fileUploads = this.fileUploads.filter(upload => upload['name'] !== fileUpload['name'])
+      this.fileUploads = this.fileUploads.filter(upload => upload.file.name !== fileUpload.file.name)
     }
 
   }
