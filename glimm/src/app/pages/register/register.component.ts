@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
       this.form.value.coverImg,
       this.form.value.baCourse,
       this.form.value.maCourse,
-      this.form.value.intro
+      this.form.value.intro,
     );
     this.authService.SignUp(this.authService.fsAuth, artist);
     console.log(this.form);
@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
       coverImg: this.fb.control(''),
       baCourse: this.fb.control(''),
       maCourse: this.fb.control(''),
-      intro: this.fb.control(''),
+      intro: this.fb.control('')
     });
   }
 }

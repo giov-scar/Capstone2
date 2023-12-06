@@ -1,3 +1,5 @@
+import { IWork } from '../shared/work';
+
 export class Artist {
   public uid!: string;
   constructor(
@@ -10,6 +12,13 @@ export class Artist {
     public baCourse: string,
     public maCourse: string = '',
     public intro: string = '',
+    public uploadedWork: IWork[] = [{
+      title:'',
+      description:'',
+      photo: [''],
+      category: [''],
+
+    }],
     public emailVerified: boolean = false,
   ) {}
 }

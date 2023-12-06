@@ -59,6 +59,7 @@ export class AuthService {
         artist.password
       );
       this.writeUserData(artist, result.user);
+      console.log(artist);
       this.router.navigate(['dashboard']);
     } catch (error) {
       error;
@@ -76,8 +77,8 @@ export class AuthService {
       baCourse: artist.baCourse,
       maCourse: artist.maCourse,
       intro: artist.intro,
+      uploadedWork: artist.uploadedWork
     });
-
   }
 
   // Reset password
