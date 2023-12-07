@@ -1,30 +1,14 @@
+import { IWork } from './../work';
 import { Injectable } from '@angular/core';
-import { Database } from '@angular/fire/database';
-import {
-  Storage,
-  ref as StorageRef,
-  deleteObject,
-  getDownloadURL,
-} from '@angular/fire/storage';
+import { Database, getDatabase, ref } from '@angular/fire/database';
+import { Storage,ref as StorageRef, deleteObject, getDownloadURL } from '@angular/fire/storage';
 import { uploadBytes } from '@angular/fire/storage';
 import { FileUpload } from 'src/app/models/file-upload.model';
-import {
-  DocumentData,
-  Firestore,
-  collectionData,
-  orderBy,
-  query,
-} from '@angular/fire/firestore';
-import {
-  addDoc,
-  collection,
-  doc,
-  arrayRemove,
-  DocumentReference,
-  updateDoc,
-} from 'firebase/firestore';
+import { DocumentData, Firestore, collectionData, orderBy, query } from '@angular/fire/firestore';
+import { addDoc, collection, doc, arrayRemove, DocumentReference, updateDoc} from 'firebase/firestore';
 import { Artist } from 'src/app/classes/artist';
 import { Observable, Subject } from 'rxjs';
+import { update } from 'firebase/database';
 
 @Injectable({
   providedIn: 'root',
@@ -36,9 +20,10 @@ export class FileUploadService {
   usersData!: Observable<any>;
 
   constructor(
-    private db: Database,
+    // private db: Database,
     private storage: Storage,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private db: Database
   ) {}
 
   pushFileToStorage(newPost: Partial<FileUpload>, currentArtist: Artist) {
@@ -49,13 +34,7 @@ export class FileUploadService {
         console.log(res);
         return getDownloadURL(storageRef);
       })
-      .then((url) => {
-        const dbCollection = collection(
-          this.firestore,
-          `${this.basePath}/${currentArtist.uid}/user`
-        );
-        addDoc(dbCollection, { name: newPost.file?.name, url });
-      })
+        // addDoc(dbCollection, { name: newPost.file?.name, url });
       .then(() => {
         this.uploadProgress$.next(100);
       });
@@ -109,25 +88,24 @@ export class FileUploadService {
     } catch (error) {}
   }
 
+  work!:IWork
   postWork(
     title: string,
     description: string,
-    categories: string[],
+    category: string[],
     photo: string[],
     currentArtist: Artist
   ) {
     const author = currentArtist.uid;
-    const work = {
-      title,
-      description,
-      categories,
-      photo,
-      author,
-      createdAt: new Date()
-    };
 
-    const workRef = collection(this.firestore, `glimm/uploads/work`);
-    addDoc(workRef, work);
+    const database = getDatabase()
+    const path = `/users/${author}/`
+    this.work = { title: title, description: description, photo: photo, category: category, author: author, createdAt: new Date}
+    currentArtist.uploadedWork.push(this.work)
+    console.log(currentArtist);
+    return update (ref(database, path), currentArtist)
+
+    // Update the work data in Realtime Database
   }
 
   getWork(): Observable<DocumentData[]> {

@@ -67,10 +67,10 @@ export class UploadWorkComponent {
     }
 
 
+    userUid = JSON.parse(localStorage['user']);
+    uid = this.userUid[Object.keys(this.userUid)[0]];
 
-  userUid = JSON.parse(localStorage['user']);
-  uid = this.userUid[Object.keys(this.userUid)[0]];
-
+    singleUrl: string =`https://firebasestorage.googleapis.com/v0/b/glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${this.uid}/`
 
   userDb = ref(this.auth.database, `users/  ${this.uid}`);
 

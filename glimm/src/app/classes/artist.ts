@@ -17,7 +17,8 @@ export class Artist {
       description:'',
       photo: [''],
       category: [''],
-
+      author:'',
+      createdAt: new Date
     }],
     public emailVerified: boolean = false,
   ) {}

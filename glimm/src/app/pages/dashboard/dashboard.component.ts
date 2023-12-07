@@ -12,6 +12,7 @@ import { UploadWorkComponent } from 'src/app/components/upload-work/upload-work.
 import { DocumentData } from '@angular/fire/firestore';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { ToastrService } from 'ngx-toastr';
+import { IWork } from 'src/app/shared/work';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,6 +31,7 @@ export class DashboardComponent implements OnInit {
   active = 'Intro';
   artistData!: Artist;
   fileUploads!: DocumentData[];
+  work!:IWork
 
 
 
@@ -93,7 +95,9 @@ export class DashboardComponent implements OnInit {
       photo.push(pic['url']);
     }
 
-    // Post the work to Cloud Firestore.
+
+
+    // Post the work to Realtime Database.
     this.uploadService.postWork(
       title,
       description,
@@ -103,6 +107,8 @@ export class DashboardComponent implements OnInit {
     );
 
     this.ShowSuccess();
+    setTimeout(()=>{window.location.reload()}, 5000)
+
 
   }
 }

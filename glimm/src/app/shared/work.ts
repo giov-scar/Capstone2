@@ -3,4 +3,6 @@ export interface IWork {
   description: string;
   photo: string[];
   category: string[];
+  author: string;
+  createdAt: Date
 }
