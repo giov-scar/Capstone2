@@ -30,6 +30,7 @@ export class UploadWorkComponent {
 
 
   fileUploads: FileUpload[] = []
+  noDuplicate: FileUpload[] = []
 
   constructor(private uploadService: FileUploadService, public auth:AuthService, public http: HttpClient){ }
 
@@ -38,6 +39,8 @@ export class UploadWorkComponent {
     }
 
     upload(): void {
+      console.log(this.fileUploads);
+
       if (this.selectedFiles) {
         const file: File | null = this.selectedFiles.item(0);
         if (file) {
@@ -57,8 +60,9 @@ export class UploadWorkComponent {
                 this.showProgressBar = false;
                 this.uploadService.uploadProgress$.next(0);
                 this.fileUploads.push(this.currentFileUpload);
+                this.noDuplicate = [...new Set(this.fileUploads)]
               }, 2000);
-              console.log(this.fileUploads);
+              console.log(this.noDuplicate);
 
             }
           });
@@ -82,7 +86,7 @@ export class UploadWorkComponent {
   }
 
   ngOnInit() {
-    // this.fileUploads = [];
+    // this.noDuplicate = [];
     this.getUser().subscribe((user) => {
       this.User = user
     });
@@ -90,7 +94,7 @@ export class UploadWorkComponent {
 
     deleteFileUpload(fileUpload: FileUpload): void{
       this.uploadService.deleteFile(fileUpload, this.User )
-      this.fileUploads = this.fileUploads.filter(upload => upload.file.name !== fileUpload.file.name)
+      this.noDuplicate = this.noDuplicate.filter(upload => upload.file.name !== fileUpload.file.name)
     }
 
   }
