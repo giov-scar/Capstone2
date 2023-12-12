@@ -13,6 +13,7 @@ import { DocumentData } from '@angular/fire/firestore';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { ToastrService } from 'ngx-toastr';
 import { IWork } from 'src/app/shared/work';
+import { FileUpload } from 'src/app/models/file-upload.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -30,7 +31,7 @@ import { IWork } from 'src/app/shared/work';
 export class DashboardComponent implements OnInit {
   active = 'Intro';
   artistData!: Artist;
-  fileUploads!: DocumentData[];
+  fileUploads!: string[];
   work!:IWork
 
 
@@ -58,9 +59,6 @@ export class DashboardComponent implements OnInit {
     this.getUser().subscribe((data) => {
       console.log(data);
       this.artistData = data;
-      this.uploadService.getFiles(this.artistData).subscribe((fileUploads) => {
-        this.fileUploads = fileUploads;
-      });
     });
   }
 
@@ -90,11 +88,14 @@ export class DashboardComponent implements OnInit {
       }
     });
 
-    const photo = [];
-    for (const pic of this.fileUploads) {
-      photo.push(pic['url']);
-    }
+    const photo: string[] = [];
+    let pippo = localStorage.getItem("photoUpload");
+    this.fileUploads = JSON.parse(pippo!);
+    this.fileUploads.forEach((file) => {
+      photo.push(file)
+    })
 
+    console.log(photo, categories);
 
 
     // Post the work to Realtime Database.
