@@ -61,9 +61,13 @@ export class UploadWorkComponent {
                 this.uploadService.uploadProgress$.next(0);
                 this.fileUploads.push(this.currentFileUpload);
                 this.noDuplicate = [...new Set(this.fileUploads)]
+                const photoArray: string[] = []
+                this.noDuplicate.forEach(photo => {
+                  photoArray.push(photo.file.name)
+                })
+                localStorage.setItem('photoUpload', JSON.stringify(photoArray))
               }, 2000);
               console.log(this.noDuplicate);
-
             }
           });
         }
