@@ -89,8 +89,8 @@ export class DashboardComponent implements OnInit {
     });
 
     const photo: string[] = [];
-    let pippo = localStorage.getItem("photoUpload");
-    this.fileUploads = JSON.parse(pippo!);
+    let photoArray = localStorage.getItem("photoUpload");
+    this.fileUploads = JSON.parse(photoArray!);
     this.fileUploads.forEach((file) => {
       photo.push(file)
     })
