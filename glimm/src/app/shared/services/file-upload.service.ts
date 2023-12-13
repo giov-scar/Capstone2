@@ -1,6 +1,6 @@
 import { IWork } from './../work';
 import { Injectable } from '@angular/core';
-import { Database, getDatabase, push, ref } from '@angular/fire/database';
+import { Database, getDatabase, ref } from '@angular/fire/database';
 import { Storage,ref as StorageRef, deleteObject, getDownloadURL } from '@angular/fire/storage';
 import { uploadBytes } from '@angular/fire/storage';
 import { FileUpload } from 'src/app/models/file-upload.model';
@@ -88,42 +88,24 @@ export class FileUploadService {
     } catch (error) {}
   }
 
-  async postWork(
+  work!:IWork
+  postWork(
     title: string,
     description: string,
     category: string[],
     photo: string[],
     currentArtist: Artist
-  ): Promise<string | null> {
+  ) {
     const author = currentArtist.uid;
-    const db = getDatabase();
 
-    // Genera una nuova chiave univoca per il post
-    const newPostKey = push(ref(db, `users/${author}/uploadedWork`)).key;
+    const database = getDatabase()
+    const path = `/users/${author}/`
+    this.work = { title: title, description: description, photo: photo, category: category, author: author, createdAt: new Date}
+    currentArtist.uploadedWork.push(this.work)
+    console.log(currentArtist);
+    return update (ref(database, path), currentArtist)
 
-    const postData: IWork = {
-      title: title,
-      description: description,
-      category: category,
-      photo: photo,
-      author: author,
-      createdAt: new Date()
-
-    };
-
-    // Crea un oggetto per gli aggiornamenti da effettuare
-    const updates: Partial<Record<string, IWork>> = {};
-    updates[`users/${author}/uploadedWork/${newPostKey}`] = postData;
-    updates[`posts/${newPostKey}`] = postData;
-
-    try {
-      await update(ref(db), updates);
-      console.log("Lavoro aggiunto con successo");
-      return newPostKey
-    } catch (error) {
-      console.error("Errore durante l'aggiunta del lavoro:", error);
-      return null
-    }
+    // Update the work data in Realtime Database
   }
 
   getWork(): Observable<DocumentData[]> {
