@@ -13,7 +13,7 @@ export class HeroComponent {
 
   isDarkTheme(): Observable<boolean> {
     const isDark = this.themeService.isDarkTheme();
-    console.log('isDarkTheme:', isDark);
+    // console.log('isDarkTheme:', isDark);
     return isDark;
   }
 

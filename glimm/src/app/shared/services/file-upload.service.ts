@@ -9,6 +9,7 @@ import { addDoc, collection, doc, arrayRemove, DocumentReference, updateDoc} fro
 import { Artist } from 'src/app/classes/artist';
 import { Observable, Subject } from 'rxjs';
 import { update } from 'firebase/database';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +24,9 @@ export class FileUploadService {
     // private db: Database,
     private storage: Storage,
     private firestore: Firestore,
-    private db: Database
+    private db: Database,
+    private http: HttpClient
+
   ) {}
 
   pushFileToStorage(newPost: Partial<FileUpload>, currentArtist: Artist) {
@@ -108,17 +111,24 @@ export class FileUploadService {
     // Update the work data in Realtime Database
   }
 
-  getWork(): Observable<DocumentData[]> {
-    const dbRef = collection(this.firestore, `glimm/uploads/work`);
-    const sortedQuery = query(
-      dbRef,
-      orderBy('createdAt', 'desc')
-    )
-    collectionData(sortedQuery, { idField: 'id' }).subscribe((val) => {
-      console.log(val);
-    });
-    return (this.usersData = collectionData(dbRef, { idField: 'id' }));
+  getWork(){
+    return this.http.get(
+      `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users.json`
+    );
   }
+
+  // getWork(): Observable<DocumentData[]> {
+  //   const db = getDatabase()
+  //   const dbRef = collection(db, `glimm/uploads/work`);
+    // const sortedQuery = query(
+    //   dbRef,
+    //   orderBy('createdAt', 'desc')
+    // )
+    // collectionData(sortedQuery, { idField: 'id' }).subscribe((val) => {
+    //   console.log(val);
+    // });
+    // return (this.usersData = collectionData(dbRef, { idField: 'id' }));
+  // }
 
   async getWorkReference(
     workId: string
