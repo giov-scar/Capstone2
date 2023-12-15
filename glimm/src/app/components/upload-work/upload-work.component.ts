@@ -58,8 +58,6 @@ export class UploadWorkComponent {
             console.log("data",dowloadURL);
             this.currentFileUpload.url = dowloadURL;
           });
-          // this.uploadService.pushFileToStorage(this.currentFileUpload, this.User);
-
           console.log("FILE CON URL!",this.currentFileUpload);
 
 
@@ -101,7 +99,6 @@ export class UploadWorkComponent {
   }
 
   ngOnInit() {
-    // this.noDuplicate = [];
     this.getUser().subscribe((user) => {
       this.User = user
     });
