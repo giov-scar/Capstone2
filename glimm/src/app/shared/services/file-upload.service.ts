@@ -26,19 +26,24 @@ export class FileUploadService {
     private db: Database
   ) {}
 
-  pushFileToStorage(newPost: Partial<FileUpload>, currentArtist: Artist) {
-    const filePath = `${this.basePath}/${currentArtist.uid}/user/${newPost.file?.name}`;
-    const storageRef = StorageRef(this.storage, filePath);
-    uploadBytes(storageRef, newPost.file as File)
-      .then((res) => {
-        console.log(res);
-        return getDownloadURL(storageRef);
-      })
-        // addDoc(dbCollection, { name: newPost.file?.name, url });
-      .then(() => {
-        this.uploadProgress$.next(100);
-      });
-  }
+  pushFileToStorage(newPost: Partial<FileUpload>, currentArtist: Artist): Promise<string> {
+    return new Promise((resolve, reject) => {
+        const filePath = `${this.basePath}/${currentArtist.uid}/user/${newPost.file?.name}`;
+        const storageRef = StorageRef(this.storage, filePath);
+
+        uploadBytes(storageRef, newPost.file as File)
+            .then(() => getDownloadURL(storageRef))
+            .then((downloadURL) => {
+                this.uploadProgress$.next(100);
+                resolve(downloadURL);
+            })
+            .catch((error) => {
+                console.error("Errore nel caricamento del file:", error);
+                reject(error);
+            });
+    });
+}
+
 
   getFiles(user: Artist) {
     const dbRef = collection(
@@ -89,24 +94,29 @@ export class FileUploadService {
   }
 
   work!:IWork
-  postWork(
-    title: string,
-    description: string,
-    category: string[],
-    photo: string[],
-    currentArtist: Artist
-  ) {
+  postWork(title: string, description: string, category: string[], photo: string[], currentArtist: Artist) {
     const author = currentArtist.uid;
+    const database = getDatabase();
+    const path = `/users/${author}/`;
 
-    const database = getDatabase()
-    const path = `/users/${author}/`
-    this.work = { title: title, description: description, photo: photo, category: category, author: author, createdAt: new Date}
-    currentArtist.uploadedWork.push(this.work)
+    this.work = {
+      title: title,
+      description: description,
+      photo: photo,
+      category: category,
+      author: author,
+      createdAt: new Date()
+    };
+
+    if (!Array.isArray(currentArtist.uploadedWork)) {
+      currentArtist.uploadedWork = []; // Inizializza come array vuoto se non è già un array
+    }
+
+    currentArtist.uploadedWork.push(this.work);
     console.log(currentArtist);
-    return update (ref(database, path), currentArtist)
-
-    // Update the work data in Realtime Database
+    return update(ref(database, path), currentArtist);
   }
+
 
   getWork(): Observable<DocumentData[]> {
     const dbRef = collection(this.firestore, `glimm/uploads/work`);

@@ -10,15 +10,15 @@
 
     <div class="col col-lg-4 col-sm-12 col-12" *ngFor="let item of works">
       <a routerLink="/work" class="text-decoration-none">
-      <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url({{item['photo'][0]}})">
+      <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url({{item.photo[0]}})">
         <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-          <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{{item['title']}}</h3>
+          <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{{item.title}}</h3>
           <ul class="d-flex list-unstyled mt-auto">
             <li class="me-auto">
-              <img src="{{item['photo'][1]}}" alt="User Profile Image" width="32" height="32" class="rounded-circle border border-white" style="object-fit: cover;">
+              <img src="{{item.photo[1]}}" alt="User Profile Image" width="32" height="32" class="rounded-circle border border-white" style="object-fit: cover;">
             </li>
             <li class="d-flex align-items-center me-3">
-              <small>{{item['categories'][0]}}</small>
+              <small>{{item.category[0]}}</small>
             </li>
           </ul>
         </div>

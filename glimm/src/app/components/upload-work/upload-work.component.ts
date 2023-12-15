@@ -40,17 +40,28 @@ export class UploadWorkComponent {
 
     upload(): void {
       console.log(this.fileUploads);
+      console.log("selected files: ", this.selectedFiles);
+
 
       if (this.selectedFiles) {
         const file: File | null = this.selectedFiles.item(0);
         if (file) {
+          console.log("file",file);
           this.currentFileUpload = new FileUpload(file);
+
+
           this.uploadService.uploadProgress$.next(0);
 
           this.showProgressBar = true;
           this.uploadCompleted = false;
+          this.uploadService.pushFileToStorage(this.currentFileUpload, this.User).then((dowloadURL) => {
+            console.log("data",dowloadURL);
+            this.currentFileUpload.url = dowloadURL;
+          });
+          // this.uploadService.pushFileToStorage(this.currentFileUpload, this.User);
 
-          this.uploadService.pushFileToStorage(this.currentFileUpload, this.User);
+          console.log("FILE CON URL!",this.currentFileUpload);
+
 
           this.uploadService.uploadProgress$.subscribe((percentage) => {
             this.percentage = percentage;
@@ -63,7 +74,7 @@ export class UploadWorkComponent {
                 this.noDuplicate = [...new Set(this.fileUploads)]
                 const photoArray: string[] = []
                 this.noDuplicate.forEach(photo => {
-                  photoArray.push(photo.file.name)
+                  photoArray.push(photo.url)
                 })
                 localStorage.setItem('photoUpload', JSON.stringify(photoArray))
               }, 2000);

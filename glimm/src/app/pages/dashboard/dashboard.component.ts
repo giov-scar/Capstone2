@@ -97,7 +97,6 @@ export class DashboardComponent implements OnInit {
 
     console.log(photo, categories);
 
-
     // Post the work to Realtime Database.
     this.uploadService.postWork(
       title,
@@ -109,7 +108,6 @@ export class DashboardComponent implements OnInit {
 
     this.ShowSuccess();
     setTimeout(()=>{window.location.reload()}, 5000)
-
 
   }
 }

@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { HttpClient } from '@angular/common/http';
 import { DocumentData } from '@angular/fire/firestore';
+import { IWork } from 'src/app/shared/work';
 
 @Component({
   selector: 'app-featured',
@@ -12,19 +13,27 @@ import { DocumentData } from '@angular/fire/firestore';
 })
 export class FeaturedComponent implements OnInit{
   User!: Artist;
-  works: DocumentData[] = []
-
+  works: IWork[] = []
 
   constructor(public upload: FileUploadService, public auth:AuthService, public http: HttpClient ){}
 
 
   ngOnInit(){
     this.upload.getWork().subscribe(works => {
-      this.works = works
-      console.log(this.works);
+      const userWorks = Object.values(works)
+      console.log(userWorks);
 
+      userWorks.forEach(user => {
+        let toArray: IWork[] = []
+        if (user['uploadedWork'])  {
+          toArray = Object.values(user['uploadedWork'])
+          toArray.shift()
+          console.log(toArray);
+          this.works = this.works.concat(toArray)
+        }
+      })
+      console.log(this.works);
     })
   }
 
 }
-
