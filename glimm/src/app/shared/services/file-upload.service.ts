@@ -19,14 +19,14 @@ export class FileUploadService {
   fileUploads: any;
   uploadProgress$ = new Subject<number>();
   usersData!: Observable<any>;
+  private worksArray: IWork[] = []
 
   constructor(
     // private db: Database,
     private storage: Storage,
     private firestore: Firestore,
     private db: Database,
-    private http: HttpClient
-
+    private http: HttpClient,
   ) {}
 
   pushFileToStorage(newPost: Partial<FileUpload>, currentArtist: Artist): Promise<string> {
@@ -147,10 +147,11 @@ export class FileUploadService {
   }
 
 
-  async getWorkReference(
-    workId: string
-  ): Promise<DocumentReference<DocumentData>> {
-    const workRef = doc(this.firestore, `glimm/uploads/work/${workId}`);
-    return workRef;
+  setWorks(works: IWork[]): void {
+    this.worksArray = works;
+  }
+
+  getWorkByIndex(index: number): IWork | undefined{
+    return this.worksArray[index]
   }
 }

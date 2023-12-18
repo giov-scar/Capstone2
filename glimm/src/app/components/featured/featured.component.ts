@@ -31,6 +31,7 @@ export class FeaturedComponent implements OnInit{
         const dateB = new Date(b.createdAt);
         return dateB.getTime() - dateA.getTime();
       });
+      this.uploadService.setWorks(this.works)
       console.log("Dati ordinati", this.works);
     },
     error => {

@@ -1,9 +1,9 @@
 <div class="container-fluid fade-in">
   <div class="row mt-0">
-    <div class="col col-12 fixed-title p-0 bg-title-work">
+    <div class="col col-12 fixed-title p-0 bg-title-work" *ngIf="work">
       <div class="d-flex align-items-center">
         <h2 class="fw-bold ps-3">
-          The Beauty of Nature
+          {{work.title}}
         </h2>
         <div class="ms-4">
         <input type="checkbox" id="like" name="like">
