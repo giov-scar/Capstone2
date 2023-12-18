@@ -15,25 +15,28 @@ export class FeaturedComponent implements OnInit{
   User!: Artist;
   works: IWork[] = []
 
-  constructor(public upload: FileUploadService, public auth:AuthService, public http: HttpClient ){}
+  constructor(public uploadService: FileUploadService, public auth:AuthService, public http: HttpClient ){}
 
 
   ngOnInit(){
-    this.upload.getWork().subscribe(works => {
-      const userWorks = Object.values(works)
-      console.log(userWorks);
+    this.loadWorks()
+  }
 
-      userWorks.forEach(user => {
-        let toArray: IWork[] = []
-        if (user['uploadedWork'])  {
-          toArray = Object.values(user['uploadedWork'])
-          toArray.shift()
-          console.log(toArray);
-          this.works = this.works.concat(toArray)
-        }
-      })
-      console.log(this.works);
-    })
+  loadWorks(){
+    this.uploadService.getWork().subscribe(
+      (works: IWork[]) => {
+      console.log("Dati", works);
+      this.works = works.sort((a,b) =>{
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return dateB.getTime() - dateA.getTime();
+      });
+      console.log("Dati ordinati", this.works);
+    },
+    error => {
+      console.error('Errore durante il recupero dei dati', error);
+    }
+    )
   }
 
 }

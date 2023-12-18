@@ -7,7 +7,7 @@ import { FileUpload } from 'src/app/models/file-upload.model';
 import { DocumentData, Firestore, collectionData, orderBy, query } from '@angular/fire/firestore';
 import { addDoc, collection, doc, arrayRemove, DocumentReference, updateDoc} from 'firebase/firestore';
 import { Artist } from 'src/app/classes/artist';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, catchError, map, throwError } from 'rxjs';
 import { update } from 'firebase/database';
 import { HttpClient } from '@angular/common/http';
 
@@ -120,24 +120,32 @@ export class FileUploadService {
     return update(ref(database, path), currentArtist);
   }
 
-  getWork(){
-    return this.http.get(
+  getWork(): Observable<IWork[]> {
+    return this.http.get<{ [key: string]: any }>(
       `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users.json`
+    ).pipe(
+      map(users => {
+        const worksArray: IWork[] = [];
+        for (const userId in users) {
+          if (users.hasOwnProperty(userId)) {
+            const user = users[userId];
+            if (user.uploadedWork && Array.isArray(user.uploadedWork) && user.uploadedWork.length > 1){
+            for (let i = 1; i < user.uploadedWork.length; i++) {
+              worksArray.push(user.uploadedWork[i]);
+            }
+          }
+          }
+        }
+        console.log(worksArray);
+        return worksArray;
+      }),
+      catchError(error => {
+        console.error(error);
+        return throwError(error);
+      })
     );
   }
 
-  // getWork(): Observable<DocumentData[]> {
-  //   const db = getDatabase()
-  //   const dbRef = collection(db, `glimm/uploads/work`);
-    // const sortedQuery = query(
-    //   dbRef,
-    //   orderBy('createdAt', 'desc')
-    // )
-    // collectionData(sortedQuery, { idField: 'id' }).subscribe((val) => {
-    //   console.log(val);
-    // });
-    // return (this.usersData = collectionData(dbRef, { idField: 'id' }));
-  // }
 
   async getWorkReference(
     workId: string
