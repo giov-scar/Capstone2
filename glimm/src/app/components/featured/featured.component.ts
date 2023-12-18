@@ -20,18 +20,7 @@ export class FeaturedComponent implements OnInit{
 
   ngOnInit(){
     this.upload.getWork().subscribe(works => {
-      const userWorks = Object.values(works)
-      console.log(userWorks);
-
-      userWorks.forEach(user => {
-        let toArray: IWork[] = []
-        if (user['uploadedWork'])  {
-          toArray = Object.values(user['uploadedWork'])
-          toArray.shift()
-          console.log(toArray);
-          this.works = this.works.concat(toArray)
-        }
-      })
+      this.works = works
       console.log(this.works);
     })
   }
