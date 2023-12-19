@@ -4,8 +4,8 @@ import { Database, getDatabase, ref } from '@angular/fire/database';
 import { Storage,ref as StorageRef, deleteObject, getDownloadURL } from '@angular/fire/storage';
 import { uploadBytes } from '@angular/fire/storage';
 import { FileUpload } from 'src/app/models/file-upload.model';
-import { DocumentData, Firestore, collectionData, orderBy, query } from '@angular/fire/firestore';
-import { addDoc, collection, doc, arrayRemove, DocumentReference, updateDoc} from 'firebase/firestore';
+import { Firestore, collectionData } from '@angular/fire/firestore';
+import { collection, doc, arrayRemove, updateDoc} from 'firebase/firestore';
 import { Artist } from 'src/app/classes/artist';
 import { Observable, Subject, catchError, map, throwError } from 'rxjs';
 import { update } from 'firebase/database';
@@ -22,7 +22,6 @@ export class FileUploadService {
   private worksArray: IWork[] = []
 
   constructor(
-    // private db: Database,
     private storage: Storage,
     private firestore: Firestore,
     private db: Database,
@@ -145,7 +144,6 @@ export class FileUploadService {
       })
     );
   }
-
 
   setWorks(works: IWork[]): void {
     this.worksArray = works;

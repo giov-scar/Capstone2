@@ -42,31 +42,17 @@
       </div>
     </div>
   </div>
-    <div class="row mt-5">
+    <div class="row mt-5" >
     <div class="col col-lg-9 col-md-9 col-sm-12 col-12  p-0">
-      <div> <!-- Image cover of project -->
-        <img src="https://images.unsplash.com/photo-1582721691120-d1db3852893e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project cover" class="img-fluid">
-      </div>
-      <div class="my-3 p-3">
-        <h4 class="fw-bold">
-          Description
-        </h4>
+      <div class="my-3 p-3" *ngIf="work">
         <p>
-          This photograph is a close-up of a flower. The flower is in full bloom, with its petals in vibrant colors. The photograph is a celebration of the beauty of nature. The flower is perfectly symmetrical, with its petals arranged in a delicate pattern. The colors of the flower are so bright and intense that they seem to glow. The photograph is a reminder that the world around us is full of beauty, if we only take the time to see it.
+          {{work.description}}
         </p>
       </div>
-      <div class="mb-1"> <!-- Images of project -->
-        <img src="https://images.unsplash.com/photo-1552688468-d87e6f7a58f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project cover" class="img-fluid">
+      <div *ngFor="let photo of work?.photo">
+        <img src="{{photo}}" alt="Project cover" class="img-fluid mb-3">
       </div>
-      <div class="mb-1"> <!-- Images of project -->
-        <img src="https://images.unsplash.com/photo-1559251606-c623743a6d76?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project cover" class="img-fluid">
-      </div>
-      <div class="mb-1"> <!-- Images of project -->
-        <img src="https://images.unsplash.com/photo-1532738847728-ace096594890?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project cover" class="img-fluid">
-      </div>
-      <div class="mb-1"> <!-- Images of project -->
-        <img src="https://images.unsplash.com/photo-1571805581612-615706f6845c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Project cover" class="img-fluid">
-      </div>
+      
     </div>
     <div class="col col-lg-3 col-md-3 cl-sm-12 ">
       <div class="sticked-artist-info">
