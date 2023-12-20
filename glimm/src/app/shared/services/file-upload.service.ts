@@ -149,7 +149,20 @@ export class FileUploadService {
     this.worksArray = works;
   }
 
-  getWorkByIndex(index: number): IWork | undefined{
-    return this.worksArray[index]
+  getWorkByIndex(index: number): IWork | undefined {
+    const work = this.worksArray[index];
+    if (work) {
+      localStorage.setItem('currentWork', JSON.stringify(work));
+    }
+    return work;
   }
+
+  getCurrentWorkFromStorage(): IWork | undefined {
+    const workJson = localStorage.getItem('currentWork');
+    if (workJson) {
+      return JSON.parse(workJson);
+    }
+    return undefined;
+  }
+
 }

@@ -15,14 +15,21 @@ export class WorkComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      const workIndex = params.get('index')
-      if(workIndex !== null){
-        this.work = this.uploadService.getWorkByIndex((parseInt(workIndex, 10)))
-        console.log(this.work);
+      const workIndex = params.get('index');
+      if (workIndex !== null) {
+        this.work = this.uploadService.getWorkByIndex(parseInt(workIndex, 10));
+      } else {
+        // Prova a recuperare il lavoro dal localStorage
+        this.work = this.uploadService.getCurrentWorkFromStorage();
       }
-    })
 
+      if (!this.work) {
+        console.log("Nessun lavoro trovato");
+        // Gestire il caso in cui non ci sono lavori
+      }
+    });
   }
+
 
   }
 
