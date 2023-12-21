@@ -99,9 +99,10 @@ export class FileUploadService {
   postWork(title: string, description: string, category: string[], photo: string[], currentArtist: Artist) {
     const author = currentArtist.uid;
     const database = getDatabase();
-    const path = `/users/${author}/`;
+    const workId = this.generateUniqueId();
 
     this.work = {
+      id: workId,
       title: title,
       description: description,
       photo: photo,
@@ -110,13 +111,15 @@ export class FileUploadService {
       createdAt: new Date()
     };
 
-    if (!Array.isArray(currentArtist.uploadedWork)) {
-      currentArtist.uploadedWork = []; // Inizializza come array vuoto se non è già un array
-    }
+    const workPath = `/users/${author}/uploadedWork/${workId}`;
 
-    currentArtist.uploadedWork.push(this.work);
-    console.log(currentArtist);
-    return update(ref(database, path), currentArtist);
+    // Aggiorna il database con il nuovo lavoro
+    return update(ref(database, workPath), this.work);
+  }
+
+
+  generateUniqueId():string {
+    return 'work_' + Math.random().toString(36).substring(2,9)
   }
 
   getWork(): Observable<IWork[]> {
@@ -128,14 +131,19 @@ export class FileUploadService {
         for (const userId in users) {
           if (users.hasOwnProperty(userId)) {
             const user = users[userId];
-            if (user.uploadedWork && Array.isArray(user.uploadedWork) && user.uploadedWork.length > 1){
-            for (let i = 1; i < user.uploadedWork.length; i++) {
-              worksArray.push(user.uploadedWork[i]);
+            if (user.uploadedWork) {
+              for (const workId in user.uploadedWork) {
+                let work = user.uploadedWork[workId];
+
+                // Aggiungi solo lavori che hanno un ID
+                if (workId && workId.startsWith('work_') && workId !== '0' && work) {
+                  work.id = workId;
+                  worksArray.push(work);
+                }
+              }
             }
           }
-          }
         }
-        console.log(worksArray);
         return worksArray;
       }),
       catchError(error => {
@@ -145,24 +153,18 @@ export class FileUploadService {
     );
   }
 
+
+
   setWorks(works: IWork[]): void {
     this.worksArray = works;
   }
 
-  getWorkByIndex(index: number): IWork | undefined {
-    const work = this.worksArray[index];
-    if (work) {
-      localStorage.setItem('currentWork', JSON.stringify(work));
-    }
-    return work;
-  }
+  getWorkById(workId: string): Observable<IWork | undefined> {
+  return this.getWork().pipe(
+    map(works => works.find(work => work.id === workId))
+  );
+}
 
-  getCurrentWorkFromStorage(): IWork | undefined {
-    const workJson = localStorage.getItem('currentWork');
-    if (workJson) {
-      return JSON.parse(workJson);
-    }
-    return undefined;
-  }
+
 
 }

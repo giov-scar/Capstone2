@@ -50,7 +50,7 @@ const routes: Routes = [
     component: InstallationComponent
   },
   {
-    path: 'work/:index',
+    path: 'work/:id',
     component: WorkComponent
   },
   {

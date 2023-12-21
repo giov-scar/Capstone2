@@ -13,6 +13,7 @@ export class Artist {
     public maCourse: string = '',
     public intro: string = '',
     public uploadedWork: IWork[] = [{
+      id:'',
       title:'',
       description:'',
       photo: [''],
