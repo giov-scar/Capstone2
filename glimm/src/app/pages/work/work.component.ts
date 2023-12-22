@@ -19,11 +19,11 @@ export class WorkComponent implements OnInit {
       if (workId) {
         this.uploadService.getWorkById(workId).subscribe(work => {
           this.work = work;
+          window.scroll(0,0)
         });
       }
     });
   }
-
 
 
   }
