@@ -13,6 +13,7 @@ import { Database, set, ref, getDatabase } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
 import { Artist } from 'src/app/classes/artist';
 import { BehaviorSubject } from 'rxjs';
+import { UserCredential } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -51,7 +52,7 @@ export class AuthService {
   }
 
   // Sign up with email/password
-  async SignUp(auth: Auth, artist: Artist) {
+  async SignUp(auth: Auth, artist: Artist): Promise<UserCredential> {
     try {
       const result = await createUserWithEmailAndPassword(
         auth,
@@ -61,19 +62,24 @@ export class AuthService {
       this.writeUserData(artist, result.user);
       console.log(artist);
       this.router.navigate(['dashboard']);
+      return result
     } catch (error) {
-      error;
+      console.error(error);
+      throw error;
     }
   }
   writeUserData(artist: Artist, user: User) {
     const db = getDatabase();
+    const defaultProfileImageUrl = 'https://images.unsplash.com/photo-1673586410488-b694d350756e?q=80&w=2728&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+    const defaultCoverImageUrl = 'https://images.unsplash.com/photo-1673586410488-b694d350756e?q=80&w=2728&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
+
     set(ref(db, 'users/' + user.uid), {
       uid: user.uid,
       artistname: artist.artistname,
       artistsurname: artist.artistsurname,
       email: user.email,
-      profile_picture: artist.profile_picture,
-      coverImg: artist.coverImg,
+      profile_picture: artist.profile_picture || defaultProfileImageUrl,
+      coverImg: artist.coverImg || defaultCoverImageUrl,
       baCourse: artist.baCourse,
       maCourse: artist.maCourse,
       intro: artist.intro,

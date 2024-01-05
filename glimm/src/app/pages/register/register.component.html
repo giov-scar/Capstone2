@@ -53,19 +53,19 @@
         <div class="col-12">
           <label for="inputProfile" class="form-label">Profile picture</label>
           <input
-            type="file"
-            class="form-control rounded-pill"
-            formControlName="profileImg"
-            id="inputProfile"
+          type="file"
+          (change)="onProfileImageChange($event)"
+          class="form-control rounded-pill"
+          id="inputProfile"
           />
         </div>
         <div class="col-12">
           <label for="inputCover" class="form-label">Cover image</label>
           <input
-            type="file"
-            class="form-control rounded-pill"
-            formControlName="coverImg"
-            id="inputCover"
+          type="file"
+          (change)="onCoverImageChange($event)"
+          class="form-control rounded-pill"
+          id="inputCover"
           />
         </div>
         <div class="col-12">
