@@ -131,6 +131,7 @@ export class FileUploadService {
         for (const userId in users) {
           if (users.hasOwnProperty(userId)) {
             const user = users[userId];
+            const userProfilePicture = user.profile_picture 
             if (user.uploadedWork) {
               for (const workId in user.uploadedWork) {
                 let work = user.uploadedWork[workId];
@@ -138,6 +139,7 @@ export class FileUploadService {
                 // Aggiungi solo lavori che hanno un ID
                 if (workId && workId.startsWith('work_') && workId !== '0' && work) {
                   work.id = workId;
+                  work.profilePicture = userProfilePicture
                   worksArray.push(work);
                 }
               }
