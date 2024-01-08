@@ -72,6 +72,7 @@ export class RegisterComponent implements OnInit {
 
     this.authService.writeUserData(artist, userCredential.user);
   } catch (error) {
+    alert("Required field must be filled out");
     console.error("Errore durante la registrazione dell'utente", error);
   }
     console.log(this.form);

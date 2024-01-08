@@ -11,25 +11,27 @@
     <div class="col col-lg-6 col-md-12 col-sm-12 mb-4">
       <form [formGroup]="form"  class="  row g-3 ms-2 py-3 glass-style">
         <div class="col-md-6">
-          <label for="inputName" class="form-label">Name</label>
+          <label for="inputName" class="form-label">Name <span class="text-danger">(required)</span></label>
           <input
             type="text"
             class="form-control rounded-pill"
             formControlName="artistname"
             id="inputName"
+            required
           />
         </div>
         <div class="col-md-6">
-          <label for="inputSurname" class="form-label">Surname</label>
+          <label for="inputSurname" class="form-label">Surname <span class="text-danger">(required)</span></label>
           <input
             type="text"
             class="form-control rounded-pill"
             formControlName="artistsurname"
             id="inputSurname"
+            required
           />
         </div>
         <div class="col-md-6">
-          <label for="inputEmail" class="form-label">Email</label>
+          <label for="inputEmail" class="form-label">Email <span class="text-danger">(required)</span></label>
           <input
             type="text"
             class="form-control rounded-pill"
@@ -40,7 +42,7 @@
           />
         </div>
         <div class="col-md-6">
-          <label for="inputPassword" class="form-label">Password</label>
+          <label for="inputPassword" class="form-label">Password <span class="text-danger">(required)</span></label>
           <input
             type="password"
             class="form-control rounded-pill"
@@ -51,7 +53,7 @@
           />
         </div>
         <div class="col-12">
-          <label for="inputProfile" class="form-label">Profile picture</label>
+          <label for="inputProfile" class="form-label">Profile picture (optional)</label>
           <input
           type="file"
           (change)="onProfileImageChange($event)"
@@ -60,7 +62,7 @@
           />
         </div>
         <div class="col-12">
-          <label for="inputCover" class="form-label">Cover image</label>
+          <label for="inputCover" class="form-label">Cover image (optional)</label>
           <input
           type="file"
           (change)="onCoverImageChange($event)"
@@ -69,13 +71,14 @@
           />
         </div>
         <div class="col-12">
-          <label for="Education" class="form-label mb-0">Education</label>
-          <p class="subtitle">Bachelor's course</p>
+          <label for="Education" class="form-label mb-0">Education </label>
+          <p class="subtitle">Bachelor's course <span class="text-danger">(required)</span></p>
           <input
             type="inputBachelor"
             class="form-control rounded-pill"
             formControlName="baCourse"
             id="inputBachelor"
+            required
           />
           <p class="subtitle mb-1 mt-2">Master course (optional)</p>
           <input
@@ -86,7 +89,7 @@
           />
         </div>
         <div class="col-12">
-          <label for="formControlTextarea" class="form-label mb-0">Intro</label>
+          <label for="formControlTextarea" class="form-label mb-0">Intro (optional)</label>
           <p class="subtitle">Write a short description about you</p>
           <textarea
             class="form-control"
