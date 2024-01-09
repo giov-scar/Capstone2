@@ -54,7 +54,7 @@ const routes: Routes = [
     component: WorkComponent
   },
   {
-    path: 'artist',
+    path: 'artist/:uid',
     component: ArtistComponent
   },
   {

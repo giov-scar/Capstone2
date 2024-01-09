@@ -1,16 +1,16 @@
 <div class="container-fluid px-0 fade-in">
 <div class="row m-0">
-  <div class="col col-12 p-0">
+  <div class="col col-12 p-0" *ngIf="user">
     <div id="profile-upper">
       <div id="profile-cover-img">
-        <img src="https://images.unsplash.com/photo-1603309288245-c9b16e639aaf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1882&q=80" alt="Banner image">
+        <img src="{{user.coverImg}}" alt="Banner image">
       </div>
       <div id="profile-img-container">
         <div id="profile-pic" class="rounded-circle">
-          <img src="https://images.unsplash.com/photo-1526413232644-8a40f03cc03b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" alt="Profile image">
+          <img src="{{user.profile_picture}}" alt="Profile image">
         </div>
         <div id="username">
-          <h2 class="fw-bold text-gradient-animation">Akira Nakamura</h2>
+          <h2 class="fw-bold text-gradient-animation">{{user.artistname}} {{user.artistsurname}}</h2>
         </div>
 
       </div>
@@ -25,16 +25,16 @@
       Intro
     </h5>
     <p class="px-2 text-secondary">
-      My work is characterized by an intimate and revealing perspective, which often focuses on the subject's eyes and expression. I strive to capture the essence of a person, their personality and character.
+      {{user?.intro}}
     </p>
     <h5 class="fw-bold text-center black-on-dark-mode">
       Education
     </h5>
     <p class="px-2 text-secondary">
-      School of the Art Institute of Chicago
+      {{user?.maCourse}}
     </p>
     <p class="px-2 text-secondary">
-      Maryland Institute College of Art, Baltimore
+      {{user?.baCourse}}
     </p>
   </div>
   </div>
@@ -69,7 +69,7 @@
     <!-- END PROJECT SECTION ---------------- -->
 
     <!-- PROJECT SECTION ------------------- -->
-    <div class="row align-items-center">
+    <!-- <div class="row align-items-center">
       <div class="col-md-7">
         <h4 class="featurette-heading fw-normal lh-1">The Power of the Human Spirit</h4>
         <p class="text-secondary truncate">This photograph is a portrait of a person who is overcoming adversity. The person is smiling and determined, despite the challenges they are facing. The person is standing in front of a brick wall, which is covered in graffiti. The graffiti is dark and threatening, but the person is not afraid. They are standing up to the adversity and refusing to give up. The photograph is a reminder that the human spirit is capable of great things.  </p>
@@ -91,11 +91,11 @@
       </div>
       </div>
     </div>
-    <hr class="mt-4">
+    <hr class="mt-4"> -->
     <!-- END PROJECT SECTION ---------------- -->
 
     <!-- PROJECT SECTION ------------------- -->
-    <div class="row align-items-center">
+    <!-- <div class="row align-items-center">
       <div class="col-md-7">
         <h4 class="featurette-heading fw-normal lh-1">The Wonder of the World</h4>
         <p class="text-secondary truncate">This photograph is a landscape of a natural wonder. The landscape is awe-inspiring, with its towering mountains, crashing waterfalls, and lush forests. The photograph is a reminder of the beauty and majesty of the world around us. The mountains are so tall that they seem to reach the sky. The waterfalls are so powerful that they create a mist that fills the air. The forests are so dense that they seem to be alive. The photograph is a reminder that we are part of something much bigger than ourselves.  </p>
@@ -117,7 +117,7 @@
       </div>
       </div>
     </div>
-    <hr class="mt-4">
+    <hr class="mt-4"> -->
     <!-- END PROJECT SECTION ---------------- -->
   </div>
 </div>
