@@ -52,7 +52,7 @@
       <div *ngFor="let photo of work?.photo">
         <img src="{{photo}}" alt="Project cover" class="img-fluid mb-3">
       </div>
-      
+
     </div>
     <div class="col col-lg-3 col-md-3 cl-sm-12 ">
       <div class="sticked-artist-info">
@@ -61,12 +61,12 @@
       </h6>
       <div class="d-flex flex-column align-items-center">
         <div>
-        <img src="https://images.unsplash.com/photo-1526413232644-8a40f03cc03b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80" alt="Artist profile image" class="img-fluid rounded-circle user-profile-img">
+        <img src="{{work?.profilePicture}}" alt="Artist profile image" class="img-fluid rounded-circle user-profile-img">
       </div>
       <div class="d-flex flex-column align-items-center">
         <a routerLink="/artist">
         <h4 class=" fw-bold text-center mt-2 hover-underline-animation artist-name">
-          Akira Nakamura
+          {{work?.artistName}} {{work?.artistSurname}}
         </h4>
       </a>
         <p class="text-secondary px-2">

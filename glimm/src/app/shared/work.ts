@@ -6,5 +6,7 @@ export interface IWork {
   category: string[];
   author: string;
   createdAt: Date;
-  profilePicture?: string
+  profilePicture?: string;
+  artistName?: string;
+  artistSurname?: string;
 }
