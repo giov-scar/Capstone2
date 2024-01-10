@@ -161,8 +161,6 @@ export class FileUploadService {
     );
   }
 
-
-
   setWorks(works: IWork[]): void {
     this.worksArray = works;
   }
@@ -170,6 +168,20 @@ export class FileUploadService {
   getWorkById(workId: string): Observable<IWork | undefined> {
   return this.getWork().pipe(
     map(works => works.find(work => work.id === workId))
+  );
+}
+
+getWorksByCategory(category: string): Observable<IWork[]> {
+  return this.getWork().pipe(
+    map(works =>
+      works
+        .filter(work => work.category && work.category.includes(category))
+        .sort((a, b) => {
+          const dateA = new Date(a.createdAt).getTime();
+          const dateB = new Date(b.createdAt).getTime();
+          return dateB - dateA;
+        })
+    )
   );
 }
 
