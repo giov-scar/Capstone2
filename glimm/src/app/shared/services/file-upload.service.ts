@@ -134,6 +134,7 @@ export class FileUploadService {
             const userProfilePicture = user.profile_picture
             const username = user.artistname
             const usersurname = user.artistsurname
+            const intro = user.intro
             if (user.uploadedWork) {
               for (const workId in user.uploadedWork) {
                 let work = user.uploadedWork[workId];
@@ -144,6 +145,7 @@ export class FileUploadService {
                   work.profilePicture = userProfilePicture
                   work.artistName = username
                   work.artistSurname = usersurname
+                  work.intro = intro
                   worksArray.push(work);
                 }
               }

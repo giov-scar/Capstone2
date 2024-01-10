@@ -43,82 +43,31 @@
       Works
     </h2>
     <!-- PROJECT SECTION ------------------- -->
-    <div class="row align-items-center">
+    <div class="row align-items-center" *ngFor="let work of works">
       <div class="col-md-7">
-        <h4 class="featurette-heading fw-normal lh-1">The Beauty of Nature</h4>
-        <p class="text-secondary truncate">This photograph is a close-up of a flower. The flower is in full bloom, with its petals in vibrant colors. The photograph is a celebration of the beauty of nature. The flower is perfectly symmetrical, with its petals arranged in a delicate pattern. The colors of the flower are so bright and intense that they seem to glow. The photograph is a reminder that the world around us is full of beauty, if we only take the time to see it.  </p>
+        <h4 class="featurette-heading fw-normal lh-1">{{work.title}}</h4>
+        <p class="text-secondary truncate">{{work.description}}</p>
       </div>
       <div class="col-md-5">
-        <div class="card-thumb" style="background-image: url(https://images.unsplash.com/photo-1582721691120-d1db3852893e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80);">
+        <div class="card-thumb" style="background-image: url({{work.photo[0]}});">
         <div class="card-description">
           <div class="content">
-            <p class="heading text-center">The Beauty of Nature
+            <p class="heading text-center">{{work.title}}
             </p>
             <p class="my-3">
               <br>
             </p>
-            <a routerLink="/work">
+            <a [routerLink]="['/work', work.id]">
             <button class="btn">Discover project</button>
           </a>
           </div>
         </div>
       </div>
       </div>
+      <hr class="mt-4">
     </div>
-    <hr class="mt-4">
     <!-- END PROJECT SECTION ---------------- -->
 
-    <!-- PROJECT SECTION ------------------- -->
-    <!-- <div class="row align-items-center">
-      <div class="col-md-7">
-        <h4 class="featurette-heading fw-normal lh-1">The Power of the Human Spirit</h4>
-        <p class="text-secondary truncate">This photograph is a portrait of a person who is overcoming adversity. The person is smiling and determined, despite the challenges they are facing. The person is standing in front of a brick wall, which is covered in graffiti. The graffiti is dark and threatening, but the person is not afraid. They are standing up to the adversity and refusing to give up. The photograph is a reminder that the human spirit is capable of great things.  </p>
-      </div>
-      <div class="col-md-5">
-        <div class="card-thumb" style="background-image: url(https://images.unsplash.com/photo-1623172959921-630212f71058?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80);">
-        <div class="card-description">
-          <div class="content">
-            <p class="heading text-center">The Power of the Human Spirit
-            </p>
-            <p class="my-3">
-              <br>
-            </p>
-            <a routerLink="/work">
-            <button class="btn">Discover project</button>
-          </a>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
-    <hr class="mt-4"> -->
-    <!-- END PROJECT SECTION ---------------- -->
-
-    <!-- PROJECT SECTION ------------------- -->
-    <!-- <div class="row align-items-center">
-      <div class="col-md-7">
-        <h4 class="featurette-heading fw-normal lh-1">The Wonder of the World</h4>
-        <p class="text-secondary truncate">This photograph is a landscape of a natural wonder. The landscape is awe-inspiring, with its towering mountains, crashing waterfalls, and lush forests. The photograph is a reminder of the beauty and majesty of the world around us. The mountains are so tall that they seem to reach the sky. The waterfalls are so powerful that they create a mist that fills the air. The forests are so dense that they seem to be alive. The photograph is a reminder that we are part of something much bigger than ourselves.  </p>
-      </div>
-      <div class="col-md-5">
-        <div class="card-thumb" style="background-image: url(https://images.unsplash.com/photo-1532274402911-5a369e4c4bb5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80);">
-        <div class="card-description">
-          <div class="content">
-            <p class="heading text-center">The Wonder of the World
-            </p>
-            <p class="my-3">
-              <br>
-            </p>
-            <a routerLink="/work">
-            <button class="btn">Discover project</button>
-          </a>
-          </div>
-        </div>
-      </div>
-      </div>
-    </div>
-    <hr class="mt-4"> -->
-    <!-- END PROJECT SECTION ---------------- -->
   </div>
 </div>
 </div>

@@ -9,4 +9,5 @@ export interface IWork {
   profilePicture?: string;
   artistName?: string;
   artistSurname?: string;
+  intro?: string;
 }
