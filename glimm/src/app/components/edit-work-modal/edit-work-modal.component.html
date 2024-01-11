@@ -1,0 +1,56 @@
+<!-- Modal -->
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Edit Work</h1>
+        <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #editWorkForm="ngForm">
+          <div class="mb-3">
+            <label for="workTitle" class="form-label">Title</label>
+            <input [(ngModel)]="work.title" type="text" class="form-control" id="workTitle" name="title">
+          </div>
+
+          <div class="mb-3">
+            <label for="workDescription" class="form-label">Description</label>
+            <textarea [(ngModel)]="work.description" class="form-control" id="workDescription"  name="description" cols="70" rows="5"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Your Photos</label>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let photo of work.photo; let i = index">
+                <div class="d-flex justify-content-between align-items-center">
+                  <img [src]="photo" class="img-thumbnail" style="max-width: 100px; max-height: 100px;">
+                  <div>
+                  <button class="btn btn-danger btn-sm rounded-pill px-4" (click)="removePhoto(i)">
+                    Delete
+                  </button>
+                </div>
+                </div>
+              </li>
+            </ul>
+
+          </div>
+
+          <div class="mb-3">
+            <p>Choose Category</p>
+            <div class="form-check form-switch" *ngFor="let category of categories; let i = index">
+              <input class="form-check-input" type="checkbox" id="category-{{category}}"
+                     [checked]="selectedCategories.includes(category)"
+                     (change)="toggleCategory(category, $event)"
+                     name="category-{{i}}">
+              <label class="form-check-label" for="category-{{category}}">{{category}}</label>
+            </div>
+
+
+
+
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary rounded-pill px-4" (click)="closeModal()">Close</button>
+        <button type="button" class="btn btn-primary rounded-pill px-4">Update</button>
+      </div>

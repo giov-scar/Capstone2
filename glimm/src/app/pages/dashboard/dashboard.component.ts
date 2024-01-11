@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Artist } from 'src/app/classes/artist';
@@ -7,13 +7,12 @@ import { RouterModule, Router } from '@angular/router';
 import { ref } from '@angular/fire/database';
 import { HttpClient } from '@angular/common/http';
 
-import { environment } from 'src/environments/environment';
 import { UploadWorkComponent } from 'src/app/components/upload-work/upload-work.component';
-import { DocumentData } from '@angular/fire/firestore';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { ToastrService } from 'ngx-toastr';
 import { IWork } from 'src/app/shared/work';
-import { FileUpload } from 'src/app/models/file-upload.model';
+import { UserService } from 'src/app/shared/services/user.service';
+import { EditWorkModalComponent } from 'src/app/components/edit-work-modal/edit-work-modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -33,6 +32,8 @@ export class DashboardComponent implements OnInit {
   artistData!: Artist;
   fileUploads!: string[];
   work!:IWork
+  favoriteWorks: IWork[] = [];
+
 
 
 
@@ -41,25 +42,60 @@ export class DashboardComponent implements OnInit {
     public http: HttpClient,
     public uploadService: FileUploadService,
     private toastr: ToastrService,
+    private userService: UserService,
+    private modalService: NgbModal,
     private router: Router
   ) {}
 
   userUid = JSON.parse(localStorage['user']);
   uid = this.userUid[Object.keys(this.userUid)[0]];
+  userWorks: IWork[] = [];
 
   userDb = ref(this.authService.database, `users/  ${this.uid}`);
 
-  getUser() {
-    console.log(this.uid);
-    return this.http.get<Artist>(
-      `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${this.uid}.json?auth=${environment.firebase.apiKey}`
+  ngOnInit() {
+    this.loadUserProfile();
+    this.loadUserWorks();
+    this.loadUserFavorites();
+    this.userService.getFavorites(this.uid).subscribe(favoriteWorks => {
+      this.favoriteWorks = favoriteWorks
+    })
+  }
+
+  loadUserProfile() {
+    this.userService.getUserProfile(this.uid).subscribe(
+      userProfile => {
+        this.artistData = userProfile;
+      },
+      error => console.error('Errore durante il recupero del profilo utente', error)
     );
   }
-  ngOnInit() {
-    this.getUser().subscribe((data) => {
-      console.log(data);
-      this.artistData = data;
-    });
+
+  loadUserWorks() {
+    this.userService.getWorksByUser(this.uid).subscribe(
+      works => this.userWorks = works,
+      error => console.error('Errore durante il recupero dei lavori utente', error)
+    );
+  }
+
+  loadUserFavorites() {
+    this.userService.getFavorites(this.uid).subscribe(
+      favoriteWorks => {
+        console.log(favoriteWorks);
+        this.favoriteWorks = favoriteWorks;
+      },
+      error => console.error('Errore durante il recupero dei lavori preferiti', error)
+    );
+  }
+
+  removeFavorite(workId: string) {
+    this.userService.removeFavorite(this.uid, workId).subscribe(
+      () => {
+        // Rimuovi il lavoro dall'array di lavori preferiti
+        this.favoriteWorks = this.favoriteWorks.filter(work => work.id !== workId);
+      },
+      error => console.error('Errore durante la rimozione del lavoro dai preferiti', error)
+    );
   }
 
   ShowSuccess(){
@@ -110,4 +146,11 @@ export class DashboardComponent implements OnInit {
     setTimeout(()=>{window.location.reload()}, 5000)
 
   }
+
+  openEditWorkModal(work:IWork){
+    const modalRef = this.modalService.open(EditWorkModalComponent)
+    modalRef.componentInstance.work = work
+  }
+
+
 }

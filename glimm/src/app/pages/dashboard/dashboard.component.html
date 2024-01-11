@@ -20,31 +20,10 @@
 
       <div class="d-flex">
         <div ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-pills flex-column" orientation="vertical">
+
           <ng-container ngbNavItem="Intro">
-            <button ngbNavLink class="rounded-pill dashboard-btn">Intro</button>
-            <ng-template ngbNavContent>
-              <p class="text-center">
-                Write a short description of yourself
-              </p>
-              <textarea name="intro" id="intro-text" cols="70" rows="5" class="rounded-2"></textarea>
-            </ng-template>
-          </ng-container>
-          <ng-container ngbNavItem="Education">
-            <button ngbNavLink class="rounded-pill dashboard-btn">Education</button>
-            <ng-template ngbNavContent>
-              <p class="text-center">
-                Insert your Educational path
-              </p>
-              <p class="text-secondary text-center mb-1">Bachelor's course </p>
-          <input type="email" class="form-control rounded-pill" id="inputEducation">
-          <p class="text-secondary mb-1 mt-2 text-center">Master course (optional)</p>
-          <input type="email" class="form-control rounded-pill" id="inputEducation">
-            </ng-template>
-          </ng-container>
-          <ng-container ngbNavItem="Post a work">
             <button ngbNavLink class="rounded-pill dashboard-btn" style="width: max-content;">Upload a work</button>
             <ng-template ngbNavContent>
-
               <p class="text-center">Title of your work</p>
               <input type="text" class="form-control rounded-pill mb-3" id="inputTitle">
               <p class="text-center">
@@ -53,17 +32,8 @@
               <textarea name="intro" id="intro-text" cols="70" rows="5" class="rounded-2 mb-4"></textarea>
 
 
-
-
               <label for="formFileMultiple" class="form-label">Upload multiple photos of your work</label>
               <app-upload-work></app-upload-work>
-
-
-
-
-
-
-
 
 
               <p>Choose Category</p>
@@ -85,11 +55,21 @@
                 <label class="form-check-label" for="flexSwitchCheckDefault">Installation</label>
               </div>
             </div>
-
-
-
             </ng-template>
           </ng-container>
+          <!-- <ng-container ngbNavItem="Education">
+            <button ngbNavLink class="rounded-pill dashboard-btn">Education</button>
+            <ng-template ngbNavContent>
+              <p class="text-center">
+                Insert your Educational path
+              </p>
+              <p class="text-secondary text-center mb-1">Bachelor's course </p>
+          <input type="email" class="form-control rounded-pill" id="inputEducation">
+          <p class="text-secondary mb-1 mt-2 text-center">Master course (optional)</p>
+          <input type="email" class="form-control rounded-pill" id="inputEducation">
+            </ng-template>
+          </ng-container> -->
+
         </div>
 
         <div [ngbNavOutlet]="nav" class="ms-4"></div>
@@ -115,7 +95,7 @@
 
       <h5 class="fw-bold p-1 pb-0 mb-0 mt-1">Settings</h5>
       <hr class="mt-1">
-      <a routerLink="/artist">
+      <a [routerLink]="['/artist', artistData.uid]">
       <p class="ps-3">
         <i class="bi bi-person-circle settings-icon"></i>
         View profile
@@ -153,22 +133,23 @@
       </h4>
           <div>
 
-            <div class="row align-items-center px-3">
+            <div class="row align-items-center px-3" *ngFor="let work of userWorks">
               <div class="col-md-5">
-                <h4 class="featurette-heading fw-normal lh-1">Whispers of Color</h4>
-                <p class="text-secondary truncate">Whispers of Color is a series created by the young photographer Ethan Smith</p>
-                <a routerLink="/work"><button class="w-100 btn dashboard-btn"><i class="bi bi-pencil-square"></i> Edit work</button></a>
+                <h4 class="featurette-heading fw-normal lh-1">{{work.title}}</h4>
+                <p class="text-secondary truncate">{{work.description}}</p>
+                <button class="w-100 btn dashboard-btn" (click)="openEditWorkModal(work)"><i class="bi bi-pencil-square"></i> Edit work</button>
+
               </div>
               <div class="col-md-7">
-                <div class="card-thumb" style="background-image: url(https://images.unsplash.com/photo-1498112943420-8eacc6e7cfc3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2946&q=80);">
+                <div class="card-thumb" [style.background-image]="'url(' + work.photo[0] + ')'">
                 <div class="card-description">
                   <div class="content">
-                    <p class="heading text-center">Whispers of Color
+                    <p class="heading text-center">{{work.title}}
                     </p>
                     <p class="my-3">
                       <br>
                     </p>
-                    <a routerLink="/work">
+                    <a [routerLink]="['/work', work.id]">
                     <button class="btn"> See work</button>
                   </a>
 
@@ -176,11 +157,12 @@
                 </div>
               </div>
               </div>
+              <div class="ps-3">
+                <button class="btn btn-outline-danger rounded-pill mt-4"><i class="bi bi-trash3"></i> Delete work</button>
+                <hr class="mt-4  mb-5">
+              </div>
             </div>
-            <div class="ps-3">
-            <button class="btn btn-outline-danger rounded-pill mt-4"><i class="bi bi-trash3"></i> Delete work</button>
-          </div>
-            <hr class="mt-4  mb-5">
+
 
 
           </div>
@@ -193,14 +175,15 @@
         <i class="bi bi-bookmark-heart favourite"></i> Saved works
       </h4>
 
+      <div *ngFor="let work of favoriteWorks">
       <div class="d-flex align-items-center justify-content-between">
         <div class="saved-img-thumb d-flex align-items-center">
-          <img src="https://images.unsplash.com/photo-1582721691120-d1db3852893e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Favourite image thumb" class="rounded-2 img-fluid">
+          <img src="{{work.photo[0]}}" alt="Favourite image thumb" class="rounded-2 img-fluid">
           <div class="ms-3">
             <a routerLink="/work" style="color: black;">
-            <h4 class="fw-bold white-on-dark-mode">The beauty of Nature</h4>
+            <h4 class="fw-bold white-on-dark-mode">{{work.title}}</h4>
           </a>
-            <p>by Akira Nakamura</p>
+            <p>{{work.artistName}} {{work.artistSurname}}</p>
           </div>
         </div>
         <div>
@@ -208,12 +191,13 @@
         </div>
         <div class="d-flex flex-column mt-4 align-items-center">
           <p class="mb-0"><i class="bi bi-bookmark-x remove-icon fs-3 "></i></p>
-          <p style="color: #4155e2;">Remove</p>
+          <button (click)="removeFavorite(work.id)"><p style="color: #4155e2;">Remove</p></button>
         </div>
       </div>
       <div class="px-5">
       <hr>
     </div>
+  </div>
 
     </div>
 

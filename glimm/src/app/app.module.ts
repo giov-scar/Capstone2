@@ -38,6 +38,7 @@ import { UploadListComponent } from './components/upload-list/upload-list.compon
 import { UploadDetailsComponent } from './components/upload-details/upload-details.component';
 import { UploadWorkComponent } from './components/upload-work/upload-work.component';
 import { ToastrModule } from 'ngx-toastr';
+import { EditWorkModalComponent } from './components/edit-work-modal/edit-work-modal.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -60,6 +61,7 @@ import { ToastrModule } from 'ngx-toastr';
         UploadFormComponent,
         UploadListComponent,
         UploadDetailsComponent,
+        EditWorkModalComponent,
 
 
 

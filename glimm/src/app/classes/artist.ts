@@ -2,6 +2,7 @@ import { IWork } from '../shared/work';
 
 export class Artist {
   public uid!: string;
+  public favorites: string[] = [];
   constructor(
     public artistname: string,
     public artistsurname: string,
