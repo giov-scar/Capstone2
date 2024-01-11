@@ -32,13 +32,6 @@ export class WorkComponent implements OnInit {
     });
   }
 
-  checkFavoriteStatus(workId: string) {
-    const userId = JSON.parse(localStorage.getItem('user') || '{}').uid;
-    this.userService.getFavorites(userId).subscribe(() => {
-      this.isFavorite = this.userService.isFavorite(workId);
-    });
-  }
-
   onHeartClick() {
     const userUid = JSON.parse(localStorage.getItem('user') || '{}').uid;
     const workId = this.work?.id;
