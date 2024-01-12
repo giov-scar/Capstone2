@@ -32,7 +32,7 @@ export class DashboardComponent implements OnInit {
   artistData!: Artist;
   fileUploads!: string[];
   work!:IWork
-  favoriteWorks: IWork[] = [];
+  userFavorites: IWork[] = [];
 
 
 
@@ -56,10 +56,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.loadUserProfile();
     this.loadUserWorks();
-    // this.loadUserFavorites();
-    // this.userService.getFavorites(this.uid).subscribe(favoriteWorks => {
-    //   this.favoriteWorks = favoriteWorks
-    // })
+    this.loadUserFavorites()
   }
 
   loadUserProfile() {
@@ -79,15 +76,15 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  // loadUserFavorites() {
-  //   this.userService.getFavorites(this.uid).subscribe(
-  //     favoriteWorks => {
-  //       console.log(favoriteWorks);
-  //       this.favoriteWorks = favoriteWorks;
-  //     },
-  //     error => console.error('Errore durante il recupero dei lavori preferiti', error)
-  //   );
-  // }
+  loadUserFavorites() {
+    this.userService.getFavorites(this.uid).subscribe(
+      favorites => {
+        this.userFavorites = favorites;
+        console.log('Lavori preferiti:', this.userFavorites);
+      },
+      error => console.error('Errore durante il recupero dei lavori preferiti', error)
+    );
+  }
 
   // removeFavorite(workId: string) {
   //   this.userService.removeFavorite(this.uid, workId).subscribe(

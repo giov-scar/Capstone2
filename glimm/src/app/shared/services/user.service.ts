@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, forkJoin, map, of, throwError, switchMap } from 'rxjs';
+import { Observable, catchError, forkJoin, map, of, throwError, switchMap, tap } from 'rxjs';
 import { Artist } from 'src/app/classes/artist';
 import { IWork } from '../work';
+import { FileUploadService } from './file-upload.service';
 
 
 @Injectable({
@@ -11,7 +12,7 @@ import { IWork } from '../work';
 export class UserService {
 
   private favorites: Set<string> = new Set();
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private fileUploadService: FileUploadService) { }
 
   getUserProfile(uid:string):Observable<Artist>{
     const url = `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}.json`
@@ -89,13 +90,15 @@ export class UserService {
       })
     );
   }
-  
-  getWorkDetailById(workId: string): Observable<IWork> {
+
+
+
+  getWorkDetailById(workId: string): Observable<IWork | null> {
     const url = `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/works/${workId}.json`;
     return this.http.get<IWork>(url).pipe(
       catchError(error => {
-        console.error(`Errore durante il recupero del lavoro con ID ${workId}`, error);
-        return throwError(error);
+        console.warn(`Errore durante il recupero del lavoro con ID ${workId}`, error);
+        return of(null); // Restituisci null per i lavori non trovati
       })
     );
   }
@@ -104,11 +107,12 @@ export class UserService {
     return this.getUserProfile(userId).pipe(
       switchMap(user => {
         if (user.favorites && user.favorites.length > 0) {
-          // Richiedi i dettagli per ogni lavoro preferito
-          const workDetailsRequests = user.favorites.map(workId => this.getWorkDetailById(workId));
-          return forkJoin(workDetailsRequests);
+          // Recupera tutti i lavori e filtra quelli preferiti dall'utente
+          return this.fileUploadService.getWork().pipe(
+            map(works => works.filter(work => user.favorites.includes(work.id)))
+          );
         } else {
-          return of([]);
+          return of([]); // Nessun lavoro preferito
         }
       }),
       catchError(error => {
@@ -117,6 +121,8 @@ export class UserService {
       })
     );
   }
+
+
 
 
 }

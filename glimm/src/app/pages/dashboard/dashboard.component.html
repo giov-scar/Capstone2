@@ -175,12 +175,12 @@
         <i class="bi bi-bookmark-heart favourite"></i> Saved works
       </h4>
 
-      <div *ngFor="let work of favoriteWorks">
+      <div *ngFor="let work of userFavorites">
       <div class="d-flex align-items-center justify-content-between">
         <div class="saved-img-thumb d-flex align-items-center">
           <img src="{{work.photo[0]}}" alt="Favourite image thumb" class="rounded-2 img-fluid">
           <div class="ms-3">
-            <a routerLink="/work" style="color: black;">
+            <a [routerLink]="['/work', work.id]" style="color: black;">
             <h4 class="fw-bold white-on-dark-mode">{{work.title}}</h4>
           </a>
             <p>{{work.artistName}} {{work.artistSurname}}</p>
