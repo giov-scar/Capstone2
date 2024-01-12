@@ -12,68 +12,74 @@ import { Artist } from 'src/app/classes/artist';
 })
 export class WorkComponent implements OnInit {
   work: IWork | undefined
-  loggedUser: Artist | undefined
+  artistData!: Artist;
   isFavorite: boolean = false
 
 
   constructor( private route: ActivatedRoute, private uploadService: FileUploadService, private userService: UserService){}
 
+  userUid = JSON.parse(localStorage['user']);
+  uid = this.userUid[Object.keys(this.userUid)[0]];
+
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const workId = params.get('id');
+      const userUid = this.userUid ? this.userUid.uid : null;
       if (workId) {
         this.uploadService.getWorkById(workId).subscribe(work => {
           this.work = work;
           window.scroll(0,0)
           console.log(work);
-          this.checkIfFavorite(workId);
+          this.loadUserProfile();
+          if (userUid) {
+            this.checkIfFavorite(userUid, workId);
+          } else {
+            alert('Per favore, esegui il login per aggiungere ai preferiti.');
+          }
         });
       }
     });
   }
 
-  onHeartClick() {
-    const userUid = JSON.parse(localStorage.getItem('user') || '{}').uid;
-    const workId = this.work?.id;
-
-    if (userUid && workId) {
-      this.userService.getUserProfile(userUid).subscribe(userProfile => {
-        if (userProfile) {
-          const favorites = userProfile.favorites || [];
-
-          if (favorites.includes(workId)) {
-            // Rimuovi dai preferiti
-            const index = favorites.indexOf(workId);
-            if (index > -1) {
-              favorites.splice(index, 1);
-            }
-          } else {
-            // Aggiungi ai preferiti
-            favorites.push(workId);
-          }
-
-          // Aggiorna il profilo utente
-          userProfile.favorites = favorites;
-          this.userService.updateUserProfile(userUid, userProfile).subscribe(() => {
-            console.log('Preferiti aggiornati');
-          });
-        }
-      });
-    }
+  loadUserProfile() {
+    this.userService.getUserProfile(this.uid).subscribe(
+      userProfile => {
+        this.artistData = userProfile;
+        console.log('Logged User:',this.artistData);
+      },
+      error => console.error('Errore durante il recupero del profilo utente', error)
+    );
   }
 
-  checkIfFavorite(workId: string) {
-    const userUid = JSON.parse(localStorage.getItem('user') || '{}').uid;
-    this.userService.getFavorites(userUid).subscribe(favoriteWorks => {
-      this.isFavorite = favoriteWorks.some(work => work.id === workId);
+  checkIfFavorite(userId: string, workId: string) {
+    this.userService.isWorkFavorite(userId, workId).subscribe(isFav => {
+      this.isFavorite = isFav;
+    }, error => {
+      console.error('Errore durante la verifica dei preferiti', error);
+      this.isFavorite = false;
     });
   }
 
 
 
+  onHeartClick() {
+    const workId = this.work?.id;
+    if (this.uid && workId) {
+      if (this.isFavorite) {
+        this.userService.removeFavorite(this.uid, workId).subscribe(() => {
+          console.log('Rimosso dai preferiti');
+          this.isFavorite = false;
+        });
+      } else {
+        this.userService.addFavorite(this.uid, workId).subscribe(() => {
+          console.log('Aggiunto ai preferiti');
+          this.isFavorite = true;
+        });
+      }
+    } else {
+      alert('Per favore, esegui il login per aggiungere ai preferiti.');
+    }
   }
 
 
-
-
-
+}

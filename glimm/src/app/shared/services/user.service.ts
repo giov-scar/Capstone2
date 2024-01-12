@@ -15,7 +15,12 @@ export class UserService {
 
   getUserProfile(uid:string):Observable<Artist>{
     const url = `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}.json`
-    return this.http.get<Artist>(url)
+    return this.http.get<Artist>(url).pipe(
+      catchError(error => {
+        console.error(`Errore durante il recupero dei dettagli dell'utente con UID ${uid}`, error);
+        return throwError(error);
+      })
+    )
   }
 
   getWorksByUser(uid: string): Observable<IWork[]> {
@@ -42,71 +47,75 @@ export class UserService {
     return this.http.delete(url)
   }
 
-  addWorkToFavorites(userId: string, workId:string): Observable<any>{
-    const userUrl = `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json`
-
-    return this.http.get<Artist>(userUrl).pipe(
-      map(user => {
-        const updatedFavorites = user.favorites ? [...user.favorites, workId] : [workId]
-        return { ...user, favorites: updatedFavorites}
-      }),
-      switchMap(updatedUser => this.http.put(userUrl, updatedUser)),
-      catchError(error => {
-        console.error('Errore durante l\'aggiunta ai preferiti', error);
-        return throwError(error);
-      })
-    )
+  updateUserProfile(userId: string, updatedUser: Artist): Observable<any> {
+    const url = `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json`;
+    return this.http.put(url, updatedUser);
   }
 
-  removeFavorite(userId: string, workId: string): Observable<any> {
-    // URL per aggiornare l'utente
-    const userUrl = `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json`;
-
-    // Recupera prima il profilo utente, poi rimuovi il lavoro dai preferiti e aggiorna
+  addFavorite(userId: string, workId: string): Observable<any> {
     return this.getUserProfile(userId).pipe(
-      switchMap(user => {
-        const updatedFavorites = user.favorites.filter(id => id !== workId);
-        return this.http.put(userUrl, { ...user, favorites: updatedFavorites });
+      map(userProfile => {
+        const updatedFavorites = userProfile.favorites ? [...userProfile.favorites, workId] : [workId];
+        return { ...userProfile, favorites: updatedFavorites };
       }),
+      switchMap(updatedUser => this.updateUserProfile(userId, updatedUser)),
       catchError(error => {
-        console.error('Errore durante la rimozione del lavoro dai preferiti', error);
+        console.error('Errore durante l\'aggiunta ai preferiti', error);
         return throwError(error);
       })
     );
   }
 
+  removeFavorite(userId: string, workId: string): Observable<any> {
+    return this.getUserProfile(userId).pipe(
+      map(userProfile => {
+        const updatedFavorites = userProfile.favorites ? userProfile.favorites.filter(id => id !== workId) : [];
+        return { ...userProfile, favorites: updatedFavorites };
+      }),
+      switchMap(updatedUser => this.updateUserProfile(userId, updatedUser)),
+      catchError(error => {
+        console.error('Errore durante la rimozione dei preferiti', error);
+        return throwError(error);
+      })
+    );
+  }
+
+  isWorkFavorite(userId: string, workId: string): Observable<boolean> {
+    return this.getUserProfile(userId).pipe(
+      map(userProfile => userProfile.favorites ? userProfile.favorites.includes(workId) : false),
+      catchError(error => {
+        console.error('Errore durante la verifica dei preferiti', error);
+        return of(false);
+      })
+    );
+  }
+  
+  getWorkDetailById(workId: string): Observable<IWork> {
+    const url = `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/works/${workId}.json`;
+    return this.http.get<IWork>(url).pipe(
+      catchError(error => {
+        console.error(`Errore durante il recupero del lavoro con ID ${workId}`, error);
+        return throwError(error);
+      })
+    );
+  }
 
   getFavorites(userId: string): Observable<IWork[]> {
-    const userProfileUrl = `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json`;
-
-    return this.http.get<Artist>(userProfileUrl).pipe(
-      map(user => user.favorites || []),
-      switchMap(favoriteWorkIds => {
-        if (favoriteWorkIds.length === 0) {
-          return of([]); // Se non ci sono preferiti, restituisci un array vuoto
+    return this.getUserProfile(userId).pipe(
+      switchMap(user => {
+        if (user.favorites && user.favorites.length > 0) {
+          // Richiedi i dettagli per ogni lavoro preferito
+          const workDetailsRequests = user.favorites.map(workId => this.getWorkDetailById(workId));
+          return forkJoin(workDetailsRequests);
+        } else {
+          return of([]);
         }
-        this.favorites = new Set(favoriteWorkIds); // Aggiorna l'elenco locale dei preferiti
-        const favoriteWorksRequests = favoriteWorkIds.map(workId =>
-          this.http.get<IWork>(`https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/works/${workId}.json`)
-            .pipe(catchError(() => of(null)))
-        );
-        return forkJoin(favoriteWorksRequests);
       }),
-      map(worksArray => worksArray.filter(work => work !== null) as IWork[]),
       catchError(error => {
         console.error('Errore durante il recupero dei lavori preferiti', error);
         return throwError(error);
       })
     );
-  }
-
-  isFavorite(workId: string): boolean {
-    return this.favorites.has(workId);
-  }
-
-  updateUserProfile(userId: string, updatedUser: Artist): Observable<any> {
-    const url = `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json`;
-    return this.http.put(url, updatedUser);
   }
 
 

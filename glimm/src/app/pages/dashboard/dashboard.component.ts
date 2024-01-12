@@ -56,16 +56,17 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.loadUserProfile();
     this.loadUserWorks();
-    this.loadUserFavorites();
-    this.userService.getFavorites(this.uid).subscribe(favoriteWorks => {
-      this.favoriteWorks = favoriteWorks
-    })
+    // this.loadUserFavorites();
+    // this.userService.getFavorites(this.uid).subscribe(favoriteWorks => {
+    //   this.favoriteWorks = favoriteWorks
+    // })
   }
 
   loadUserProfile() {
     this.userService.getUserProfile(this.uid).subscribe(
       userProfile => {
         this.artistData = userProfile;
+        console.log(this.artistData);
       },
       error => console.error('Errore durante il recupero del profilo utente', error)
     );
@@ -78,25 +79,25 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  loadUserFavorites() {
-    this.userService.getFavorites(this.uid).subscribe(
-      favoriteWorks => {
-        console.log(favoriteWorks);
-        this.favoriteWorks = favoriteWorks;
-      },
-      error => console.error('Errore durante il recupero dei lavori preferiti', error)
-    );
-  }
+  // loadUserFavorites() {
+  //   this.userService.getFavorites(this.uid).subscribe(
+  //     favoriteWorks => {
+  //       console.log(favoriteWorks);
+  //       this.favoriteWorks = favoriteWorks;
+  //     },
+  //     error => console.error('Errore durante il recupero dei lavori preferiti', error)
+  //   );
+  // }
 
-  removeFavorite(workId: string) {
-    this.userService.removeFavorite(this.uid, workId).subscribe(
-      () => {
-        // Rimuovi il lavoro dall'array di lavori preferiti
-        this.favoriteWorks = this.favoriteWorks.filter(work => work.id !== workId);
-      },
-      error => console.error('Errore durante la rimozione del lavoro dai preferiti', error)
-    );
-  }
+  // removeFavorite(workId: string) {
+  //   this.userService.removeFavorite(this.uid, workId).subscribe(
+  //     () => {
+  //       // Rimuovi il lavoro dall'array di lavori preferiti
+  //       this.favoriteWorks = this.favoriteWorks.filter(work => work.id !== workId);
+  //     },
+  //     error => console.error('Errore durante la rimozione del lavoro dai preferiti', error)
+  //   );
+  // }
 
   ShowSuccess(){
     this.toastr.show('Now your work is pubblished!', `🎉 Upload completed successfully!`,{
