@@ -55,9 +55,12 @@ export class UserService {
 
   addFavorite(userId: string, workId: string): Observable<any> {
     return this.getUserProfile(userId).pipe(
-      map(userProfile => {
-        const updatedFavorites = userProfile.favorites ? [...userProfile.favorites, workId] : [workId];
-        return { ...userProfile, favorites: updatedFavorites };
+      map(user => {
+        const now = new Date(); // Oggetto Date invece di stringa
+        const updatedFavorites = user.favorites
+          ? [...user.favorites, { id: workId, addedOn: now }]
+          : [{ id: workId, addedOn: now }];
+        return { ...user, favorites: updatedFavorites };
       }),
       switchMap(updatedUser => this.updateUserProfile(userId, updatedUser)),
       catchError(error => {
@@ -67,10 +70,14 @@ export class UserService {
     );
   }
 
+
+
   removeFavorite(userId: string, workId: string): Observable<any> {
     return this.getUserProfile(userId).pipe(
       map(userProfile => {
-        const updatedFavorites = userProfile.favorites ? userProfile.favorites.filter(id => id !== workId) : [];
+        const updatedFavorites = userProfile.favorites
+          ? userProfile.favorites.filter(favorite => favorite.id !== workId)
+          : [];
         return { ...userProfile, favorites: updatedFavorites };
       }),
       switchMap(updatedUser => this.updateUserProfile(userId, updatedUser)),
@@ -83,7 +90,9 @@ export class UserService {
 
   isWorkFavorite(userId: string, workId: string): Observable<boolean> {
     return this.getUserProfile(userId).pipe(
-      map(userProfile => userProfile.favorites ? userProfile.favorites.includes(workId) : false),
+      map(userProfile => userProfile.favorites
+        ? userProfile.favorites.some(fav => fav.id === workId)
+        : false),
       catchError(error => {
         console.error('Errore durante la verifica dei preferiti', error);
         return of(false);
@@ -107,12 +116,18 @@ export class UserService {
     return this.getUserProfile(userId).pipe(
       switchMap(user => {
         if (user.favorites && user.favorites.length > 0) {
-          // Recupera tutti i lavori e filtra quelli preferiti dall'utente
           return this.fileUploadService.getWork().pipe(
-            map(works => works.filter(work => user.favorites.includes(work.id)))
+            map(works => {
+              const filteredWorks = works.filter(work => user.favorites.some(fav => fav.id === work.id));
+              return filteredWorks.sort((a, b) => {
+                const favAIndex = user.favorites.findIndex(fav => fav.id === a.id);
+                const favBIndex = user.favorites.findIndex(fav => fav.id === b.id);
+                return favBIndex - favAIndex;
+              });
+            })
           );
         } else {
-          return of([]); // Nessun lavoro preferito
+          return of([]);
         }
       }),
       catchError(error => {
@@ -121,6 +136,7 @@ export class UserService {
       })
     );
   }
+
 
 
 

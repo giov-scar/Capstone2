@@ -1,8 +1,13 @@
 import { IWork } from '../shared/work';
 
+export interface IFavoriteWork {
+  id: string;
+  addedOn: Date;
+}
+
 export class Artist {
   public uid!: string;
-  public favorites: string[] = [];
+  public favorites: IFavoriteWork[] = [];
   constructor(
     public artistname: string,
     public artistsurname: string,
