@@ -47,7 +47,7 @@
     <li *ngIf="isLoggedIn">
       <div class="d-flex">
       <a class="nav-link hover-underline-animation me-3 white-on-dark-mode" routerLink="/dashboard" (click)="closeMenu()">Dashboard</a>
-      <a class="nav-link hover-underline-animation white-on-dark-mode" routerLink="/artist" (click)="closeMenu()">Profile</a>
+      <a class="nav-link hover-underline-animation white-on-dark-mode" [routerLink]="['/artist', artistData.uid]" (click)="closeMenu()">Profile</a>
     </div>
     </li>
 

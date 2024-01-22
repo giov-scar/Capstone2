@@ -34,9 +34,6 @@ export class DashboardComponent implements OnInit {
   work!:IWork
   userFavorites: IWork[] = [];
 
-
-
-
   constructor(
     public authService: AuthService,
     public http: HttpClient,

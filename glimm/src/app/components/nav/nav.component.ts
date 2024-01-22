@@ -1,10 +1,12 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgbCollapseModule,NgbDropdownModule, NgbNavModule, } from '@ng-bootstrap/ng-bootstrap';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ThemeService } from 'src/app/shared/services/theme.service';
-import { Observable, from, map } from 'rxjs';
+import { Observable, from } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import { UserService } from 'src/app/shared/services/user.service';
+import { Artist } from 'src/app/classes/artist';
 
 
 @Component({
@@ -15,19 +17,17 @@ import { AuthService } from 'src/app/shared/services/auth.service';
   styleUrls: ['./nav.component.scss'],
 })
 
-export class NavComponent {
+export class NavComponent implements OnInit {
   isMenuCollapsed = true;
   isDropdownOpen = false;
   isMobileMenuOpen = false;
 
-  logoPathDark = '../../../assets/Logo_Glimm_white.png';
-  logoPathLight = '../../../assets/Logo_Glimm.png';
-
   isDarkTheme$!: Observable<boolean>
 
   isLoggedIn!: boolean;
+  artistData!: Artist;
 
-  constructor(private themeService: ThemeService, private authService: AuthService) {
+  constructor(private themeService: ThemeService, private authService: AuthService,private userService: UserService) {
     this.isDarkTheme$ = from(this.themeService.isDarkTheme());
 
     this.authService.isLogged.subscribe((value) => {
@@ -39,6 +39,23 @@ export class NavComponent {
   menuToggle!: ElementRef<HTMLInputElement>;
   @ViewChild('dropCheckbox')
   dropCheckbox!: ElementRef<HTMLInputElement>;
+
+  userUid = JSON.parse(localStorage['user']);
+  uid = this.userUid[Object.keys(this.userUid)[0]];
+
+  ngOnInit() {
+    this.loadUserProfile();
+  }
+
+  loadUserProfile() {
+    this.userService.getUserProfile(this.uid).subscribe(
+      userProfile => {
+        this.artistData = userProfile;
+        console.log(this.artistData);
+      },
+      error => console.error('Errore durante il recupero del profilo utente', error)
+    );
+  }
 
   toggleMobileMenu() {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
