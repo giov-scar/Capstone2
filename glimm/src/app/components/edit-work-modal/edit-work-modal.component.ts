@@ -1,17 +1,18 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IWork } from 'src/app/shared/work';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-edit-work-modal',
   templateUrl: './edit-work-modal.component.html',
   styleUrls: ['./edit-work-modal.component.scss']
 })
-export class EditWorkModalComponent {
+export class EditWorkModalComponent implements OnInit {
 
   selectedCategories: string[] = [];
 
-  constructor(private modalService:NgbModal){}
+  constructor(private modalService:NgbModal, private userService: UserService){}
 
   @Input()
   work!: IWork;
@@ -25,18 +26,23 @@ export class EditWorkModalComponent {
   }
 
   categories = ['Photography', 'Painting', 'Sculpture', 'Installation'];
-  ngOnChanges(changes: SimpleChanges) {
-    console.log("ngOnChanges called", changes);
-    if (changes['work']) {
-      this.updateSelectedCategories();
-    }
+
+  ngOnInit() {
+    this.updateSelectedCategories()
   }
 
 
   private updateSelectedCategories() {
-    this.selectedCategories = this.work ? this.work.category.slice() : [];
-    console.log("Updating selected categories:", this.selectedCategories);
+    if (this.work && this.work.category) {
+      this.selectedCategories = [...this.work.category];
+      console.log("Selected categories:", this.selectedCategories);
+    } else {
+      this.selectedCategories = [];
+      console.log("No categories set for the work.");
+    }
   }
+
+
 
   toggleCategory(category: string, event: Event) {
     const checkbox = event.target as HTMLInputElement;
@@ -52,6 +58,18 @@ export class EditWorkModalComponent {
       }
     }
     console.log("Selected categories after toggle:", this.selectedCategories);
+  }
+
+  updateWork(){
+    if(!this.work) return
+
+    this.work.category = [...this.selectedCategories]
+
+    this.userService.updateWork(this.work.id, this.work).subscribe(response =>{
+      this.closeModal()
+    }, error => {
+      console.error('Errore durante l\'aggiornamento del lavoro',error);
+    })
   }
 
 
