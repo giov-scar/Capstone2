@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { DocumentData } from '@angular/fire/firestore';
+import { Component, OnInit } from '@angular/core';
 import { FileUpload } from 'src/app/models/file-upload.model';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 import { CommonModule } from '@angular/common';
@@ -8,6 +7,7 @@ import { AuthService } from 'src/app/shared/services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { ref } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
+import { UserService } from 'src/app/shared/services/user.service';
 
 
 @Component({
@@ -17,7 +17,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './upload-work.component.html',
   styleUrls: ['./upload-work.component.scss']
 })
-export class UploadWorkComponent {
+export class UploadWorkComponent  implements OnInit {
 
   selectedFiles!: FileList
   currentFileUpload!: FileUpload
@@ -32,7 +32,25 @@ export class UploadWorkComponent {
   fileUploads: FileUpload[] = []
   noDuplicate: FileUpload[] = []
 
-  constructor(private uploadService: FileUploadService, public auth:AuthService, public http: HttpClient){ }
+  constructor(private uploadService: FileUploadService, public auth:AuthService, public http: HttpClient, private userService: UserService){ }
+
+  ngOnInit() {
+    this.loadCurrentUserProfile()
+  }
+
+  loadCurrentUserProfile() {
+    const userUid = JSON.parse(localStorage.getItem('user') || '{}');
+    const uid = userUid[Object.keys(userUid)[0]];
+    if (uid) {
+      this.userService.getUserProfile(uid).subscribe(
+        (userProfile) => {
+          this.User = userProfile;
+          console.log('Dati utente caricati:', this.User);
+        },
+        (error) => console.error('Errore durante il recupero del profilo utente', error)
+      );
+    }
+  }
 
     selectFile(event: Event): void {
       this.selectedFiles = (event.target as HTMLInputElement).files!
@@ -84,25 +102,7 @@ export class UploadWorkComponent {
     }
 
 
-    userUid = JSON.parse(localStorage['user']);
-    uid = this.userUid[Object.keys(this.userUid)[0]];
 
-    singleUrl: string =`https://firebasestorage.googleapis.com/v0/b/glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${this.uid}/`
-
-  userDb = ref(this.auth.database, `users/  ${this.uid}`);
-
-  getUser() {
-    console.log(this.uid);
-    return this.http.get<Artist>(
-      `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${this.uid}.json?auth=${environment.firebase.apiKey}`
-      );
-  }
-
-  ngOnInit() {
-    this.getUser().subscribe((user) => {
-      this.User = user
-    });
-  }
 
     deleteFileUpload(fileUpload: FileUpload): void{
       this.uploadService.deleteFile(fileUpload, this.User )
