@@ -32,11 +32,11 @@
 
             <div class="row mt-3">
             <div class="col-10">
-              <input type="file" class="form-control rounded-pill mb-3">
+              <input type="file" class="form-control rounded-pill mb-3" (change)="onNewFilesSelected($event)">
             </div>
 
             <div class="col-1" style="margin-left: -10px;">
-              <button class="rounded-pill dashboard-btn">
+              <button class="rounded-pill dashboard-btn" (click)="uploadFiles()">
                 Upload
               </button>
             </div>

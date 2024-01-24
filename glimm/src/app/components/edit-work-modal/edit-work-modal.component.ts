@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IWork } from 'src/app/shared/work';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/shared/services/user.service';
+import { Artist } from 'src/app/classes/artist';
+import { FileUploadService } from 'src/app/shared/services/file-upload.service';
 
 @Component({
   selector: 'app-edit-work-modal',
@@ -12,10 +14,12 @@ export class EditWorkModalComponent implements OnInit {
 
   selectedCategories: string[] = [];
 
-  constructor(private modalService:NgbModal, private userService: UserService){}
+  constructor(private modalService:NgbModal, private userService: UserService, private fileUploadService: FileUploadService){}
 
-  @Input()
-  work!: IWork;
+  @Input() work!: IWork;
+  @Input() currentArtist!: Artist
+
+  pendingFiles: File[] = [];
 
   closeModal() {
     this.modalService.dismissAll();
@@ -42,8 +46,6 @@ export class EditWorkModalComponent implements OnInit {
     }
   }
 
-
-
   toggleCategory(category: string, event: Event) {
     const checkbox = event.target as HTMLInputElement;
 
@@ -58,6 +60,27 @@ export class EditWorkModalComponent implements OnInit {
       }
     }
     console.log("Selected categories after toggle:", this.selectedCategories);
+  }
+
+  onNewFilesSelected(event:any){
+    const files = event.target.files as FileList
+
+    if(files && files.length > 0){
+      this.pendingFiles = Array.from(files)
+    }
+  }
+
+  uploadFiles(){
+    this.pendingFiles.forEach((file:File) => {
+      this.fileUploadService.pushFileToStorage({file}, this.currentArtist)
+      .then((downloadUrl) => {
+        this.work.photo.push(downloadUrl)
+        console.log('Nuova immagine aggiunta:', downloadUrl);
+      })
+      .catch((error) => {console.error("Errore nel caricamento del file:", error);
+      })
+      this.pendingFiles = []
+    })
   }
 
   updateWork(){

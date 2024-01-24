@@ -145,6 +145,7 @@ export class DashboardComponent implements OnInit {
   openEditWorkModal(work:IWork){
     const modalRef = this.modalService.open(EditWorkModalComponent)
     modalRef.componentInstance.work = work
+    modalRef.componentInstance.currentArtist = this.artistData
   }
 
 

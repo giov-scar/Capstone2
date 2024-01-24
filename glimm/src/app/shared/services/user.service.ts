@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, forkJoin, map, of, throwError, switchMap, tap } from 'rxjs';
+import { Observable, catchError, map, of, throwError, switchMap } from 'rxjs';
 import { Artist } from 'src/app/classes/artist';
 import { IWork } from '../work';
 import { FileUploadService } from './file-upload.service';
@@ -11,7 +11,7 @@ import { FileUploadService } from './file-upload.service';
 })
 export class UserService {
 
-  private favorites: Set<string> = new Set();
+  // private favorites: Set<string> = new Set();
   constructor(private http: HttpClient, private fileUploadService: FileUploadService) { }
 
   getUserProfile(uid:string):Observable<Artist>{
