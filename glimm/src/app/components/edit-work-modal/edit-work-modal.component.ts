@@ -4,6 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Artist } from 'src/app/classes/artist';
 import { FileUploadService } from 'src/app/shared/services/file-upload.service';
+import { EditConfirmModalComponent } from '../modals/edit-confirm-modal/edit-confirm-modal.component';
 
 @Component({
   selector: 'app-edit-work-modal',
@@ -82,6 +83,21 @@ export class EditWorkModalComponent implements OnInit {
       this.pendingFiles = []
     })
   }
+
+
+  openConfirmModal() {
+    // Qui apri il modale di conferma
+    const modalRef = this.modalService.open(EditConfirmModalComponent);
+    modalRef.result.then((result) => {
+      if (result === 'confirm') {
+        this.updateWork();
+      }
+    }, (reason) => {
+      // Non fare nulla se il modale viene chiuso senza confermare
+      // Il primo modale rimarrà aperto
+    });
+  }
+
 
   updateWork(){
     if(!this.work) return

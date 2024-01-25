@@ -39,6 +39,7 @@ import { UploadDetailsComponent } from './components/upload-details/upload-detai
 import { UploadWorkComponent } from './components/upload-work/upload-work.component';
 import { ToastrModule } from 'ngx-toastr';
 import { EditWorkModalComponent } from './components/edit-work-modal/edit-work-modal.component';
+import { EditConfirmModalComponent } from './components/modals/edit-confirm-modal/edit-confirm-modal.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -62,6 +63,7 @@ import { EditWorkModalComponent } from './components/edit-work-modal/edit-work-m
         UploadListComponent,
         UploadDetailsComponent,
         EditWorkModalComponent,
+        EditConfirmModalComponent,
 
 
 
