@@ -83,15 +83,14 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  // removeFavorite(workId: string) {
-  //   this.userService.removeFavorite(this.uid, workId).subscribe(
-  //     () => {
-  //       // Rimuovi il lavoro dall'array di lavori preferiti
-  //       this.favoriteWorks = this.favoriteWorks.filter(work => work.id !== workId);
-  //     },
-  //     error => console.error('Errore durante la rimozione del lavoro dai preferiti', error)
-  //   );
-  // }
+  removeFavorite(workId: string) {
+    this.userService.removeFavorite(this.uid, workId).subscribe(() => {
+        // Rimuovi il lavoro dall'array di lavori preferiti
+        this.userFavorites = this.userFavorites.filter(work => work.id !== workId);
+      },
+      error => console.error('Errore durante la rimozione del lavoro dai preferiti', error)
+    );
+  }
 
   ShowSuccess(){
     this.toastr.show('Now your work is pubblished!', `🎉 Upload completed successfully!`,{
