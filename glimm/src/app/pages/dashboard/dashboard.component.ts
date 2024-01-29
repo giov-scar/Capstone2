@@ -13,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 import { IWork } from 'src/app/shared/work';
 import { UserService } from 'src/app/shared/services/user.service';
 import { EditWorkModalComponent } from 'src/app/components/edit-work-modal/edit-work-modal.component';
+import { DeleteUserWorkModalComponent } from 'src/app/components/modals/delete-user-work-modal/delete-user-work-modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -141,10 +142,29 @@ export class DashboardComponent implements OnInit {
 
   }
 
+  deleteWork(workId:string){
+    this.userService.deleteWork(this.uid, workId).subscribe(() => {
+      this.loadUserWorks()
+    }, error => {
+      console.error('Error during deleting work', error);
+    })
+  }
+
   openEditWorkModal(work:IWork){
     const modalRef = this.modalService.open(EditWorkModalComponent)
     modalRef.componentInstance.work = work
     modalRef.componentInstance.currentArtist = this.artistData
+  }
+
+  openDeleteWorkModal(workId:string){
+    const modalRef = this.modalService.open(DeleteUserWorkModalComponent)
+    modalRef.result.then((result) =>{
+      if (result === 'confirmed'){
+        this.deleteWork(workId)
+      }
+    }, (reason) => {
+      
+    })
   }
 
 
