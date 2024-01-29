@@ -29,7 +29,13 @@ export class UserService {
       `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}/uploadedWork.json`
     ).pipe(
       map(uploadedWorks => {
-        return Object.values(uploadedWorks || {}).filter(work => work.id && work.id.startsWith('work_'));
+        const worksArray =  Object.values(uploadedWorks || {}).filter(work => work.id && work.id.startsWith('work_'));
+        worksArray.sort((a, b) => {
+          const dateA = new Date(a.createdAt).getTime();
+          const dateB = new Date(b.createdAt).getTime();
+          return dateB - dateA; // Ordine decrescente
+      });
+      return worksArray;
       }),
       catchError(error => {
         console.error('Errore durante il recupero dei lavori dell\'utente', error);
