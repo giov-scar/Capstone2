@@ -11,7 +11,6 @@ import { FileUploadService } from './file-upload.service';
 })
 export class UserService {
 
-  // private favorites: Set<string> = new Set();
   constructor(private http: HttpClient, private fileUploadService: FileUploadService) { }
 
   getUserProfile(uid:string):Observable<Artist>{
@@ -33,7 +32,7 @@ export class UserService {
         worksArray.sort((a, b) => {
           const dateA = new Date(a.createdAt).getTime();
           const dateB = new Date(b.createdAt).getTime();
-          return dateB - dateA; // Ordine decrescente
+          return dateB - dateA;
       });
       return worksArray;
       }),
