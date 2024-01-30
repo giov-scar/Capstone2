@@ -14,6 +14,7 @@ import { IWork } from 'src/app/shared/work';
 import { UserService } from 'src/app/shared/services/user.service';
 import { EditWorkModalComponent } from 'src/app/components/edit-work-modal/edit-work-modal.component';
 import { DeleteUserWorkModalComponent } from 'src/app/components/modals/delete-user-work-modal/delete-user-work-modal.component';
+import { EditProfilePictureModalComponent } from 'src/app/components/modals/edit-profile-picture-modal/edit-profile-picture-modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -163,7 +164,18 @@ export class DashboardComponent implements OnInit {
         this.deleteWork(workId)
       }
     }, (reason) => {
-      
+
+    })
+  }
+
+  openEditProfilePictureModal(){
+    const modalRef = this.modalService.open(EditProfilePictureModalComponent)
+    modalRef.result.then((newImageUrl) => {
+      if (newImageUrl){
+        this.userService.updateProfilePicture(this.uid, newImageUrl).subscribe(() => {
+          this.loadUserProfile()
+        })
+      }
     })
   }
 

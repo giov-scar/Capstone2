@@ -41,6 +41,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { EditWorkModalComponent } from './components/edit-work-modal/edit-work-modal.component';
 import { EditConfirmModalComponent } from './components/modals/edit-confirm-modal/edit-confirm-modal.component';
 import { DeleteUserWorkModalComponent } from './components/modals/delete-user-work-modal/delete-user-work-modal.component';
+import { EditProfilePictureModalComponent } from './components/modals/edit-profile-picture-modal/edit-profile-picture-modal.component';
+import { ConfirmProfileUpdateModalComponent } from './components/modals/confirm-profile-update-modal/confirm-profile-update-modal.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -66,6 +68,8 @@ import { DeleteUserWorkModalComponent } from './components/modals/delete-user-wo
         EditWorkModalComponent,
         EditConfirmModalComponent,
         DeleteUserWorkModalComponent,
+        EditProfilePictureModalComponent,
+        ConfirmProfileUpdateModalComponent,
 
 
 
