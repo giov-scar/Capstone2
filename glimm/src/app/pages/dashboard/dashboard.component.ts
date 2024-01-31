@@ -15,6 +15,7 @@ import { UserService } from 'src/app/shared/services/user.service';
 import { EditWorkModalComponent } from 'src/app/components/edit-work-modal/edit-work-modal.component';
 import { DeleteUserWorkModalComponent } from 'src/app/components/modals/delete-user-work-modal/delete-user-work-modal.component';
 import { EditProfilePictureModalComponent } from 'src/app/components/modals/edit-profile-picture-modal/edit-profile-picture-modal.component';
+import { ConfirmProfileUpdateModalComponent } from 'src/app/components/modals/confirm-profile-update-modal/confirm-profile-update-modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -168,16 +169,31 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  openEditProfilePictureModal(){
-    const modalRef = this.modalService.open(EditProfilePictureModalComponent)
-    modalRef.result.then((newImageUrl) => {
-      if (newImageUrl){
-        this.userService.updateProfilePicture(this.uid, newImageUrl).subscribe(() => {
-          this.loadUserProfile()
-        })
+  openEditProfilePictureModal(): void {
+    const modalRef = this.modalService.open(EditProfilePictureModalComponent);
+    modalRef.componentInstance.artistData = this.artistData;
+
+    modalRef.result.then((selectedFile) => {
+      if (selectedFile) {
+        // Dopo aver ottenuto il file selezionato, apri il modale di conferma
+        const confirmModalRef = this.modalService.open(ConfirmProfileUpdateModalComponent);
+        confirmModalRef.result.then((result) => {
+          if (result === 'confirm') {
+            // Solo dopo la conferma, procedi con l'upload effettivo e l'aggiornamento del profilo
+            this.uploadService.pushFileToStorage({ file: selectedFile }, this.artistData).then((downloadURL) => {
+              this.userService.updateProfilePicture(this.artistData.uid, downloadURL).subscribe(() => {
+                // Aggiorna i dati dell'utente nella UI
+                this.loadUserProfile();
+              });
+            });
+          }
+        });
       }
-    })
+    }).catch((reason) => {
+      console.log('Dismissed', reason);
+    });
   }
+
 
 
 }

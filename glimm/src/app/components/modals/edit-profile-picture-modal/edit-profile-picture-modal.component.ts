@@ -1,8 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ConfirmProfileUpdateModalComponent } from '../confirm-profile-update-modal/confirm-profile-update-modal.component';
-import { FileUploadService } from 'src/app/shared/services/file-upload.service';
-import { UserService } from 'src/app/shared/services/user.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Artist } from 'src/app/classes/artist';
 
 @Component({
@@ -11,7 +8,35 @@ import { Artist } from 'src/app/classes/artist';
   styleUrls: ['./edit-profile-picture-modal.component.scss']
 })
 export class EditProfilePictureModalComponent {
-  constructor (public activeModal: NgbActiveModal, private modalService: NgbModal, private uploadService:FileUploadService, private userService:UserService) {}
+  @Input() artistData!: Artist
+  selectedFile: File | null = null;
+  previewUrl: string | null = null;
 
+  constructor (public activeModal: NgbActiveModal) {}
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+    if (this.selectedFile) {
+      // Crea un URL di anteprima per il file selezionato
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.previewUrl = reader.result as string;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+
+  upload(): void {
+    // Questo metodo ora si limita a mostrare l'anteprima dell'immagine selezionata
+    // L'upload effettivo verrà gestito dopo la conferma nel secondo modale
+  }
+
+  confirmUpdate():void{
+    if (this.selectedFile){
+      this.activeModal.close(this.selectedFile)
+    } else {
+      this.activeModal.dismiss('file not selected')
+    }
+  }
 
 }

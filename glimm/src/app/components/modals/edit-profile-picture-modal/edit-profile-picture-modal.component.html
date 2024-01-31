@@ -5,17 +5,15 @@
 <div class="modal-body">
   <div class="row mt-3">
     <div class="col-10">
-      <input type="file" class="form-control rounded-pill mb-3">
+      <input type="file" class="form-control rounded-pill mb-3" (change)="onFileSelected($event)">
     </div>
 
-    <div class="col-1" style="margin-left: -10px;">
-      <button class="rounded-pill dashboard-btn">
-        Upload
-      </button>
-    </div>
   </div>
+  <div class="d-flex justify-content-center">
+  <img *ngIf="previewUrl" [src]="previewUrl" class="img-fluid mx-auto rounded-circle object-fit-cover" style="height: 200px; width: 200px;">
+</div>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-secondary">Cancel</button>
-  <button type="button" class="btn btn-primary">Confirm</button>
+  <button type="button" class="btn btn-secondary" (click)="activeModal.dismiss()">Cancel</button>
+  <button type="button" class="btn btn-primary" (click)="confirmUpdate()">Confirm</button>
 </div>
