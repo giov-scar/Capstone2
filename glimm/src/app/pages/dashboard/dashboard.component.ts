@@ -16,6 +16,8 @@ import { EditWorkModalComponent } from 'src/app/components/edit-work-modal/edit-
 import { DeleteUserWorkModalComponent } from 'src/app/components/modals/delete-user-work-modal/delete-user-work-modal.component';
 import { EditProfilePictureModalComponent } from 'src/app/components/modals/edit-profile-picture-modal/edit-profile-picture-modal.component';
 import { ConfirmProfileUpdateModalComponent } from 'src/app/components/modals/confirm-profile-update-modal/confirm-profile-update-modal.component';
+import { ConfirmCoverImageModalComponent } from 'src/app/components/modals/confirm-cover-image-modal/confirm-cover-image-modal.component';
+import { EditCoverImageModalComponent } from 'src/app/components/modals/edit-cover-image-modal/edit-cover-image-modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -169,28 +171,72 @@ export class DashboardComponent implements OnInit {
     })
   }
 
-  openEditProfilePictureModal(): void {
-    const modalRef = this.modalService.open(EditProfilePictureModalComponent);
-    modalRef.componentInstance.artistData = this.artistData;
+  openGenericModal(modalType: string, modalData: any = {}): void {
+    let modalComponent;
+    switch (modalType) {
+      case 'editProfilePicture':
+        modalComponent = EditProfilePictureModalComponent;
+        break;
+      case 'editCoverPicture':
+        modalComponent = EditCoverImageModalComponent;
+        break;
+      default:
+        console.error('Unknown modal type');
+        return;
+    }
 
-    modalRef.result.then((selectedFile) => {
-      if (selectedFile) {
-        // Dopo aver ottenuto il file selezionato, apri il modale di conferma
-        const confirmModalRef = this.modalService.open(ConfirmProfileUpdateModalComponent);
-        confirmModalRef.result.then((result) => {
-          if (result === 'confirm') {
-            // Solo dopo la conferma, procedi con l'upload effettivo e l'aggiornamento del profilo
-            this.uploadService.pushFileToStorage({ file: selectedFile }, this.artistData).then((downloadURL) => {
-              this.userService.updateProfilePicture(this.artistData.uid, downloadURL).subscribe(() => {
-                // Aggiorna i dati dell'utente nella UI
-                this.loadUserProfile();
-              });
-            });
-          }
-        });
+    const modalRef = this.modalService.open(modalComponent);
+    Object.keys(modalData).forEach(key => {
+      modalRef.componentInstance[key] = modalData[key];
+    });
+
+    modalRef.result.then((result) => {
+      if (result) {
+        this.handleModalResult(modalType, result);
       }
     }).catch((reason) => {
-      console.log('Dismissed', reason);
+      console.log('Modal dismissed', reason);
+    });
+  }
+
+
+  handleModalResult(modalComponent: string, result: any): void {
+
+    switch (modalComponent) {
+      case 'editProfilePicture':
+        if (result) this.confirmProfileUpdate(result);
+        break;
+      case 'editCoverPicture':
+        if (result) this.confirmCoverUpdate(result);
+        break;
+      default:
+        console.log('Unhandled modal component', modalComponent);
+    }
+  }
+
+  confirmProfileUpdate(selectedFile: File): void {
+    const confirmModalRef = this.modalService.open(ConfirmProfileUpdateModalComponent);
+    confirmModalRef.result.then((confirmResult) => {
+      if (confirmResult === 'confirm') {
+        this.uploadService.pushFileToStorage({ file: selectedFile }, this.artistData).then((downloadURL) => {
+          this.userService.updateProfilePicture(this.artistData.uid, downloadURL).subscribe(() => {
+            this.loadUserProfile();
+          });
+        });
+      }
+    });
+  }
+
+  confirmCoverUpdate(selectedFile: File): void {
+    const confirmModalRef = this.modalService.open(ConfirmCoverImageModalComponent);
+    confirmModalRef.result.then((confirmResult) => {
+      if (confirmResult === 'confirm') {
+        this.uploadService.pushFileToStorage({ file: selectedFile }, this.artistData).then((downloadURL) => {
+          this.userService.updateCoverImage(this.artistData.uid, downloadURL).subscribe(() => {
+            this.loadUserProfile();
+          });
+        });
+      }
     });
   }
 

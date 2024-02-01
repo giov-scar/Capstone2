@@ -101,30 +101,30 @@
         View profile
       </p>
     </a>
-    <button class="border-0 bg-transparent ps-0" (click)="openEditProfilePictureModal()">
+    <button class="border-0 bg-transparent ps-0" (click)="openGenericModal('editProfilePicture', {artistData:artistData})">
       <p class="ps-3" style="color: #4155e2;">
         <i class="bi bi-person-fill settings-icon"></i>
         Edit profile image
       </p>
     </button>
-    <a routerLink="/artist">
-      <p class="ps-3">
+    <button class="border-0 bg-transparent ps-0" (click)="openGenericModal('editCoverPicture', {artistData:artistData})">
+      <p class="ps-3" style="color: #4155e2;">
         <i class="bi bi-image settings-icon"></i>
         Edit cover image
       </p>
-    </a>
-    <a routerLink="/artist">
-      <p class="ps-3">
+    </button>
+    <button class="border-0 bg-transparent ps-0">
+      <p class="ps-3" style="color: #4155e2;">
         <i class="bi bi-card-text settings-icon"></i>
         Edit your intro
       </p>
-    </a>
-    <a routerLink="/artist">
-      <p class="ps-3">
+    </button>
+    <button class="border-0 bg-transparent ps-0">
+      <p class="ps-3" style="color: #4155e2;">
         <i class="bi bi-mortarboard-fill"></i>
         Edit your education
       </p>
-    </a>
+    </button>
 
       <hr>
       <a (click)="authService.SignOut()" class="logout">

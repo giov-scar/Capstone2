@@ -43,6 +43,8 @@ import { EditConfirmModalComponent } from './components/modals/edit-confirm-moda
 import { DeleteUserWorkModalComponent } from './components/modals/delete-user-work-modal/delete-user-work-modal.component';
 import { EditProfilePictureModalComponent } from './components/modals/edit-profile-picture-modal/edit-profile-picture-modal.component';
 import { ConfirmProfileUpdateModalComponent } from './components/modals/confirm-profile-update-modal/confirm-profile-update-modal.component';
+import { EditCoverImageModalComponent } from './components/modals/edit-cover-image-modal/edit-cover-image-modal.component';
+import { ConfirmCoverImageModalComponent } from './components/modals/confirm-cover-image-modal/confirm-cover-image-modal.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -70,6 +72,8 @@ import { ConfirmProfileUpdateModalComponent } from './components/modals/confirm-
         DeleteUserWorkModalComponent,
         EditProfilePictureModalComponent,
         ConfirmProfileUpdateModalComponent,
+        EditCoverImageModalComponent,
+        ConfirmCoverImageModalComponent,
 
 
 
