@@ -47,6 +47,8 @@ import { EditCoverImageModalComponent } from './components/modals/edit-cover-ima
 import { ConfirmCoverImageModalComponent } from './components/modals/confirm-cover-image-modal/confirm-cover-image-modal.component';
 import { EditIntroModalComponent } from './components/modals/edit-intro-modal/edit-intro-modal.component';
 import { ConfirmIntroModalComponent } from './components/modals/confirm-intro-modal/confirm-intro-modal.component';
+import { ConfirmEducationComponent } from './components/modals/confirm-education/confirm-education.component';
+import { EditEducationComponent } from './components/modals/edit-education/edit-education.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -78,6 +80,8 @@ import { ConfirmIntroModalComponent } from './components/modals/confirm-intro-mo
         ConfirmCoverImageModalComponent,
         EditIntroModalComponent,
         ConfirmIntroModalComponent,
+        ConfirmEducationComponent,
+        EditEducationComponent,
 
 
 

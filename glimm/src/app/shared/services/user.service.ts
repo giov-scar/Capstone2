@@ -157,6 +157,11 @@ updateIntroText(userId:string, newText:string):Observable<any>{
   return this.http.patch(url, {intro: newText})
 }
 
+updateEducation(userId:string, newBAText:string, newMAText:string):Observable<any>{
+  const url = `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json`;
+  return this.http.patch(url, {baCourse: newBAText, maCourse: newMAText})
+}
+
 
 
 }

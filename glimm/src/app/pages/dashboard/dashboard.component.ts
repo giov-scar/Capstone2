@@ -20,6 +20,8 @@ import { ConfirmCoverImageModalComponent } from 'src/app/components/modals/confi
 import { EditCoverImageModalComponent } from 'src/app/components/modals/edit-cover-image-modal/edit-cover-image-modal.component';
 import { EditIntroModalComponent } from 'src/app/components/modals/edit-intro-modal/edit-intro-modal.component';
 import { ConfirmIntroModalComponent } from 'src/app/components/modals/confirm-intro-modal/confirm-intro-modal.component';
+import { EditEducationComponent } from 'src/app/components/modals/edit-education/edit-education.component';
+import { ConfirmEducationComponent } from 'src/app/components/modals/confirm-education/confirm-education.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -185,6 +187,9 @@ export class DashboardComponent implements OnInit {
         case 'editIntro':
           modalComponent = EditIntroModalComponent;
           break
+          case 'editEducation':
+            modalComponent = EditEducationComponent;
+            break
       default:
         console.error('Unknown modal type');
         return;
@@ -217,6 +222,12 @@ export class DashboardComponent implements OnInit {
         case 'editIntro':
           if (result) this.confirmIntroUpdate(result);
           break;
+          case 'editEducation':
+            if (result){
+              const { newBACourse, newMACourse } = result
+              this.confirmEducation(newBACourse, newMACourse);
+            }
+            break;
       default:
         console.log('Unhandled modal component', modalComponent);
     }
@@ -257,6 +268,17 @@ export class DashboardComponent implements OnInit {
         });
       }
     });
+  }
+
+  confirmEducation(newBACourse:string, newMACourse:string): void {
+    const confirmModalRef = this.modalService.open(ConfirmEducationComponent);
+    confirmModalRef.result.then((confirmResult) => {
+      if (confirmResult === 'confirm') {
+        this.userService.updateEducation(this.artistData.uid, newBACourse, newMACourse).subscribe(() => {
+          this.loadUserProfile();
+        });
+      }
+    })
   }
 
 
