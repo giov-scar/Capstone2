@@ -45,6 +45,8 @@ import { EditProfilePictureModalComponent } from './components/modals/edit-profi
 import { ConfirmProfileUpdateModalComponent } from './components/modals/confirm-profile-update-modal/confirm-profile-update-modal.component';
 import { EditCoverImageModalComponent } from './components/modals/edit-cover-image-modal/edit-cover-image-modal.component';
 import { ConfirmCoverImageModalComponent } from './components/modals/confirm-cover-image-modal/confirm-cover-image-modal.component';
+import { EditIntroModalComponent } from './components/modals/edit-intro-modal/edit-intro-modal.component';
+import { ConfirmIntroModalComponent } from './components/modals/confirm-intro-modal/confirm-intro-modal.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -74,6 +76,8 @@ import { ConfirmCoverImageModalComponent } from './components/modals/confirm-cov
         ConfirmProfileUpdateModalComponent,
         EditCoverImageModalComponent,
         ConfirmCoverImageModalComponent,
+        EditIntroModalComponent,
+        ConfirmIntroModalComponent,
 
 
 

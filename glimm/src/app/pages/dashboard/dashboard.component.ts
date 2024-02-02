@@ -18,6 +18,8 @@ import { EditProfilePictureModalComponent } from 'src/app/components/modals/edit
 import { ConfirmProfileUpdateModalComponent } from 'src/app/components/modals/confirm-profile-update-modal/confirm-profile-update-modal.component';
 import { ConfirmCoverImageModalComponent } from 'src/app/components/modals/confirm-cover-image-modal/confirm-cover-image-modal.component';
 import { EditCoverImageModalComponent } from 'src/app/components/modals/edit-cover-image-modal/edit-cover-image-modal.component';
+import { EditIntroModalComponent } from 'src/app/components/modals/edit-intro-modal/edit-intro-modal.component';
+import { ConfirmIntroModalComponent } from 'src/app/components/modals/confirm-intro-modal/confirm-intro-modal.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -180,6 +182,9 @@ export class DashboardComponent implements OnInit {
       case 'editCoverPicture':
         modalComponent = EditCoverImageModalComponent;
         break;
+        case 'editIntro':
+          modalComponent = EditIntroModalComponent;
+          break
       default:
         console.error('Unknown modal type');
         return;
@@ -209,6 +214,9 @@ export class DashboardComponent implements OnInit {
       case 'editCoverPicture':
         if (result) this.confirmCoverUpdate(result);
         break;
+        case 'editIntro':
+          if (result) this.confirmIntroUpdate(result);
+          break;
       default:
         console.log('Unhandled modal component', modalComponent);
     }
@@ -239,6 +247,18 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+
+  confirmIntroUpdate(newIntroText: string): void {
+    const confirmModalRef = this.modalService.open(ConfirmIntroModalComponent);
+    confirmModalRef.result.then((confirmResult) => {
+      if (confirmResult === 'confirm') {
+        this.userService.updateIntroText(this.artistData.uid, newIntroText).subscribe(() => {
+          this.loadUserProfile();
+        });
+      }
+    });
+  }
+
 
 
 

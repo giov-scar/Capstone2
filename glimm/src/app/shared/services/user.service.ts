@@ -152,6 +152,11 @@ updateCoverImage(userId: string, newImageUrl: string): Observable<any>{
   return this.http.patch(url, {coverImg: newImageUrl})
 }
 
+updateIntroText(userId:string, newText:string):Observable<any>{
+  const url = `https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json`;
+  return this.http.patch(url, {intro: newText})
+}
+
 
 
 }
