@@ -49,6 +49,7 @@ import { EditIntroModalComponent } from './components/modals/edit-intro-modal/ed
 import { ConfirmIntroModalComponent } from './components/modals/confirm-intro-modal/confirm-intro-modal.component';
 import { ConfirmEducationComponent } from './components/modals/confirm-education/confirm-education.component';
 import { EditEducationComponent } from './components/modals/edit-education/edit-education.component';
+import { StepperComponent } from './components/stepper/stepper.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -82,6 +83,7 @@ import { EditEducationComponent } from './components/modals/edit-education/edit-
         ConfirmIntroModalComponent,
         ConfirmEducationComponent,
         EditEducationComponent,
+        StepperComponent,
 
 
 
