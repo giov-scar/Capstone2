@@ -1,3 +1,5 @@
+@import '../../../styles.scss';
+
 #stepper{
   margin-bottom: 50px;
   background-color: rgba(0, 0, 0, 0.1);
@@ -12,16 +14,16 @@
 }
 
 #progress-bar-container li.active{
-  color: #84e8a0;
+  color: $glimmGreen;
 }
 
 
 #progress-bar-container li:hover {
-  color: #f32487;
+  color: $glimmPink;
 }
 
 #progress-bar-container > li.active{
-  color: #f32487;
+  color: $glimmPink;
 }
 
 #progress-bar-container li::after {
@@ -42,7 +44,7 @@
 }
 
 #progress-bar-container li.active::after {
-  background: #f32487;
+  background: $glimmPink;
 }
 
 #progress-bar-container #line {
@@ -62,8 +64,8 @@
   content: " ";
   width: 8%;
   height: 100%;
-  background-color: #f32487;
-  background: linear-gradient(to right #f32487 0%, #f32487 100%);
+  background-color: $glimmPink;
+  background: linear-gradient(to right $glimmPink 0%, $glimmPink 100%);
   position: absolute;
   z-index: 2;
   border-radius: 50px;
@@ -107,7 +109,7 @@
   opacity: 1;
   animation: FadeinUp 5s ease 1 forwards;
   h2{
-    color: #f32487;
+    color: $glimmPink;
     font-weight: bold;
   }
 }
@@ -142,13 +144,13 @@
 
 #progress-bar-container li:hover::before {
   border: 2px solid #fff;
-  background-color: #f32487;
-  color: #f32487;
+  background-color: $glimmPink;
+  color: $glimmPink;
 }
 
 #progress-bar-container li.active::before{
   border: 2px solid white;
-  background-color: #f32487;
+  background-color: $glimmPink;
 }
 
 #progress-bar-container li {

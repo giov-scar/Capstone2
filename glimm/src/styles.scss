@@ -1,5 +1,6 @@
-/* You can add global styles to this file, and also import other style files */
-
+$glimmBlue: #202a44;
+$glimmGreen: #84e8a0;
+$glimmPink:#f32487;
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
 
@@ -9,11 +10,11 @@
 }
 
 body.dark-theme {
-  background-color: #202a44;
+  background-color: $glimmBlue;
   color: white;
 
   .top-nav{
-    background-color: #202a44;
+    background-color: $glimmBlue
   }
 
   .logo-text{
@@ -21,7 +22,7 @@ body.dark-theme {
   }
 
   #menu-toggle:checked ~ .menu li{
-    background-color: #202a44;
+    background-color: $glimmBlue;
   }
 
   .black-on-dark-mode{
@@ -37,7 +38,7 @@ body.dark-theme {
   }
 
   .item {
-    background-color: #202a44;
+    background-color: $glimmBlue;
   }
 
   .item a {
@@ -45,11 +46,11 @@ body.dark-theme {
   }
 
   .item:hover{
-    background-color: #f32487;
+    background-color: $glimmPink;
   }
 
   .bg-title-work{
-    background-color: #202a44;
+    background-color: $glimmBlue;
   }
 
   .artist-name{
@@ -65,7 +66,7 @@ body.dark-theme {
   }
 
   .modal-content{
-    background-color: #202a44;
+    background-color: $glimmBlue;
   }
 
 
@@ -113,7 +114,7 @@ body.dark-theme {
 .border-gradient{
   border-top: 1px solid;
   border-image-slice: 1;
-  border-image-source: linear-gradient(to right, #f32487, #4155e2);
+  border-image-source: linear-gradient(to right, $glimmPink, $glimmBlue);
 }
 
 /**
@@ -135,7 +136,7 @@ body.dark-theme {
   height: 2px;
   bottom: 0;
   left: 0;
-  background-color: #f32487;
+  background-color: $glimmPink;
   transform-origin: bottom right;
   transition: transform 0.25s ease-out;
 }

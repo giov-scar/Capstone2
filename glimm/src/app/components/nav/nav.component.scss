@@ -151,9 +151,6 @@ a {
 }
 
 
-
-
-
 // SEARCH
 // ------------------------------------------------------------------------------------------------
 
@@ -259,6 +256,8 @@ a {
     justify-content:center;
     align-items:center;
     padding-left: 0;
+    background-color: #202a44;
+    z-index: -1;
   }
 
   #menu-toggle ~ .menu li {
@@ -286,6 +285,19 @@ a {
     flex-wrap: wrap;
   }
 
+  .menu-link{
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .discover{
+    width: 100%;
+  }
+
+  .discover > ul > li:hover {
+    background-color: #f32487;
+  }
+
   #drop-4~.list {
   display: none;
   }
@@ -307,6 +319,7 @@ a {
     position: static;
     border-bottom: 1px solid #eee;
   }
+
 
   .search{
     margin: 10px 0;

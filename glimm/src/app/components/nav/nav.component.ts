@@ -80,6 +80,9 @@ export class NavComponent implements OnInit {
     this.isDropdownOpen = !this.isDropdownOpen;
   }
 
+  selectMenuItem() {
+    this.isDropdownOpen = false;
+  }
 
 closeMenu() {
   this.isMenuCollapsed = true;
