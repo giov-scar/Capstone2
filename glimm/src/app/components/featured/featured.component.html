@@ -1,32 +1,45 @@
 <div class="container-fluid">
   <div class="row pt-5 fade-in">
     <h2 class="">Latest works</h2>
-</div>
-<hr class="mt-0">
-<div class="container px-2 py-5" id="custom-cards">
-
-
-  <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5" >
-
-    <div class="col col-lg-4 col-sm-12 col-12" *ngFor="let work of works">
-      <a [routerLink]="['/work', work.id]" class="text-decoration-none">
-      <div *ngIf="work.photo && work.photo.length > 0 "class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url({{work.photo[0]}})">
-        <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
-          <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">{{work.title}}</h3>
-          <ul class="d-flex list-unstyled mt-auto">
-            <li class="me-auto" *ngIf="work.photo.length > 0">
-              <img src="{{work.profilePicture}}" alt="User Profile Image" width="32" height="32" class="rounded-circle border border-white" style="object-fit: cover;">
-            </li>
-            <li class="d-flex align-items-center me-3" *ngIf="work.category && work.category.length > 0">
-              <small>{{work.category[0]}}</small>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </a>
-    </div>
-
-
   </div>
-</div>
+  <hr class="mt-0" />
+  <div class="container px-2 py-5" id="custom-cards">
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+      <div class="col col-lg-4 col-sm-12 col-12" *ngFor="let work of works">
+        <a [routerLink]="['/work', work.id]" class="text-decoration-none">
+          <div
+            *ngIf="work.photo && work.photo.length > 0"
+            class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg"
+            style="background-image: url({{ work.photo[0] }})"
+          >
+            <div
+              class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1"
+            >
+              <h3 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">
+                {{ work.title }}
+              </h3>
+              <ul class="d-flex list-unstyled mt-auto">
+                <li class="me-auto" *ngIf="work.photo.length > 0">
+                  <img
+                    src="{{ work.profilePicture }}"
+                    alt="User Profile Image"
+                    width="32"
+                    height="32"
+                    class="rounded-circle border border-white"
+                    style="object-fit: cover"
+                  />
+                </li>
+                <li
+                  class="d-flex align-items-center me-3"
+                  *ngIf="work.category && work.category.length > 0"
+                >
+                  <small>{{ work.category[0] }}</small>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 </div>

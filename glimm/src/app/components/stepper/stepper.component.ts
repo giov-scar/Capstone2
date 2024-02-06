@@ -1,40 +1,34 @@
-import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-stepper',
   templateUrl: './stepper.component.html',
-  styleUrls: ['./stepper.component.scss']
+  styleUrls: ['./stepper.component.scss'],
 })
-export class StepperComponent implements AfterViewInit {
+export class StepperComponent {
   @ViewChild('progressContainer') progressContainer!: ElementRef;
   @ViewChild('step01') step01!: ElementRef;
   @ViewChild('step02') step02!: ElementRef;
   @ViewChild('step03') step03!: ElementRef;
   @ViewChild('lineProgress') lineProgress!: ElementRef;
+  activeStep: string = 'step1';
 
   constructor() {}
 
-  ngAfterViewInit() {
-    // Aggiungi i gestori di eventi qui
-    this.step01.nativeElement.addEventListener('click', () => this.stepClick(8, 'step1'));
-    this.step02.nativeElement.addEventListener('click', () => this.stepClick(50, 'step2'));
-    this.step03.nativeElement.addEventListener('click', () => this.stepClick(100, 'step3'));
-  }
-
-  stepClick(progress: number, stepClass: string) {
-    // Imposta la larghezza della barra di avanzamento
-    this.lineProgress.nativeElement.style.width = progress + '%';
-
-    // Rimuovi la classe 'active' da tutti gli elementi 'step'
-    const stepElements: NodeListOf<HTMLElement> = this.progressContainer.nativeElement.querySelectorAll('.step');
-    stepElements.forEach((step: HTMLElement) => {
-      step.classList.remove('active');
-    });
-
-    // Aggiungi la classe 'active' all'elemento corrente
-    const currentStep: HTMLElement | null = this.progressContainer.nativeElement.querySelector('.' + stepClass);
-    if (currentStep) {
-      currentStep.classList.add('active');
+  stepClick(stepClass: string) {
+    this.activeStep = stepClass; // Aggiorna lo step attivo
+    let progressWidth = '0%';
+    switch (stepClass) {
+      case 'step1':
+        progressWidth = '10%';
+        break;
+      case 'step2':
+        progressWidth = '50%';
+        break;
+      case 'step3':
+        progressWidth = '100%';
+        break;
     }
+    this.lineProgress.nativeElement.style.width = progressWidth;
   }
 }

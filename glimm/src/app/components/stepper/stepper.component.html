@@ -1,49 +1,76 @@
-<div #progressContainer class="progress-wrapper">
-  <div id="progress-bar-container">
-    <ul>
-      <li class="step step01 active" #step01>
-        <div class="step-inner">Step 1</div>
-      </li>
-      <li class="step step02" #step02>
-        <div class="step-inner">Step 2</div>
-      </li>
-      <li class="step step03" #step03>
-        <div class="step-inner">Step 3</div>
-      </li>
-    </ul>
-    <div id="line">
-      <div id="line-progress" #lineProgress></div>
+<div class="container-fluid" id="stepper">
+  <h2 class="fw-bold text-center">How does it work?</h2>
+  <div #progressContainer class="progress-wrapper">
+    <div id="progress-bar-container">
+      <ul>
+        <li
+          class="step step01"
+          [class.active]="activeStep === 'step1'"
+          (click)="stepClick('step1')"
+        >
+          <div class="step-inner">Register</div>
+        </li>
+        <li
+          class="step step02"
+          [class.active]="activeStep === 'step2'"
+          (click)="stepClick('step2')"
+        >
+          <div class="step-inner">Upload a work</div>
+        </li>
+        <li
+          class="step step03"
+          [class.active]="activeStep === 'step3'"
+          (click)="stepClick('step3')"
+        >
+          <div class="step-inner">Give a Glimm!</div>
+        </li>
+      </ul>
+      <div id="line">
+        <div id="line-progress" #lineProgress></div>
+      </div>
+      <!-- progress-bar-container -->
+      <div id="progress-content-section">
+        <div
+          class="section-content step1"
+          [class.active]="activeStep === 'step1'"
+          id="content1"
+        >
+          <h2>Register</h2>
+          <p>
+            Are you an aspiring artist looking to showcase your talent to the
+            world? Look no further than Glimm! Our platform welcomes you to
+            Register today and become a part of our thriving community of young,
+            creative minds. Join us and let your artistry shine!
+          </p>
+        </div>
+        <div
+          class="section-content step2"
+          [class.active]="activeStep === 'step2'"
+          id="content2"
+        >
+          <h2>Upload a work</h2>
+          <p>
+            Unveil your artistic genius with Glimm! Whether you're a painter,
+            photographer, or any kind of creative, it's time to Upload a work
+            that truly represents your vision. Share your passion and let your
+            artwork take center stage!
+          </p>
+        </div>
+        <div
+          class="section-content step3"
+          [class.active]="activeStep === 'step3'"
+          id="content3"
+        >
+          <h2>Give a Glimm!</h2>
+          <p>
+            Empower fellow artists and be part of something bigger than
+            yourself. On Glimm, you can Give a Glimm to your favorite creators,
+            providing them with the support and recognition they deserve.
+            Together, we can nurture creativity and inspire the world.
+          </p>
+        </div>
+      </div>
     </div>
-    <!-- progress-bar-container -->
-    <div id="progress-content-section">
-      <div class="section-content step1 active">
-        <h2>Step 1</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
-          impedit! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, soluta impedit. Eligendi aliquam ratione porro minus temporibus facilis iure numquam.
-        </p>
-      </div>
-      <div class="section-content step2">
-        <h2>Step 2</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
-          impedit! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, soluta impedit. Eligendi aliquam ratione porro minus temporibus facilis iure numquam.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
-          impedit! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, soluta impedit. Eligendi aliquam ratione porro minus temporibus facilis iure numquam.
-        </p>
-      </div>
-      <div class="section-content step3">
-        <h2>Step 3</h2>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
-          impedit! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, soluta impedit. Eligendi aliquam ratione porro minus temporibus facilis iure numquam.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
-          impedit! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, soluta impedit. Eligendi aliquam ratione porro minus temporibus facilis iure numquam.
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat,
-          impedit! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Necessitatibus, soluta impedit. Eligendi aliquam ratione porro minus temporibus facilis iure numquam.
-        </p>
-      </div>
-    </div>
+    <!-- progress-wrapper -->
   </div>
-  <!-- progress-wrapper -->
 </div>
