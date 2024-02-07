@@ -1,0 +1,33 @@
+<div class="search-container">
+  <div class="input-search">
+  <input
+    type="text"
+    placeholder="Search..."
+    class="rounded-pill border border-none"
+    (input)="onSearch($event)"
+  />
+</div>
+  <div
+    class="search-results text-bg-light rounded-bottom p-3" id="list-search-results"
+    *ngIf="searchResult?.artists?.length || searchResult?.works?.length"
+  >
+    <div id="artist-search"
+      *ngFor="let artist of searchResult?.artists"
+      (click)="goToArtist(artist.uid)"
+    >
+      {{ artist.artistname }} {{ artist.artistsurname }}
+    </div>
+    <div id="work-search" *ngFor="let work of searchResult?.works" (click)="goToWork(work.id)">
+      {{ work.title }}
+    </div>
+  </div>
+  <div
+    *ngIf="
+      searchQuery &&
+      !searchResult?.artists?.length &&
+      !searchResult?.works?.length
+    "
+  >
+    No results founds
+  </div>
+</div>

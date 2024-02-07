@@ -7,12 +7,13 @@ import { Observable, from } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Artist } from 'src/app/classes/artist';
+import { SearchComponent } from '../search/search.component';
 
 
 @Component({
   selector: 'app-nav',
   standalone: true,
-	imports: [NgbCollapseModule, RouterLink, NgbDropdownModule, NgbNavModule, CommonModule],
+	imports: [NgbCollapseModule, RouterLink, NgbDropdownModule, NgbNavModule, CommonModule, SearchComponent],
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.scss'],
 })

@@ -50,6 +50,7 @@ import { ConfirmIntroModalComponent } from './components/modals/confirm-intro-mo
 import { ConfirmEducationComponent } from './components/modals/confirm-education/confirm-education.component';
 import { EditEducationComponent } from './components/modals/edit-education/edit-education.component';
 import { StepperComponent } from './components/stepper/stepper.component';
+import { SearchComponent } from './components/search/search.component';
 @NgModule({
     declarations: [
         AppComponent,
@@ -88,6 +89,7 @@ import { StepperComponent } from './components/stepper/stepper.component';
 
 
 
+
     ],
     providers: [],
     bootstrap: [AppComponent],
@@ -101,6 +103,7 @@ import { StepperComponent } from './components/stepper/stepper.component';
         ReactiveFormsModule,
         HttpClientModule,
         UploadWorkComponent,
+        SearchComponent,
         provideFirebaseApp(() => initializeApp(environment.firebase)),
         provideAuth(() => getAuth()),
         provideDatabase(() => getDatabase()),

@@ -1,0 +1,24 @@
+.search-container{
+  position: relative;
+}
+
+#list-search-results{
+  z-index: -1;
+  top: 15px;
+  font-size: 1rem;
+  height: 100px;
+  width: 100%;
+  overflow: auto;
+  position: absolute;
+}
+
+#artist-search, #work-search{
+  border-bottom: 1px solid black;
+}
+
+@media (max-width: 48em) {
+  #list-search-results{
+    position: static;
+    width: 215px;
+  }
+}
