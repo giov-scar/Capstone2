@@ -80,24 +80,24 @@
         Related content
       </h5>
       <!-- RELATED CONTENTS -->
-      <div class="d-flex align-items-center">
-      <div>
-        <img src="https://www.pacegallery.com/media/images/10808_JgohBXz.width-2000.jpg" alt="Artist profile image" class="related-img">
+      <div class="d-flex align-items-center" *ngFor="let relatedWork of relatedWorks">
+      <div class="my-1">
+        <img src="{{relatedWork.photo[0]}}" alt="Work cover image" class="related-img object-fit-cover">
       </div>
-      <a routerLink="/work">
+      <a [routerLink]="['/work', relatedWork.id]">
       <div class="ms-3">
         <p class="fw-bold mb-0 white-on-dark-mode">
-          No.33
+          {{relatedWork.title}}
         </p>
         <p class="text-secondary mb-0">
-          Mark Rothko
+          {{relatedWork.artistName}} {{relatedWork.artistSurname}}
         </p>
       </div>
     </a>
       </div>
 
 
-      <div class="d-flex align-items-center my-3">
+      <!-- <div class="d-flex align-items-center my-3">
       <div>
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Parmigianino_Selfportrait.jpg" alt="Artist profile image" class="related-img">
       </div>
@@ -111,10 +111,10 @@
         </p>
       </div>
     </a>
-      </div>
+      </div> -->
 
 
-      <div class="d-flex align-items-center">
+      <!-- <div class="d-flex align-items-center">
       <div>
         <img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Raffaello_-_Spozalizio_-_Web_Gallery_of_Art.jpg" alt="Artist profile image" class="related-img">
       </div>
@@ -128,7 +128,7 @@
         </p>
       </div>
     </a>
-      </div>
+      </div> -->
 
 
     </div>

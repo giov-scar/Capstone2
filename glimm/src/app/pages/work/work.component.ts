@@ -14,6 +14,7 @@ export class WorkComponent implements OnInit {
   work: IWork | undefined
   artistData!: Artist;
   isFavorite: boolean = false
+  relatedWorks: IWork[] = [];
 
 
   constructor( private route: ActivatedRoute, private uploadService: FileUploadService, private userService: UserService){}
@@ -28,6 +29,9 @@ export class WorkComponent implements OnInit {
       if (workId) {
         this.uploadService.getWorkById(workId).subscribe(work => {
           this.work = work;
+          if (work && work.category && work.category.length > 0) {
+            this.loadRelatedWorks(work.category[0], workId);
+          }
           window.scroll(0,0)
           console.log(work);
           this.loadUserProfile();
@@ -79,6 +83,31 @@ export class WorkComponent implements OnInit {
     } else {
       alert('Per favore, esegui il login per aggiungere ai preferiti.');
     }
+  }
+
+  loadRelatedWorks(category:string, excludeWorkId:string){
+    this.uploadService.getWorksByCategory(category).subscribe(works => {
+      const filteredWorks = works.filter( work => work.id !== excludeWorkId)
+      if(filteredWorks.length >= 3 ){
+        this.relatedWorks = filteredWorks.slice(0, 3)
+      } else {
+        this.loadRandomWorks(3 - filteredWorks.length, filteredWorks)
+      }
+    })
+  }
+
+  loadRandomWorks(count: number, existingWorks: IWork[]){
+    this.uploadService.getWork().subscribe(allWorks => {
+      const possibleWorks = allWorks.filter( work =>
+        !existingWorks.find(existingWorks => existingWorks.id === work.id)
+      )
+      while(this.relatedWorks.length < count && possibleWorks.length > 0){
+        const randomIndex = Math.floor(Math.random()* possibleWorks.length)
+        this.relatedWorks.push(possibleWorks[randomIndex])
+        possibleWorks.splice(randomIndex, 1)
+      }
+      this.relatedWorks = [...existingWorks, ...this.relatedWorks].slice(0,3)
+    })
   }
 
 
