@@ -1,11 +1,9 @@
 import { IWork } from './../work';
 import { Injectable } from '@angular/core';
-import { Database, getDatabase, ref } from '@angular/fire/database';
+import { getDatabase, ref } from '@angular/fire/database';
 import { Storage,ref as StorageRef, deleteObject, getDownloadURL } from '@angular/fire/storage';
 import { uploadBytes } from '@angular/fire/storage';
 import { FileUpload } from 'src/app/models/file-upload.model';
-import { Firestore, collectionData } from '@angular/fire/firestore';
-import { collection, doc, arrayRemove, updateDoc} from 'firebase/firestore';
 import { Artist } from 'src/app/classes/artist';
 import { Observable, Subject, catchError, map, throwError } from 'rxjs';
 import { update } from 'firebase/database';
@@ -21,12 +19,7 @@ export class FileUploadService {
   usersData!: Observable<any>;
   private worksArray: IWork[] = []
 
-  constructor(
-    private storage: Storage,
-    private firestore: Firestore,
-    private db: Database,
-    private http: HttpClient,
-  ) {}
+  constructor( private storage: Storage, private http: HttpClient) {}
 
   pushFileToStorage(newPost: Partial<FileUpload>, currentArtist: Artist): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -47,14 +40,6 @@ export class FileUploadService {
 }
 
 
-  getFiles(user: Artist) {
-    const dbRef = collection(
-      this.firestore,
-      `${this.basePath}/${user.uid}/user`
-    );
-    console.log(user);
-    return collectionData(dbRef, { idField: 'id' });
-  }
 
   async getDownloadURL(
     fileName: string,
@@ -75,25 +60,20 @@ export class FileUploadService {
 
   async deleteFile(fileUpload: FileUpload, currentArtist: Artist) {
     try {
-      // Remove from Cloud Storage.
-      const storageRef = StorageRef(
-        this.storage,
-        `${this.basePath}/${currentArtist.uid}/user/${fileUpload.file.name}`
-      );
-      deleteObject(storageRef);
+        // Remove from Cloud Storage.
+        const storageRef = StorageRef(
+            this.storage,
+            `${this.basePath}/${currentArtist.uid}/user/${fileUpload.file.name}`
+        );
+        await deleteObject(storageRef);
 
-      // Remove from Firestore.
-      console.log(fileUpload);
-      const fileRef = doc(
-        this.firestore,
-        `glimm/uploads/work/`
-      );
+        console.log('File eliminato con successo da Cloud Storage.');
+    } catch (error) {
+        console.error('Errore durante l\'eliminazione del file:', error);
+        throw error;
+    }
+}
 
-      await updateDoc(fileRef, { photo: arrayRemove(`${fileUpload['url']}`) });
-
-      console.log('File eliminato con successo.');
-    } catch (error) {}
-  }
 
   work!:IWork
   postWork(title: string, description: string, category: string[], photo: string[], currentArtist: Artist) {
@@ -184,8 +164,5 @@ getWorksByCategory(category: string): Observable<IWork[]> {
     )
   );
 }
-
-
-
 
 }
