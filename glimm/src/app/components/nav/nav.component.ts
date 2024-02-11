@@ -18,7 +18,7 @@ import { SearchComponent } from '../search/search.component';
   styleUrls: ['./nav.component.scss'],
 })
 
-export class NavComponent implements OnInit {
+export class NavComponent {
   isMenuCollapsed = true;
   isDropdownOpen = false;
   isMobileMenuOpen = false;
@@ -26,13 +26,15 @@ export class NavComponent implements OnInit {
   isDarkTheme$!: Observable<boolean>
 
   isLoggedIn!: boolean;
-  artistData!: Artist;
+  artistData: Artist | null = null;
+  uid: string | null = null;
 
   constructor(private themeService: ThemeService, private authService: AuthService,private userService: UserService) {
     this.isDarkTheme$ = from(this.themeService.isDarkTheme());
 
     this.authService.isLogged.subscribe((value) => {
       this.isLoggedIn = value;
+      this.checkLoginStatus()
     })
   }
 
@@ -41,15 +43,23 @@ export class NavComponent implements OnInit {
   @ViewChild('dropCheckbox')
   dropCheckbox!: ElementRef<HTMLInputElement>;
 
-  userUid = JSON.parse(localStorage['user']);
-  uid = this.userUid[Object.keys(this.userUid)[0]];
 
-  ngOnInit() {
-    this.loadUserProfile();
+  checkLoginStatus() {
+    const user = localStorage.getItem('user');
+    if (user) {
+      const parsedUser = JSON.parse(user);
+      if (parsedUser && parsedUser.uid) {
+        this.uid = parsedUser.uid;
+        if(this.uid){
+          this.loadUserProfile(this.uid);
+        }
+      }
+    }
   }
 
-  loadUserProfile() {
-    this.userService.getUserProfile(this.uid).subscribe(
+
+  loadUserProfile(uid:string) {
+    this.userService.getUserProfile(uid).subscribe(
       userProfile => {
         this.artistData = userProfile;
         console.log(this.artistData);

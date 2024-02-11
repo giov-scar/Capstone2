@@ -20,10 +20,10 @@ export class StepperComponent {
     let progressWidth = '0%';
     switch (stepClass) {
       case 'step1':
-        progressWidth = '10%';
+        progressWidth = '11%';
         break;
       case 'step2':
-        progressWidth = '50%';
+        progressWidth = '52%';
         break;
       case 'step3':
         progressWidth = '100%';

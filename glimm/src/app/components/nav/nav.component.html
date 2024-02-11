@@ -114,10 +114,10 @@
           >
           <a
             class="nav-link hover-underline-animation white-on-dark-mode"
-            [routerLink]="['/artist', artistData.uid]"
+            [routerLink]="['/artist', artistData?.uid]"
             (click)="closeMenu()"
             ><img
-              [src]="artistData.profile_picture"
+              [src]="artistData?.profile_picture"
               alt="User Profile Image"
               width="32"
               height="32"

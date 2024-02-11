@@ -15,38 +15,46 @@ export class WorkComponent implements OnInit {
   artistData!: Artist;
   isFavorite: boolean = false
   relatedWorks: IWork[] = [];
-
+  uid: string | null = null;
 
   constructor( private route: ActivatedRoute, private uploadService: FileUploadService, private userService: UserService){}
-
-  userUid = JSON.parse(localStorage['user']);
-  uid = this.userUid[Object.keys(this.userUid)[0]];
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       const workId = params.get('id');
-      const userUid = this.userUid ? this.userUid.uid : null;
       if (workId) {
-        this.uploadService.getWorkById(workId).subscribe(work => {
-          this.work = work;
-          if (work && work.category && work.category.length > 0) {
-            this.loadRelatedWorks(work.category[0], workId);
-          }
-          window.scroll(0,0)
-          console.log(work);
-          this.loadUserProfile();
-          if (userUid) {
-            this.checkIfFavorite(userUid, workId);
-          } else {
-            alert('Per favore, esegui il login per aggiungere ai preferiti.');
-          }
-        });
+        this.loadWork(workId);
+      }
+    });
+
+    this.checkLoginStatus();
+  }
+
+  loadWork(workId: string) {
+    this.uploadService.getWorkById(workId).subscribe(work => {
+      this.work = work;
+      if (work && work.category && work.category.length > 0) {
+        this.loadRelatedWorks(work.category[0], workId);
+      }
+      window.scroll(0, 0);
+      console.log(work);
+
+      if (this.uid) {
+        this.loadUserProfile(this.uid);
+        this.checkIfFavorite(this.uid, workId);
       }
     });
   }
 
-  loadUserProfile() {
-    this.userService.getUserProfile(this.uid).subscribe(
+  checkLoginStatus() {
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.uid = JSON.parse(user).uid;
+    }
+  }
+
+  loadUserProfile(uid:string) {
+    this.userService.getUserProfile(uid).subscribe(
       userProfile => {
         this.artistData = userProfile;
         console.log('Logged User:',this.artistData);
