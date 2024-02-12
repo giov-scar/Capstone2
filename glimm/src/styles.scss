@@ -21,6 +21,10 @@ body.dark-theme {
     color: white;
   }
 
+  .menu{
+    background-color: $glimmBlue;
+  }
+
   #menu-toggle:checked ~ .menu li{
     background-color: $glimmBlue;
   }
