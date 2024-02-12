@@ -3,7 +3,9 @@
     "rules": "database.rules.json",
     "databaseURL": "https://glimm-6e33c-default-rtdb.europe-west1.firebasedatabase.app",
     "cors": {
-      "allowedOrigins": ["*"]
+      "allowedOrigins": [
+        "*"
+      ]
     }
   },
   "storage": {
@@ -24,11 +26,18 @@
     },
     "singleProjectMode": true
   },
-  "hosting": [
-    {
-      "target": "glimm",
-      "source": ".",
-      "frameworksBackend": {}
-    }
-  ]
+  "hosting": {
+    "public": "dist/glimm",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
 }
