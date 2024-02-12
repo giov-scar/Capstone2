@@ -1,36 +1,65 @@
 <div class="container">
-  <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-gradient">
+  <footer
+    class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-gradient"
+  >
     <div class="col mb-3" id="logo">
-      <a [routerLink]="'.'" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
-        <img src="../../../assets/Logo_Glimm_white.png" alt="Glimm Logo">
+      <a
+        [routerLink]="'.'"
+        class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none"
+      >
+        <img src="../../../assets/Logo_Glimm_white.png" alt="Glimm Logo" />
         <h4 class="mb-0 logo-text">Glimm</h4>
-        <span><p class="ms-4 mb-0 copy">© {{currentYear}}</p></span>
+        <span
+          ><p class="ms-4 mb-0 copy">© {{ currentYear }}</p></span
+        >
       </a>
-
     </div>
 
-    <div class="col mb-3">
-
-    </div>
+    <div class="col mb-3"></div>
 
     <div class="col mb-3">
       <h5>Discover</h5>
       <ul class="nav flex-column">
-        <li class="nav-item mb-2"><a class="nav-link p-0 footer-link" [routerLink]="'/photography'">Photography</a></li>
-        <li class="nav-item mb-2"><a class="nav-link p-0 footer-link" [routerLink]="'/painting'">Painting</a></li>
-        <li class="nav-item mb-2"><a class="nav-link p-0 footer-link" [routerLink]="'/sculpture'">Sculpture</a></li>
-        <li class="nav-item mb-2"><a class="nav-link p-0 footer-link" a [routerLink]="'/installation'">Installation</a></li>
+        <li class="nav-item mb-2">
+          <a class="nav-link p-0 footer-link" [routerLink]="'/photography'"
+            >Photography</a
+          >
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link p-0 footer-link" [routerLink]="'/painting'"
+            >Painting</a
+          >
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link p-0 footer-link" [routerLink]="'/sculpture'"
+            >Sculpture</a
+          >
+        </li>
+        <li class="nav-item mb-2">
+          <a class="nav-link p-0 footer-link" a [routerLink]="'/installation'"
+            >Installation</a
+          >
+        </li>
       </ul>
     </div>
 
     <div class="col mb-3">
       <h5><a [routerLink]="'/about'" class="footer-link">About</a></h5>
-
+      <p>
+        This project is is built with Angular and Firebase. <br />
+        Want to explore the code and contribute? Check out my GitHub profile!
+      </p>
+      <a href="https://github.com/giov-scar/Glimm" target="_blank" class="footer-link" style="font-size: x-large;"
+        ><i class="bi bi-github"></i> GitHub</a
+      >
     </div>
 
     <div class="col mb-3">
       <h5><a [routerLink]="'/contact'" class="footer-link">Contact</a></h5>
-
+      <p>Want to get in touch? Add me on LinkedIn</p>
+      <a href="https://www.linkedin.com/in/giovanni-scarantino-frontend-dev/" target="_blank" class="footer-link" style="font-size: x-large;">
+        <i class="bi bi-linkedin"></i> LinkedIn
+      </a>
     </div>
   </footer>
 </div>
