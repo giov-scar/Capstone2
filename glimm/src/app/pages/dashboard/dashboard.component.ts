@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal, NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Artist } from 'src/app/classes/artist';
@@ -27,8 +27,6 @@ import { ConfirmEducationComponent } from 'src/app/components/modals/confirm-edu
   selector: 'app-dashboard',
   standalone: true,
   imports: [
-    NgbNavModule,
-    NgbNavModule,
     CommonModule,
     RouterModule,
     UploadWorkComponent,

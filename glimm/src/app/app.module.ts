@@ -85,11 +85,6 @@ import { SearchComponent } from './components/search/search.component';
         ConfirmEducationComponent,
         EditEducationComponent,
         StepperComponent,
-
-
-
-
-
     ],
     providers: [],
     bootstrap: [AppComponent],
