@@ -1,20 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Artist } from 'src/app/classes/artist';
 import { SearchResult, SearchService } from 'src/app/shared/services/search.service';
-import { IWork } from 'src/app/shared/work';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
   standalone: true,
-  imports:[ CommonModule ]
+  imports:[ CommonModule, FormsModule ]
 })
 export class SearchComponent {
   searchResult!: SearchResult
   searchQuery = ''
+  @ViewChild('searchInput') searchInput!: ElementRef
 
   constructor(private searchService: SearchService, private router: Router) { }
 
@@ -24,10 +24,10 @@ export class SearchComponent {
 
     if (this.searchQuery) {
       this.searchService.search(this.searchQuery).subscribe(result => {
-        this.searchResult = result; // searchResults deve essere di tipo SearchResult
+        this.searchResult = result;
       });
     } else {
-      this.searchResult = { artists: [], works: [] }; // Inizializza con un oggetto SearchResult vuoto
+      this.searchResult = { artists: [], works: [] };
     }
   }
 
@@ -36,10 +36,20 @@ export class SearchComponent {
 
   goToArtist(artistId: string) {
     this.router.navigate(['/artist', artistId]);
+    this.resetSearchInput();
   }
 
   goToWork(workId: string) {
     this.router.navigate(['/work', workId]);
+    this.resetSearchInput();
+  }
+
+  private resetSearchInput() {
+    this.searchQuery = '';
+    this.searchResult = { artists: [], works: [] };
+    if (this.searchInput && this.searchInput.nativeElement) {
+      this.searchInput.nativeElement.value = '';
+    }
   }
 
 }

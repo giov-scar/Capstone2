@@ -4,6 +4,7 @@
     type="text"
     placeholder="Search..."
     class="rounded-pill border border-none"
+    [(ngModel)]="searchQuery"
     (input)="onSearch($event)"
   />
 </div>
