@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SearchResult, SearchService } from 'src/app/shared/services/search.service';
@@ -15,6 +15,7 @@ export class SearchComponent {
   searchResult!: SearchResult
   searchQuery = ''
   @ViewChild('searchInput') searchInput!: ElementRef
+  @Output() requestCloseMenu = new EventEmitter<void>()
 
   constructor(private searchService: SearchService, private router: Router) { }
 
@@ -50,6 +51,7 @@ export class SearchComponent {
     if (this.searchInput && this.searchInput.nativeElement) {
       this.searchInput.nativeElement.value = '';
     }
+    this.requestCloseMenu.emit();
   }
 
 }
