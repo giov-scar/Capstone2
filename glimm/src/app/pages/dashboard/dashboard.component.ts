@@ -26,11 +26,7 @@ import { ConfirmEducationComponent } from 'src/app/components/modals/confirm-edu
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    UploadWorkComponent,
-  ],
+  imports: [CommonModule, RouterModule, UploadWorkComponent],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
@@ -38,7 +34,7 @@ export class DashboardComponent implements OnInit {
   active = 'Intro';
   artistData!: Artist;
   fileUploads!: string[];
-  work!:IWork
+  work!: IWork;
   userFavorites: IWork[] = [];
 
   constructor(
@@ -60,53 +56,67 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.loadUserProfile();
     this.loadUserWorks();
-    this.loadUserFavorites()
+    this.loadUserFavorites();
   }
 
   loadUserProfile() {
     this.userService.getUserProfile(this.uid).subscribe(
-      userProfile => {
+      (userProfile) => {
         this.artistData = userProfile;
         console.log(this.artistData);
       },
-      error => console.error('Errore durante il recupero del profilo utente', error)
+      (error) =>
+        console.error('Errore durante il recupero del profilo utente', error)
     );
   }
 
   loadUserWorks() {
     this.userService.getWorksByUser(this.uid).subscribe(
-      works => this.userWorks = works,
-      error => console.error('Errore durante il recupero dei lavori utente', error)
+      (works) => (this.userWorks = works),
+      (error) =>
+        console.error('Errore durante il recupero dei lavori utente', error)
     );
   }
 
   loadUserFavorites() {
     this.userService.getFavorites(this.uid).subscribe(
-      favorites => {
+      (favorites) => {
         this.userFavorites = favorites;
         console.log('Lavori preferiti:', this.userFavorites);
       },
-      error => console.error('Errore durante il recupero dei lavori preferiti', error)
+      (error) =>
+        console.error('Errore durante il recupero dei lavori preferiti', error)
     );
   }
 
   removeFavorite(workId: string) {
-    this.userService.removeFavorite(this.uid, workId).subscribe(() => {
+    this.userService.removeFavorite(this.uid, workId).subscribe(
+      () => {
         // Rimuovi il lavoro dall'array di lavori preferiti
-        this.userFavorites = this.userFavorites.filter(work => work.id !== workId);
+        this.userFavorites = this.userFavorites.filter(
+          (work) => work.id !== workId
+        );
       },
-      error => console.error('Errore durante la rimozione del lavoro dai preferiti', error)
+      (error) =>
+        console.error(
+          'Errore durante la rimozione del lavoro dai preferiti',
+          error
+        )
     );
   }
 
-  ShowSuccess(){
-    this.toastr.show('Now your work is pubblished!', `🎉 Upload completed successfully!`,{
-      progressBar: true,
-      toastClass: 'ngx-toastr',
-      timeOut: 5000,
-      closeButton: true,
-      easing: 'easeOut'
-    })
+  ShowSuccess() {
+    this.toastr.show(
+      'Now your work is pubblished!',
+      `🎉 Upload completed successfully!`,
+      {
+        progressBar: true,
+        toastClass: 'ngx-toastr',
+        timeOut: 5000,
+        closeButton: true,
+        easing: 'easeOut',
+      }
+    );
   }
 
   pushWork() {
@@ -115,7 +125,9 @@ export class DashboardComponent implements OnInit {
     const description = (
       document.getElementById('intro-text') as HTMLTextAreaElement
     )?.value;
-    const checkboxes = document.querySelectorAll('input[type="checkbox"][data-label]:checked');
+    const checkboxes = document.querySelectorAll(
+      'input[type="checkbox"][data-label]:checked'
+    );
     const categories: string[] = [];
 
     checkboxes.forEach((checkbox) => {
@@ -126,11 +138,11 @@ export class DashboardComponent implements OnInit {
     });
 
     const photo: string[] = [];
-    let photoArray = localStorage.getItem("photoUpload");
+    let photoArray = localStorage.getItem('photoUpload');
     this.fileUploads = JSON.parse(photoArray!);
     this.fileUploads.forEach((file) => {
-      photo.push(file)
-    })
+      photo.push(file);
+    });
 
     console.log(photo, categories);
 
@@ -144,33 +156,38 @@ export class DashboardComponent implements OnInit {
     );
 
     this.ShowSuccess();
-    setTimeout(()=>{window.location.reload()}, 5000)
-
+    setTimeout(() => {
+      window.location.reload();
+    }, 5000);
   }
 
-  deleteWork(workId:string){
-    this.userService.deleteWork(this.uid, workId).subscribe(() => {
-      this.loadUserWorks()
-    }, error => {
-      console.error('Error during deleting work', error);
-    })
-  }
-
-  openEditWorkModal(work:IWork){
-    const modalRef = this.modalService.open(EditWorkModalComponent)
-    modalRef.componentInstance.work = work
-    modalRef.componentInstance.currentArtist = this.artistData
-  }
-
-  openDeleteWorkModal(workId:string){
-    const modalRef = this.modalService.open(DeleteUserWorkModalComponent)
-    modalRef.result.then((result) =>{
-      if (result === 'confirmed'){
-        this.deleteWork(workId)
+  deleteWork(workId: string) {
+    this.userService.deleteWork(this.uid, workId).subscribe(
+      () => {
+        this.loadUserWorks();
+      },
+      (error) => {
+        console.error('Error during deleting work', error);
       }
-    }, (reason) => {
+    );
+  }
 
-    })
+  openEditWorkModal(work: IWork) {
+    const modalRef = this.modalService.open(EditWorkModalComponent);
+    modalRef.componentInstance.work = work;
+    modalRef.componentInstance.currentArtist = this.artistData;
+  }
+
+  openDeleteWorkModal(workId: string) {
+    const modalRef = this.modalService.open(DeleteUserWorkModalComponent);
+    modalRef.result.then(
+      (result) => {
+        if (result === 'confirmed') {
+          this.deleteWork(workId);
+        }
+      },
+      (reason) => {}
+    );
   }
 
   openGenericModal(modalType: string, modalData: any = {}): void {
@@ -182,34 +199,34 @@ export class DashboardComponent implements OnInit {
       case 'editCoverPicture':
         modalComponent = EditCoverImageModalComponent;
         break;
-        case 'editIntro':
-          modalComponent = EditIntroModalComponent;
-          break
-          case 'editEducation':
-            modalComponent = EditEducationComponent;
-            break
+      case 'editIntro':
+        modalComponent = EditIntroModalComponent;
+        break;
+      case 'editEducation':
+        modalComponent = EditEducationComponent;
+        break;
       default:
         console.error('Unknown modal type');
         return;
     }
 
     const modalRef = this.modalService.open(modalComponent);
-    Object.keys(modalData).forEach(key => {
+    Object.keys(modalData).forEach((key) => {
       modalRef.componentInstance[key] = modalData[key];
     });
 
-    modalRef.result.then((result) => {
-      if (result) {
-        this.handleModalResult(modalType, result);
-      }
-    }).catch((reason) => {
-      console.log('Modal dismissed', reason);
-    });
+    modalRef.result
+      .then((result) => {
+        if (result) {
+          this.handleModalResult(modalType, result);
+        }
+      })
+      .catch((reason) => {
+        console.log('Modal dismissed', reason);
+      });
   }
 
-
   handleModalResult(modalComponent: string, result: any): void {
-
     switch (modalComponent) {
       case 'editProfilePicture':
         if (result) this.confirmProfileUpdate(result);
@@ -217,42 +234,54 @@ export class DashboardComponent implements OnInit {
       case 'editCoverPicture':
         if (result) this.confirmCoverUpdate(result);
         break;
-        case 'editIntro':
-          if (result) this.confirmIntroUpdate(result);
-          break;
-          case 'editEducation':
-            if (result){
-              const { newBACourse, newMACourse } = result
-              this.confirmEducation(newBACourse, newMACourse);
-            }
-            break;
+      case 'editIntro':
+        if (result) this.confirmIntroUpdate(result);
+        break;
+      case 'editEducation':
+        if (result) {
+          const { newBACourse, newMACourse } = result;
+          this.confirmEducation(newBACourse, newMACourse);
+        }
+        break;
       default:
         console.log('Unhandled modal component', modalComponent);
     }
   }
 
   confirmProfileUpdate(selectedFile: File): void {
-    const confirmModalRef = this.modalService.open(ConfirmProfileUpdateModalComponent);
+    const confirmModalRef = this.modalService.open(
+      ConfirmProfileUpdateModalComponent
+    );
     confirmModalRef.result.then((confirmResult) => {
       if (confirmResult === 'confirm') {
-        this.uploadService.pushFileToStorage({ file: selectedFile }, this.artistData).then((downloadURL) => {
-          this.userService.updateProfilePicture(this.artistData.uid, downloadURL).subscribe(() => {
-            this.loadUserProfile();
+        this.uploadService
+          .pushFileToStorage({ file: selectedFile }, this.artistData)
+          .then((downloadURL) => {
+            this.userService
+              .updateProfilePicture(this.artistData.uid, downloadURL)
+              .subscribe(() => {
+                this.loadUserProfile();
+              });
           });
-        });
       }
     });
   }
 
   confirmCoverUpdate(selectedFile: File): void {
-    const confirmModalRef = this.modalService.open(ConfirmCoverImageModalComponent);
+    const confirmModalRef = this.modalService.open(
+      ConfirmCoverImageModalComponent
+    );
     confirmModalRef.result.then((confirmResult) => {
       if (confirmResult === 'confirm') {
-        this.uploadService.pushFileToStorage({ file: selectedFile }, this.artistData).then((downloadURL) => {
-          this.userService.updateCoverImage(this.artistData.uid, downloadURL).subscribe(() => {
-            this.loadUserProfile();
+        this.uploadService
+          .pushFileToStorage({ file: selectedFile }, this.artistData)
+          .then((downloadURL) => {
+            this.userService
+              .updateCoverImage(this.artistData.uid, downloadURL)
+              .subscribe(() => {
+                this.loadUserProfile();
+              });
           });
-        });
       }
     });
   }
@@ -261,25 +290,25 @@ export class DashboardComponent implements OnInit {
     const confirmModalRef = this.modalService.open(ConfirmIntroModalComponent);
     confirmModalRef.result.then((confirmResult) => {
       if (confirmResult === 'confirm') {
-        this.userService.updateIntroText(this.artistData.uid, newIntroText).subscribe(() => {
-          this.loadUserProfile();
-        });
+        this.userService
+          .updateIntroText(this.artistData.uid, newIntroText)
+          .subscribe(() => {
+            this.loadUserProfile();
+          });
       }
     });
   }
 
-  confirmEducation(newBACourse:string, newMACourse:string): void {
+  confirmEducation(newBACourse: string, newMACourse: string): void {
     const confirmModalRef = this.modalService.open(ConfirmEducationComponent);
     confirmModalRef.result.then((confirmResult) => {
       if (confirmResult === 'confirm') {
-        this.userService.updateEducation(this.artistData.uid, newBACourse, newMACourse).subscribe(() => {
-          this.loadUserProfile();
-        });
+        this.userService
+          .updateEducation(this.artistData.uid, newBACourse, newMACourse)
+          .subscribe(() => {
+            this.loadUserProfile();
+          });
       }
-    })
+    });
   }
-
-
-
-
 }
