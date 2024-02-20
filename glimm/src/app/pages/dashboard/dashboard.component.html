@@ -17,89 +17,110 @@
       ><i class="bi bi-grid"></i> Dashboard &rtrif; Upload a work</pre>
 
       <div class="d-flex">
-        <div class="glass-style p-4 col-12">
-          <h2 class="text-center fw-bold">
-            <i class="bi bi-x-diamond-fill"></i> Upload a work
-          </h2>
-          <div>
-            <p class="text-center">Title of your work</p>
-            <input
-              type="text"
-              class="form-control rounded-pill mb-3"
-              id="inputTitle"
-            />
-            <p class="text-center">Description of your work</p>
-            <textarea
-              name="intro"
-              id="intro-text"
-              cols="70"
-              rows="5"
-              class="rounded-2 mb-4"
-            ></textarea>
+        <div ngbAccordion class="w-100">
+          <div ngbAccordionItem [collapsed]="true" class="bg-transparent">
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>Click here to share your work</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  <div class="glass-style p-4 col-12 white-on-dark-mode">
+                    <h2 class="text-center fw-bold">
+                      <i class="bi bi-x-diamond-fill"></i> Upload a work
+                    </h2>
+                    <div>
+                      <p class="text-center">Title of your work</p>
+                      <input
+                        type="text"
+                        class="form-control rounded-pill mb-3"
+                        id="inputTitle"
+                      />
+                      <p class="text-center">Description of your work</p>
+                      <textarea
+                        name="intro"
+                        id="intro-text"
+                        cols="70"
+                        rows="5"
+                        class="rounded-2 mb-4"
+                      ></textarea>
 
-            <label for="formFileMultiple" class="form-label"
-              >Upload multiple photos of your work</label
-            >
-            <app-upload-work></app-upload-work>
+                      <label for="formFileMultiple" class="form-label"
+                        >Upload multiple photos of your work</label
+                      >
+                      <app-upload-work></app-upload-work>
 
-            <p>Choose Category</p>
-            <div class="d-flex flex-column">
-              <div class="form-check form-switch">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  role="switch"
-                  id="flexSwitchCheckDefault"
-                  data-label="Photography"
-                />
-                <label class="form-check-label" for="flexSwitchCheckDefault"
-                  >Photography</label
-                >
+                      <p>Choose Category</p>
+                      <div class="d-flex flex-column">
+                        <div class="form-check form-switch">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            id="flexSwitchCheckDefault"
+                            data-label="Photography"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="flexSwitchCheckDefault"
+                            >Photography</label
+                          >
+                        </div>
+                        <div class="form-check form-switch">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            id="flexSwitchCheckDefault"
+                            data-label="Painting"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="flexSwitchCheckDefault"
+                            >Painting</label
+                          >
+                        </div>
+                        <div class="form-check form-switch">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            id="flexSwitchCheckDefault"
+                            data-label="Sculpture"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="flexSwitchCheckDefault"
+                            >Sculpture</label
+                          >
+                        </div>
+                        <div class="form-check form-switch">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            id="flexSwitchCheckDefault"
+                            data-label="Installation"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="flexSwitchCheckDefault"
+                            >Installation</label
+                          >
+                        </div>
+                      </div>
+                      <div class="d-flex justify-content-end mt-3 me-5">
+                        <button
+                          class="btn btn-outline-dark rounded-pill px-4 save-btn"
+                          (click)="pushWork()"
+                        >
+                          Publish work!
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </ng-template>
               </div>
-              <div class="form-check form-switch">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  role="switch"
-                  id="flexSwitchCheckDefault"
-                  data-label="Painting"
-                />
-                <label class="form-check-label" for="flexSwitchCheckDefault"
-                  >Painting</label
-                >
-              </div>
-              <div class="form-check form-switch">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  role="switch"
-                  id="flexSwitchCheckDefault"
-                  data-label="Sculpture"
-                />
-                <label class="form-check-label" for="flexSwitchCheckDefault"
-                  >Sculpture</label
-                >
-              </div>
-              <div class="form-check form-switch">
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  role="switch"
-                  id="flexSwitchCheckDefault"
-                  data-label="Installation"
-                />
-                <label class="form-check-label" for="flexSwitchCheckDefault"
-                  >Installation</label
-                >
-              </div>
-            </div>
-            <div class="d-flex justify-content-end mt-3 me-5">
-              <button
-                class="btn btn-outline-dark rounded-pill px-4 save-btn"
-                (click)="pushWork()"
-              >
-                Publish work!
-              </button>
             </div>
           </div>
         </div>
@@ -124,53 +145,61 @@
 
         <h5 class="fw-bold p-1 pb-0 mb-0 mt-1">Settings</h5>
         <hr class="mt-1" />
-        <a [routerLink]="['/artist', artistData.uid]">
+        <a [routerLink]="['/artist', artistData.uid]" class="settings-icon">
           <p class="ps-3">
-            <i class="bi bi-person-circle settings-icon"></i>
-            View profile
+            <i class="bi bi-person-circle"></i>
+            <span class="hover-underline-animation ms-1">View profile</span>
           </p>
         </a>
         <div class="d-flex flex-column align-items-start">
           <button
-            class="border-0 bg-transparent ps-0"
+            class="border-0 bg-transparent ps-0 settings-icon"
             (click)="
               openGenericModal('editProfilePicture', { artistData: artistData })
             "
           >
-            <p class="ps-3" style="color: #4155e2">
-              <i class="bi bi-person-fill settings-icon"></i>
-              Edit profile image
+            <p class="ps-3">
+              <i class="bi bi-person-fill"></i>
+              <span class="hover-underline-animation ms-1"
+                >Edit profile image</span
+              >
             </p>
           </button>
           <button
-            class="border-0 bg-transparent ps-0"
+            class="border-0 bg-transparent ps-0 settings-icon"
             (click)="
               openGenericModal('editCoverPicture', { artistData: artistData })
             "
           >
-            <p class="ps-3" style="color: #4155e2">
-              <i class="bi bi-image settings-icon"></i>
-              Edit cover image
+            <p class="ps-3">
+              <i class="bi bi-image"></i>
+              <span class="hover-underline-animation ms-1"
+                >Edit cover image</span
+              >
             </p>
           </button>
           <button
-            class="border-0 bg-transparent ps-0"
+            class="border-0 bg-transparent ps-0 settings-icon"
             (click)="openGenericModal('editIntro', { artistData: artistData })"
           >
-            <p class="ps-3" style="color: #4155e2">
-              <i class="bi bi-card-text settings-icon"></i>
-              Edit your intro
+            <p class="ps-3">
+              <i class="bi bi-card-text"></i>
+              <span class="hover-underline-animation ms-1"
+                >Edit your intro</span
+              >
             </p>
           </button>
           <button
-            class="border-0 bg-transparent ps-0"
+            class="border-0 bg-transparent ps-0 settings-icon"
             (click)="
               openGenericModal('editEducation', { artistData: artistData })
             "
           >
-            <p class="ps-3" style="color: #4155e2">
+            <p class="ps-3">
               <i class="bi bi-mortarboard-fill"></i>
-              Edit your education
+              <span class="hover-underline-animation ms-1"
+                >Edit your education</span
+              >
             </p>
           </button>
         </div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbAccordionModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Artist } from 'src/app/classes/artist';
@@ -26,7 +26,7 @@ import { ConfirmEducationComponent } from 'src/app/components/modals/confirm-edu
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterModule, UploadWorkComponent],
+  imports: [CommonModule, RouterModule, UploadWorkComponent, NgbAccordionModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })

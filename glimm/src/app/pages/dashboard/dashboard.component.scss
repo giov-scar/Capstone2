@@ -52,6 +52,9 @@ pre{
 }
 .settings-icon{
   color: #4155e2;
+  &:hover{
+    color: navy;
+  }
 }
 .remove-icon{
   color: #4155e2;
